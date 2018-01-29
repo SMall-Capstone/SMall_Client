@@ -28,4 +28,6 @@ dependencies {
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
 
     compile 'com.android.support:design:26.1.0'
+    compile 'com.google.code.gson:gson:2.7'
+
 }

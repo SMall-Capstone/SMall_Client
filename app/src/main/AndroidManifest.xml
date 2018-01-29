@@ -30,4 +30,7 @@
         <activity android:name=".Activity.SignUpActivity"></activity>
     </application>
 
+    <activity android:name=".Dialog.LoginFailDialog"
+        android:theme="@style/Theme.AppCompat.Dialog"
+        ></activity>
 </manifest>

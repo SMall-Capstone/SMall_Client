@@ -6,17 +6,9 @@
     android:layout_height="match_parent"
     android:orientation="horizontal">
 
-    <ImageButton
-        android:id="@+id/imageButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:background="@color/mainWhite"
-        app:srcCompat="?android:attr/homeAsUpIndicator" />
-
     <TextView
         android:id="@+id/mytext"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="center"
         android:gravity="center"
@@ -24,16 +16,11 @@
         android:textColor="#000000"
         android:textSize="18sp" />
 
-    <Space
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="1" />
-
     <ImageButton
         android:id="@+id/settingButton"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="right|center"
+        android:layout_height="match_parent"
+        android:layout_gravity="center|end"
         android:background="@color/mainWhite"
         app:srcCompat="@drawable/settings" />
 

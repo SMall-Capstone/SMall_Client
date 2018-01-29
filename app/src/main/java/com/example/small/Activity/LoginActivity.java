@@ -9,10 +9,13 @@ import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
+import com.example.small.Info.UserInfo;
 import com.example.small.LoginFailDialog;
 import com.example.small.R;
 import com.example.small.Server.HttpClient;
+import com.google.gson.Gson;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -94,8 +97,25 @@ public class LoginActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(String aVoid) {
             super.onPostExecute(aVoid);
-
             Log.i("yunjae", aVoid);
+
+            if(aVoid.contains("fail")){
+                Log.i("yunjae", "로그인 실패");
+                Toast.makeText(getApplicationContext(),"로그인 실패",Toast.LENGTH_SHORT).show();
+                /*loginFailDialog = new LoginFailDialog(getApplicationContext(), "로그인에 실패하였습니다.", leftListener);
+                loginFailDialog.getWindow().setGravity(Gravity.CENTER_HORIZONTAL);
+                loginFailDialog.show();*/
+            }
+            else{
+                Gson gson = new Gson();
+                UserInfo userInfo = gson.fromJson(aVoid,UserInfo.class);
+
+                Log.i("yunjae", userInfo.getName()+"/"+userInfo.getBirth());
+
+                Intent intent = new Intent(getApplicationContext(),HomeActivity.class);
+                startActivity(intent);
+                finish();
+            }
 
         }
 

@@ -61,7 +61,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="7"
             android:ems="10"
-            android:hint="영,특수문자,숫자조합 8자이상"
+            android:hint="문자,숫자조합 8자이상"
             android:inputType="textPassword" />
     </LinearLayout>
 
