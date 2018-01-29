@@ -6,8 +6,11 @@
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.READ_PROFILE" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
-
     <uses-permission android:name="android.permission.INTERNET" />
+
+    <activity
+        android:name=".Dialog.LoginFailDialog"
+        android:theme="@style/Theme.AppCompat.Dialog" />
 
     <application
         android:allowBackup="true"
@@ -27,10 +30,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".Activity.LoginActivity" />
-        <activity android:name=".Activity.SignUpActivity"></activity>
+        <activity android:name=".Activity.SignUpActivity" />
+        <activity android:name=".Activity.NavigatorActivity"></activity>
     </application>
 
-    <activity android:name=".Dialog.LoginFailDialog"
-        android:theme="@style/Theme.AppCompat.Dialog"
-        ></activity>
 </manifest>

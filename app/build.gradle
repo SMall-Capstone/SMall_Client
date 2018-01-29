@@ -29,5 +29,6 @@ dependencies {
 
     compile 'com.android.support:design:26.1.0'
     compile 'com.google.code.gson:gson:2.7'
+    compile 'org.altbeacon:android-beacon-library:2+'
 
 }

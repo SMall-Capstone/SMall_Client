@@ -50,6 +50,15 @@ public class HomeActivity extends AppCompatActivity
             }
         });
 
+        ImageButton naviBtn = (ImageButton)findViewById(R.id.navigatorButton);
+        naviBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(),NavigatorActivity.class);
+                startActivity(intent);
+            }
+        });
+
        // getActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
 
         tabLayout = (TabLayout)findViewById(R.id.tabLayout);

@@ -8,7 +8,7 @@
 
     <TextView
         android:id="@+id/mytext"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="center"
         android:gravity="center"
@@ -20,8 +20,16 @@
         android:id="@+id/settingButton"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:layout_gravity="center|end"
+        android:layout_gravity="center"
         android:background="@color/mainWhite"
         app:srcCompat="@drawable/settings" />
+
+    <ImageButton
+        android:id="@+id/navigatorButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center|end"
+        android:background="@color/mainWhite"
+        app:srcCompat="@drawable/ic_menu_send" />
 
 </LinearLayout>
