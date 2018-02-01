@@ -21,7 +21,6 @@ public class TabPagerAdapter extends FragmentStatePagerAdapter {
     private CouponFragment couponFragment = new CouponFragment();
     private FloorInfoFragment floorInfoFragment = new FloorInfoFragment();
 
-
     public TabPagerAdapter(FragmentManager fm, int tabCount) {
         super(fm);
         this.tabCount = tabCount;

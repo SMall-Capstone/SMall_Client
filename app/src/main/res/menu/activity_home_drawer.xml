@@ -6,7 +6,7 @@
     <group android:checkableBehavior="single">
 
         <item
-            android:id="@+id/menu_myCupon"
+            android:id="@+id/menu_myCoupon"
             android:icon="@drawable/ic_menu_camera"
             android:title="MY 쿠폰" />
         <item
@@ -14,9 +14,9 @@
             android:icon="@drawable/ic_menu_gallery"
             android:title="즐겨찾기" />
         <item
-            android:id="@+id/menu_infoFloor"
+            android:id="@+id/menu_navi"
             android:icon="@drawable/ic_menu_slideshow"
-            android:title="층별안내" />
+            android:title="길찾기" />
     </group>
 
     <item android:title="Shopping">
@@ -27,7 +27,7 @@
                     android:icon="@drawable/ic_menu_share"
                     android:title="이벤트" />
                 <item
-                    android:id="@+id/menu_cupon"
+                    android:id="@+id/menu_coupon"
                     android:icon="@drawable/ic_menu_send"
                     android:title="쿠폰" />
                 <item
@@ -35,9 +35,9 @@
                     android:icon="@drawable/ic_menu_send"
                     android:title="쇼핑뉴스" />
                 <item
-                    android:id="@+id/menu_navi"
+                    android:id="@+id/menu_infoFloor"
                     android:icon="@drawable/ic_menu_send"
-                    android:title="길찾기" />
+                    android:title="층별안내" />
             </group>
         </menu>
     </item>

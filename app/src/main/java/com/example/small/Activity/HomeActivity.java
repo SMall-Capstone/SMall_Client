@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.view.View;
@@ -20,6 +22,10 @@ import android.widget.ImageButton;
 
 import com.example.small.Adapter.TabPagerAdapter;
 import com.example.small.R;
+import com.example.small.ViewPager.CouponFragment;
+import com.example.small.ViewPager.EventFragment;
+import com.example.small.ViewPager.FloorInfoFragment;
+import com.example.small.ViewPager.ShoppingNewsFragment;
 
 public class HomeActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -156,29 +162,67 @@ public class HomeActivity extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
+        CouponFragment couponFragment = new CouponFragment();
+        EventFragment eventFragment = new EventFragment();
+        FloorInfoFragment floorInfoFragment = new FloorInfoFragment();
+        ShoppingNewsFragment shoppingNewsFragment = new ShoppingNewsFragment();
 
-        if (id == R.id.menu_myCupon) {
-            // Handle the camera action
+        if (id == R.id.menu_myCoupon) {
+            Intent intent=new Intent(HomeActivity.this, MyCouponActivity.class);
+            intent.putExtra("activity","MyCupon activity");
+            startActivity(intent);
+
         } else if (id == R.id.menu_bookmark) {
-
-        } else if (id == R.id.menu_infoFloor) {
-
-        } else if (id == R.id.menu_event) {
-
-        } else if (id == R.id.menu_cupon) {
-
-        } else if (id == R.id.menu_news) {
+            Intent intent=new Intent(HomeActivity.this, BookMarkActivity.class);
+            intent.putExtra("activity","BookMark activity");
+            startActivity(intent);
 
         } else if (id == R.id.menu_navi) {
+            Intent intent=new Intent(HomeActivity.this, NavigatorActivity.class);
+            intent.putExtra("activity","Navi activity");
+            startActivity(intent);
 
-        } else if (id == R.id.menu_myInfo) {
+        }
+//////////////프레그먼트////////////////////////////////
+        else if (id == R.id.menu_event) {
+
+         //   replaceFragment(eventFragment);
+
+            viewPager.setCurrentItem(1);
+
+
+        } else if (id == R.id.menu_coupon) {
+            viewPager.setCurrentItem(2);
+
+        } else if (id == R.id.menu_news) {
+            viewPager.setCurrentItem(0);
+
+        } else if (id == R.id.menu_infoFloor) {
+            viewPager.setCurrentItem(3);
+        }
+        /////////////////////////////////////////////////////////
+
+        else if (id == R.id.menu_myInfo) {
+            Intent intent=new Intent(HomeActivity.this, MyInfoActivity.class);
+            intent.putExtra("activity","MyInfo activity");
+            startActivity(intent);
 
         } else if (id == R.id.menu_setting) {
+            Intent intent=new Intent(HomeActivity.this, SettingActivity.class);
+            intent.putExtra("activity","Setting activity");
+            startActivity(intent);
 
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    public void replaceFragment(android.support.v4.app.Fragment fragment) {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.viewPager, fragment, "fragmentTag");
+        fragmentTransaction.commit();
     }
 }

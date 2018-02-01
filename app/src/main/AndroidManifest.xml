@@ -21,7 +21,7 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".Activity.HomeActivity"
-            android:label="@string/title_activity_home"
+            android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -31,7 +31,11 @@
         </activity>
         <activity android:name=".Activity.LoginActivity" />
         <activity android:name=".Activity.SignUpActivity" />
-        <activity android:name=".Activity.NavigatorActivity"></activity>
+        <activity android:name=".Activity.NavigatorActivity" />
+        <activity android:name=".Activity.MyCouponActivity" />
+        <activity android:name=".Activity.BookMarkActivity" />
+        <activity android:name=".Activity.MyInfoActivity" />
+        <activity android:name=".Activity.SettingActivity"></activity>
     </application>
 
 </manifest>
