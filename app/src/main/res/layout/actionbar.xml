@@ -1,35 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/mainWhite"
+    android:gravity="center"
     android:orientation="horizontal">
 
     <TextView
         android:id="@+id/mytext"
         android:layout_width="wrap_content"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:gravity="center"
-        android:text="Smart Mall   "
-        android:textColor="#000000"
+        android:text="  Smart Mall  "
+        android:textColor="@color/colorPrimaryDark"
         android:textSize="18sp" />
 
-    <ImageButton
-        android:id="@+id/settingButton"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_gravity="center"
-        android:background="@color/mainWhite"
-        app:srcCompat="@drawable/settings" />
-
-    <ImageButton
-        android:id="@+id/navigatorButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center|end"
-        android:background="@color/mainWhite"
-        app:srcCompat="@drawable/ic_menu_send" />
 
 </LinearLayout>

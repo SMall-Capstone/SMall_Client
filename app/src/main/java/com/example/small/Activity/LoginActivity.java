@@ -32,7 +32,7 @@ import java.util.Map;
 public class LoginActivity extends AppCompatActivity {
 
     String userid,password;
-    String serverURL = "http://116.43.86.11:8080/Android_login";
+    String serverURL = "http://"+HttpClient.ipAdress+":8080/Android_login";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

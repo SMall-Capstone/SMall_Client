@@ -25,8 +25,8 @@ public class SignUpActivity extends AppCompatActivity {
 
     String userid,password,name,gender,birth;
     boolean isCheckId=false;
-    String serverURL_duplicate_check = "http://116.43.86.11:8080/Android_login_duplicate_check";
-    String serverURL_register = "http://116.43.86.11:8080/Android_register";
+    String serverURL_duplicate_check = "http://"+HttpClient.ipAdress+":8080/Android_login_duplicate_check";
+    String serverURL_register = "http://"+HttpClient.ipAdress+":8080/Android_register";
 
 
     @Override

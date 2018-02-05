@@ -36,7 +36,7 @@ public class NavigatorActivity extends AppCompatActivity implements BeaconConsum
     TextView textView;
 
     Beacon nearestBeacon;
-    String serverURL = "http://116.43.86.11:8080/Android_beacon_location";
+    String serverURL = "http://"+HttpClient.ipAdress+":8080/Android_beacon_location";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
