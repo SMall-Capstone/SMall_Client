@@ -87,6 +87,7 @@ public class NavigatorActivity extends AppCompatActivity implements BeaconConsum
 
     @Override
     public void onBeaconServiceConnect() {
+        Log.i("yunjae", "onBeaconServiceConnect");
         beaconManager.setRangeNotifier(new RangeNotifier() {
             @Override
             // 비콘이 감지되면 해당 함수가 호출된다. Collection<Beacon> beacons에는 감지된 비콘의 리스트가,
@@ -117,29 +118,36 @@ public class NavigatorActivity extends AppCompatActivity implements BeaconConsum
     Handler handler = new Handler() {
         public void handleMessage(Message msg) {
             textView.setText("");
+
             // 비콘의 아이디와 거리를 측정하여 textView에 넣는다.
-            double distance=100000;
-            for(Beacon beacon : beaconList){
-                String strBeacon = "Major ID : " + beacon.getId2() +" Minor ID : " + beacon.getId3();
-                textView.append(strBeacon + " Distance : " + Double.parseDouble(String.format("%.3f", beacon.getDistance())) + "m\n");
-                //Log.i("yunjae", "비콘 정보 : " + strBeacon);
-                if(distance>beacon.getDistance()) {
-                    nearestBeacon = beacon;
-                    distance=beacon.getDistance();
+            double distance=10000000;
+            if(beaconList==null){
+                textView.setText("beacon없음");
+                Toast.makeText(getApplicationContext(),"beaconList null",Toast.LENGTH_SHORT).show();
+            }
+            else{
+                Log.i("yunjae", "check");
+                for(Beacon beacon : beaconList){
+                    String strBeacon = "Major ID : " + beacon.getId2() +" Minor ID : " + beacon.getId3();
+                    textView.append(strBeacon + " Distance : " + Double.parseDouble(String.format("%.3f", beacon.getDistance())) + "m\n");
+                    Log.i("yunjae", "비콘 정보 : " + strBeacon);
+                    if(distance>beacon.getDistance()) {
+                        nearestBeacon = beacon;
+                        distance=beacon.getDistance();
+                    }
+
+                    Map<String,String> params = new HashMap<String,String>();
+                    params.put("id",nearestBeacon.getId1()+"");
+                    params.put("major",nearestBeacon.getId2()+"");
+                    params.put("minor",nearestBeacon.getId3()+"");
+                    Log.i("yunjae", "id1 : " + nearestBeacon.getId1());
+
+                    beconDB BDB = new beconDB();
+                    BDB.execute(params);
                 }
             }
-
-            Map<String,String> params = new HashMap<String,String>();
-            params.put("id",nearestBeacon.getId1()+"");
-            params.put("major",nearestBeacon.getId2()+"");
-            params.put("minor",nearestBeacon.getId3()+"");
-            Log.i("yunjae", "id1 : " + nearestBeacon.getId1());
-
-            beconDB BDB = new beconDB();
-            BDB.execute(params);
-
-            // 자기 자신을 3초마다 호출
-            handler.sendEmptyMessageDelayed(0, 3000);
+            // 자기 자신을 1초마다 호출
+            handler.sendEmptyMessageDelayed(0, 1000);
         }
     };
 
