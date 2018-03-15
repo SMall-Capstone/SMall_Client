@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/mainWhite"
+    android:background="@color/colorPrimary"
     android:gravity="center"
     android:orientation="horizontal">
 
@@ -12,18 +12,22 @@
         android:id="@+id/mytext"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="30dp"
+        android:layout_marginStart="90dp"
         android:text="  Smart Mall  "
         android:textColor="@color/colorPrimaryDark"
         android:textSize="18sp" />
 
     <ImageButton
-        android:id="@+id/mapButton"
+        android:id="@+id/testButton"
         android:layout_width="wrap_content"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:background="@color/colorPrimary"
-        app:srcCompat="@drawable/mapicon" />
+        android:layout_alignParentRight="true"
+        app:srcCompat="@drawable/ic_menu_send" />
 
 
-</LinearLayout>
+</RelativeLayout>
