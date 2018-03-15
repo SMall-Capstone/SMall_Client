@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
@@ -148,19 +149,19 @@ public class HomeActivity extends AppCompatActivity
             return true;
         }*/
 
-
         return super.onOptionsItemSelected(item);
     }
 
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
+
+         // Handle navigation view item clicks here.
         int id = item.getItemId();
-        CouponFragment couponFragment = new CouponFragment();
+        /*CouponFragment couponFragment = new CouponFragment();
         EventFragment eventFragment = new EventFragment();
         FloorInfoFragment floorInfoFragment = new FloorInfoFragment();
-        ShoppingNewsFragment shoppingNewsFragment = new ShoppingNewsFragment();
+        ShoppingNewsFragment shoppingNewsFragment = new ShoppingNewsFragment();*/
 
         if (id == R.id.menu_myCoupon) {
             Intent intent=new Intent(HomeActivity.this, MyCouponActivity.class);
@@ -178,21 +179,17 @@ public class HomeActivity extends AppCompatActivity
             startActivity(intent);
 
         }
-//////////////프레그먼트////////////////////////////////
-        else if (id == R.id.menu_event) {
+        //////////////프레그먼트//////////////////////////////////
+        else if (id == R.id.menu_news) {
+            viewPager.setCurrentItem(0);
 
-         //   replaceFragment(eventFragment);
-
+        } else if (id == R.id.menu_event) {
             viewPager.setCurrentItem(1);
-
 
         } else if (id == R.id.menu_coupon) {
             viewPager.setCurrentItem(2);
 
-        } else if (id == R.id.menu_news) {
-            viewPager.setCurrentItem(0);
-
-        } else if (id == R.id.menu_infoFloor) {
+        }  else if (id == R.id.menu_infoFloor) {
             viewPager.setCurrentItem(3);
         }
         /////////////////////////////////////////////////////////
@@ -206,7 +203,6 @@ public class HomeActivity extends AppCompatActivity
             Intent intent=new Intent(HomeActivity.this, SettingActivity.class);
             intent.putExtra("activity","Setting activity");
             startActivity(intent);
-
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

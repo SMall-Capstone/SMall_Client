@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="110dp"
-    android:background="@color/mainGray"
+    android:background="@color/mainWhite"
     android:gravity="bottom"
     android:orientation="vertical"
     android:padding="10dp"
@@ -19,35 +19,38 @@
         android:paddingTop="10dp">
 
         <TextView
-            android:id="@+id/textView"
+            android:id="@+id/nav_userID"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_above="@+id/textView2"
             android:layout_alignTop="@+id/imageButton2"
             android:padding="10dp"
             android:text="사용자 아이디"
+            android:textColor="@color/colorPrimaryDark"
             android:textSize="16dp" />
     </LinearLayout>
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/nav_appName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:padding="10dp"
         android:paddingTop="@dimen/nav_header_vertical_spacing"
         android:text="SMall"
+        android:textColor="@color/colorPrimaryDark"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
         android:textSize="23dp" />
 
 
     <ImageButton
         android:id="@+id/imageButton2"
+        android:background="#00ff0000"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
-        app:srcCompat="@mipmap/ic_launcher" />
+        app:srcCompat="@mipmap/foreground_logo" />
 
 </RelativeLayout>
