@@ -36,6 +36,8 @@
         <activity android:name=".Activity.BookMarkActivity" />
         <activity android:name=".Activity.MyInfoActivity" />
         <activity android:name=".Activity.SettingActivity"></activity>
+
+        <activity android:name=".Activity.MyLocationActivity"></activity>
     </application>
 
 </manifest>

@@ -8,11 +8,12 @@ import android.webkit.WebViewClient;
 import android.widget.TextView;
 
 import com.example.small.R;
+import com.example.small.Server.HttpClient;
 
 public class MyCouponActivity extends AppCompatActivity {
 
     WebView webView;
-    String URL_naver = "https://m.naver.com"; //<-원하는 URL
+    String URL = "http://"+ HttpClient.ipAdress+":8080/home"; //<-원하는 URL
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +27,6 @@ public class MyCouponActivity extends AppCompatActivity {
 
         webView = (WebView)findViewById(R.id.webView);
         webView.setWebViewClient(new WebViewClient()); // 이구문이 빠지면 web view 가아닌 설치된 다른 웹브라우저에서 새창으로 열린다.
-        webView.loadUrl(URL_naver);
+        webView.loadUrl(URL);
     }
 }

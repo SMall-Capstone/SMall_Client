@@ -18,11 +18,12 @@
         android:textSize="18sp" />
 
     <ImageButton
-        android:id="@+id/testButton"
+        android:id="@+id/mapButton"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_weight="1"
-        app:srcCompat="@drawable/ic_menu_send" />
+        android:background="@color/colorPrimary"
+        app:srcCompat="@drawable/mapicon" />
 
 
 </LinearLayout>
