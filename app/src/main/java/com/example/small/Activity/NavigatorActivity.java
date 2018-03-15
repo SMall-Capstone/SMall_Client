@@ -19,11 +19,15 @@ import org.altbeacon.beacon.BeaconParser;
 import org.altbeacon.beacon.RangeNotifier;
 import org.altbeacon.beacon.Region;
 
+import com.example.small.Info.BeaconInfo;
 import com.example.small.R;
 import com.example.small.Server.HttpClient;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -33,6 +37,8 @@ public class NavigatorActivity extends AppCompatActivity implements BeaconConsum
     private BeaconManager beaconManager;
     // 감지된 비콘들을 임시로 담을 리스트
     private List<Beacon> beaconList = new ArrayList<>();
+    //private ArrayList<BeaconInfo>beaconInfoList = new ArrayList<BeaconInfo>();
+
     TextView textView;
 
     Beacon nearestBeacon;
@@ -53,7 +59,6 @@ public class NavigatorActivity extends AppCompatActivity implements BeaconConsum
 
         // 비콘 탐지를 시작한다. 실제로는 서비스를 시작하는것.
         beaconManager.bind(this);
-
 
 /*
         double distance=100000;
@@ -95,9 +100,18 @@ public class NavigatorActivity extends AppCompatActivity implements BeaconConsum
             public void didRangeBeaconsInRegion(Collection<Beacon> beacons, Region region) {
                 if (beacons.size() > 0) {
                     beaconList.clear();
+                    //beaconInfoList.clear();
                     for (Beacon beacon : beacons) {
                         beaconList.add(beacon);
+
+                        /*BeaconInfo beaconInfo = new BeaconInfo();
+                        beaconInfo.setMajor(beacon.getId2().toString());
+                        beaconInfo.setMinor(beacon.getId3().toString());
+                        beaconInfo.setDistance(beacon.getDistance());
+
+                        beaconInfoList.add(beaconInfo);*/
                     }
+
                 }
             }
 
@@ -121,12 +135,25 @@ public class NavigatorActivity extends AppCompatActivity implements BeaconConsum
 
             // 비콘의 아이디와 거리를 측정하여 textView에 넣는다.
             double distance=10000000;
-            if(beaconList==null){
+            if(beaconList.size()==0){
                 textView.setText("beacon없음");
                 Toast.makeText(getApplicationContext(),"beaconList null",Toast.LENGTH_SHORT).show();
             }
             else{
-                Log.i("yunjae", "check");
+                /*Log.i("yeji","check beaconList : "+beaconInfoList.size());
+
+                Collections.sort(beaconInfoList);
+
+                Map<String,String> params = new HashMap<String,String>();
+                 for (int i=0;i<2;i++){
+                     BeaconInfo beaconInfo = beaconInfoList.get(i);
+
+                     params.put("beaconInfo"+(i+1),beaconInfo.getMajor()+"/"+beaconInfo.getMinor()+"/"+beaconInfo.getDistance());
+                 }
+
+                beconDB BDB = new beconDB();
+                BDB.execute(params);*/
+
                 for(Beacon beacon : beaconList){
                     String strBeacon = "Major ID : " + beacon.getId2() +" Minor ID : " + beacon.getId3();
                     textView.append(strBeacon + " Distance : " + Double.parseDouble(String.format("%.3f", beacon.getDistance())) + "m\n");
@@ -137,9 +164,11 @@ public class NavigatorActivity extends AppCompatActivity implements BeaconConsum
                     }
 
                     Map<String,String> params = new HashMap<String,String>();
-                    params.put("id",nearestBeacon.getId1()+"");
+                    //params.put("id",nearestBeacon.getId1()+"");
+
                     params.put("major",nearestBeacon.getId2()+"");
                     params.put("minor",nearestBeacon.getId3()+"");
+
                     Log.i("yunjae", "id1 : " + nearestBeacon.getId1());
 
                     beconDB BDB = new beconDB();
