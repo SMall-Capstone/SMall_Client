@@ -1,4 +1,4 @@
-package com.example.small;
+package com.example.small.Dialog;
 
 import android.app.Dialog;
 import android.content.Context;
@@ -9,6 +9,8 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
+
+import com.example.small.R;
 
 /**
  * Created by 이예지 on 2017-08-14.

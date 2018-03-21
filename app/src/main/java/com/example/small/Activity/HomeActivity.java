@@ -1,12 +1,15 @@
 package com.example.small.Activity;
 
 import android.Manifest;
+import android.app.ActivityManager;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothManager;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.RemoteException;
 import android.support.design.widget.FloatingActionButton;
@@ -18,6 +21,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -40,7 +44,9 @@ import com.example.small.Beacon.BeaconInfo;
 import com.example.small.Beacon.BeaconList;
 import com.example.small.Beacon.KalmanFilter;
 import com.example.small.Beacon.Map;
+import com.example.small.Dialog.StampDialog;
 import com.example.small.R;
+import com.example.small.Server.HttpClient;
 import com.example.small.ViewPager.CouponFragment;
 import com.example.small.ViewPager.EventFragment;
 import com.example.small.ViewPager.FloorInfoFragment;
@@ -55,6 +61,9 @@ import org.altbeacon.beacon.Region;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
 
 import static java.lang.Math.pow;
 
@@ -147,7 +156,14 @@ public class HomeActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-
+        ImageButton testButton = (ImageButton)findViewById(R.id.testButton);
+        testButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(),StampActivity.class);
+                startActivity(intent);
+            }
+        });
 
         ImageButton mapButton = (ImageButton)findViewById(R.id.mapButton);
         mapButton.setOnClickListener(new View.OnClickListener() {
@@ -155,7 +171,6 @@ public class HomeActivity extends AppCompatActivity
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(),MyLocationActivity.class);
                 startActivity(intent);
-                finish();
             }
         });
 
@@ -325,6 +340,8 @@ public class HomeActivity extends AppCompatActivity
         fragmentTransaction.commit();
     }
 
+    static ArrayList<BeaconInfo> beaconInfos;
+    public static int stamp=0;
     public BluetoothAdapter.LeScanCallback mLeScanCallback = new BluetoothAdapter.LeScanCallback() {
         @Override
         public void onLeScan(BluetoothDevice device, int rssi, byte[] scanRecord) {
@@ -352,20 +369,39 @@ public class HomeActivity extends AppCompatActivity
                         beaconInfo.setDistance(distance);
 
                         //비콘을 rssi값 기준으로 정렬
-                        ArrayList<BeaconInfo> beaconInfos = beaconList.findNearestBeacons();
+                        beaconInfos = beaconList.findNearestBeacons();
 
                         if(beaconInfos.size() >= 3) {
                             //가장 가까운 3개의 비콘정보로 거리를 계산
                             calculateDistance(beaconInfos.get(0), beaconInfos.get(1), beaconInfos.get(3));
-
                         }
-                        if(beaconInfos.size() >= 3) {
-                            calculateDistance(beaconInfos.get(0), beaconInfos.get(1), beaconInfos.get(3));
-                            if(beaconInfos.get(0).getisEventBeacon()){
-                                //Notification띄우고 쿠폰 발급
-                                //Toast.makeText(getApplicationContext(),"Coupon Get!!",Toast.LENGTH_SHORT).show();
+
+
+                        ActivityManager activityManager = (ActivityManager)getSystemService(Context.ACTIVITY_SERVICE);
+                        List<ActivityManager.RunningTaskInfo> info;
+                        info = activityManager.getRunningTasks(7);
+                        for (Iterator iterator = info.iterator(); iterator.hasNext();)  {
+                            ActivityManager.RunningTaskInfo runningTaskInfo = (ActivityManager.RunningTaskInfo) iterator.next();
+                            if(runningTaskInfo.topActivity.getClassName().equals("com.example.small.Activity.StampActivity")) {
+                                if (beaconInfos.get(0).isStampBeacon()) {
+                                    if (beaconInfos.get(0).getCount() == 3) {
+                                        Log.i("StampEvent",beaconInfos.get(0).getMinor()+"스탬프 이벤트 발생 count="+beaconInfos.get(0).getCount());
+                                        //스탬프 비콘에 가장 가깝게 다가간 측정횟수가 3번일 때 스탬프 다이얼로그 발생
+                                        //stampDialog(getApplicationContext());
+                                        Intent intent = new Intent(getApplicationContext(),StampDialog.class);
+                                        intent.putExtra("stamp",stamp);
+                                        startActivity(intent);
+
+                                        beaconInfos.get(0).setCount(beaconInfos.get(0).getCount() + 1);
+                                    } else {
+                                        //쿠폰 비콘에 가장 가깝게 다가간 측정횟수 +1
+                                        beaconInfos.get(0).setCount(beaconInfos.get(0).getCount() + 1);
+                                    }
+                                }
                             }
                         }
+
+
 
                     }
                 }
@@ -455,7 +491,6 @@ public class HomeActivity extends AppCompatActivity
         public double pointTopointDistance(double x1,double y1,double x2,double y2){
             return Math.sqrt((x1-x2)*(x1-x2)+(y1-y2)*(y1-y2));
         }
-
 
     };
 }

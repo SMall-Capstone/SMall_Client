@@ -5,7 +5,8 @@ package com.example.small.Info;
  */
 
 public class UserInfo {
-    String userid,password,name,gender;
+    String userid;
+    String password,name,gender;
     int birth;
 
     public String getUserid() {

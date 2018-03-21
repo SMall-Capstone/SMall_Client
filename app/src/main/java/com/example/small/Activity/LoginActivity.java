@@ -2,30 +2,19 @@ package com.example.small.Activity;
 
 import android.content.Intent;
 import android.os.AsyncTask;
-import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.small.Info.UserInfo;
-import com.example.small.LoginFailDialog;
+import com.example.small.Dialog.LoginFailDialog;
 import com.example.small.R;
 import com.example.small.Server.HttpClient;
 import com.google.gson.Gson;
 
-import org.json.JSONArray;
-import org.json.JSONObject;
-
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -33,6 +22,7 @@ public class LoginActivity extends AppCompatActivity {
 
     String userid,password;
     String serverURL = "http://"+HttpClient.ipAdress+":8080/Android_login";
+    static UserInfo userInfo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -108,7 +98,7 @@ public class LoginActivity extends AppCompatActivity {
             }
             else{
                 Gson gson = new Gson();
-                UserInfo userInfo = gson.fromJson(aVoid,UserInfo.class);
+                userInfo = gson.fromJson(aVoid,UserInfo.class);
 
                 Log.i("yunjae", userInfo.getName()+"/"+userInfo.getBirth());
 

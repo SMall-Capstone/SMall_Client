@@ -13,7 +13,9 @@ public class BeaconInfo implements Comparable<BeaconInfo>{
     private double maxRSSI,minRSSI;
     private double location_x,location_y;
     private double distance;
-    private boolean isEventBeacon;
+    //비콘을 이용한 이벤트를 위한 변수
+    private boolean isStampBeacon;
+    private int count;
 
     public BeaconInfo(){
 
@@ -28,7 +30,8 @@ public class BeaconInfo implements Comparable<BeaconInfo>{
         this.maxRSSI = -100;
         this.minRSSI = 0;
         this.distance = -1;
-        this.isEventBeacon = false;
+        this.isStampBeacon = false;
+        this.count=0;
     }
 
     public String getName() {
@@ -117,6 +120,22 @@ public class BeaconInfo implements Comparable<BeaconInfo>{
         this.distance = distance;
     }
 
+    public boolean isStampBeacon() {
+        return isStampBeacon;
+    }
+
+    public void setStampBeacon(boolean stampBeacon) {
+        isStampBeacon = stampBeacon;
+    }
+
+    public int getCount() {
+        return count;
+    }
+
+    public void setCount(int count) {
+        this.count = count;
+    }
+
     @Override
     public int compareTo(BeaconInfo b) {
         if(this.filteredRSSIvalue > b.getFilteredRSSIvalue())
@@ -126,11 +145,5 @@ public class BeaconInfo implements Comparable<BeaconInfo>{
         return 0;
     }
 
-    public boolean getisEventBeacon() {
-        return isEventBeacon;
-    }
 
-    public void setIsEventBeacon(boolean eventBeacon) {
-        isEventBeacon = eventBeacon;
-    }
 }
