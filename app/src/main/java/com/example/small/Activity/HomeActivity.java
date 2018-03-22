@@ -156,15 +156,6 @@ public class HomeActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        ImageButton testButton = (ImageButton)findViewById(R.id.testButton);
-        testButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(),StampActivity.class);
-                startActivity(intent);
-            }
-        });
-
         ImageButton mapButton = (ImageButton)findViewById(R.id.mapButton);
         mapButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -305,8 +296,7 @@ public class HomeActivity extends AppCompatActivity
 
             ///////////////////////////////////////////STAMP////////////////////////////////////////////////////////
         } else if (id == R.id.menu_stamp) {
-            Intent intent=new Intent(HomeActivity.this, BookMarkActivity.class);
-            intent.putExtra("activity","BookMark activity");
+            Intent intent = new Intent(getApplicationContext(),StampActivity.class);
             startActivity(intent);
 
         } else if (id == R.id.menu_navi) {

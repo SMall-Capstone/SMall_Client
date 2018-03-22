@@ -31,7 +31,7 @@ public class MyCouponActivity extends AppCompatActivity {
         items.add(new MyCouponItem(R.drawable.coupon1, "쿠폰1"));
         items.add(new MyCouponItem(R.drawable.coupon3, "쿠폰2"));
         items.add(new MyCouponItem(R.drawable.coupon1, "쿠폰3"));
-        items.add(new MyCouponItem(R.drawable.coupon3, "쿠폰4"));
+        items.add(new MyCouponItem(R.drawable.coupon1, "쿠폰4"));
         items.add(new MyCouponItem(R.drawable.coupon3, "쿠폰5"));
 
         // StaggeredGrid 레이아웃을 사용한다

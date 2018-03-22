@@ -5,9 +5,20 @@
     tools:context="com.example.small.ViewPager.ShoppingNewsFragment">
 
     <!-- TODO: Update blank fragment layout -->
+<WebView
+    android:id="@+id/web_shopping_news"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fadingEdge="none">
+</WebView>
+    
     <TextView
+        android:id="@+id/web_error_view"
+        android:layout_gravity="center"
+        android:fadingEdge="none"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="news fragment" />
+        android:text="접속이 원활하지 않습니다."
+        android:visibility="gone"/>
 
 </FrameLayout>
