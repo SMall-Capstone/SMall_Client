@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.TextView;
@@ -28,13 +29,21 @@ public class SignUpActivity extends AppCompatActivity {
     String serverURL_duplicate_check = "http://"+HttpClient.ipAdress+":8080/Android_login_duplicate_check";
     String serverURL_register = "http://"+HttpClient.ipAdress+":8080/Android_register";
 
+    private CheckBox check_acc;
+    private CheckBox check_bag_shoes;
+    private CheckBox check_beauty;
+    private CheckBox check_casual;
+    private CheckBox check_child;
+    private CheckBox check_furniture;
+    private CheckBox check_health;
+    private CheckBox check_home_appliances;
+    private CheckBox check_sport;
+    private CheckBox check_suit;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
-
-
 
         TextView checkIdBtn = (TextView)findViewById(R.id.checkIdBtn);
         checkIdBtn.setOnClickListener(new View.OnClickListener() {
@@ -71,6 +80,45 @@ public class SignUpActivity extends AppCompatActivity {
 
             }
         });
+
+
+        /////////////////////관심사 체크박스/////////////////////////
+
+        check_acc = (CheckBox)findViewById(R.id.check_acc);
+        check_bag_shoes = (CheckBox)findViewById(R.id.check_bag_shoes);
+        check_beauty = (CheckBox)findViewById(R.id.check_beauty);
+        check_casual = (CheckBox)findViewById(R.id.check_casual);
+        check_child = (CheckBox)findViewById(R.id.check_child);
+        check_furniture = (CheckBox)findViewById(R.id.check_furniture);
+        check_health = (CheckBox)findViewById(R.id.check_health);
+        check_home_appliances = (CheckBox)findViewById(R.id.check_home_appliances);
+        check_sport = (CheckBox)findViewById(R.id.check_sport);
+        check_suit = (CheckBox)findViewById(R.id.check_suit);
+
+    }
+
+    public void checkboxClick(View v){              // CheckBox 에 onClick 메소드 설정, CheckBox에 설정한 id 값으로 제어
+        if(check_acc.isChecked()){
+            Toast.makeText(getApplicationContext(), check_acc.getText().toString(), Toast.LENGTH_SHORT).show();
+        } else if(check_bag_shoes.isChecked()) {
+            Toast.makeText(getApplicationContext(), check_bag_shoes.getText().toString(), Toast.LENGTH_SHORT).show();
+        } else if(check_beauty.isChecked()) {
+            Toast.makeText(getApplicationContext(),check_beauty.getText().toString(),Toast.LENGTH_SHORT).show();
+        }else if(check_casual.isChecked()) {
+            Toast.makeText(getApplicationContext(), check_casual.getText().toString(), Toast.LENGTH_SHORT).show();
+        }else if(check_child.isChecked()) {
+            Toast.makeText(getApplicationContext(), check_child.getText().toString(), Toast.LENGTH_SHORT).show();
+        }else if(check_furniture.isChecked()) {
+            Toast.makeText(getApplicationContext(), check_furniture.getText().toString(), Toast.LENGTH_SHORT).show();
+        }else if(check_health.isChecked()) {
+            Toast.makeText(getApplicationContext(), check_health.getText().toString(), Toast.LENGTH_SHORT).show();
+        }else if(check_home_appliances.isChecked()) {
+            Toast.makeText(getApplicationContext(), check_home_appliances.getText().toString(), Toast.LENGTH_SHORT).show();
+        }else if(check_sport.isChecked()) {
+            Toast.makeText(getApplicationContext(), check_sport.getText().toString(), Toast.LENGTH_SHORT).show();
+        }else if(check_suit.isChecked()) {
+            Toast.makeText(getApplicationContext(), check_suit.getText().toString(), Toast.LENGTH_SHORT).show();
+        }
     }
 
     private void checkID(){

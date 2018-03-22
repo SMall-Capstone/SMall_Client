@@ -8,15 +8,12 @@
 
         <item
             android:id="@+id/menu_myCoupon"
-            android:icon="@drawable/ic_menu_camera"
             android:title="MY 쿠폰" />
         <item
-            android:id="@+id/menu_bookmark"
-            android:icon="@drawable/ic_menu_gallery"
-            android:title="즐겨찾기" />
+            android:id="@+id/menu_stamp"
+            android:title="스탬프 모으기" />
         <item
             android:id="@+id/menu_navi"
-            android:icon="@drawable/ic_menu_slideshow"
             android:title="길찾기" />
     </group>
 
@@ -25,19 +22,15 @@
             <group android:checkableBehavior="single">
                 <item
                     android:id="@+id/menu_event"
-                    android:icon="@drawable/ic_menu_share"
                     android:title="이벤트" />
                 <item
                     android:id="@+id/menu_coupon"
-                    android:icon="@drawable/ic_menu_send"
                     android:title="쿠폰" />
                 <item
                     android:id="@+id/menu_news"
-                    android:icon="@drawable/ic_menu_send"
                     android:title="쇼핑뉴스" />
                 <item
                     android:id="@+id/menu_infoFloor"
-                    android:icon="@drawable/ic_menu_send"
                     android:title="층별안내" />
             </group>
         </menu>
@@ -48,11 +41,9 @@
             <group android:checkableBehavior="single">
                 <item
                     android:id="@+id/menu_myInfo"
-                    android:icon="@drawable/ic_menu_gallery"
                     android:title="정보수정" />
                 <item
                     android:id="@+id/menu_setting"
-                    android:icon="@drawable/ic_menu_slideshow"
                     android:title="앱 설정" />
             </group>
         </menu>

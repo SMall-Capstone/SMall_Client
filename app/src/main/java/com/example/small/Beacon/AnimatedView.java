@@ -30,8 +30,7 @@ public class AnimatedView extends SurfaceView implements SurfaceHolder.Callback{
         this.context= context;
         surfaceHolder = getHolder();
         surfaceHolder.addCallback(this);
-        //surfaceHolder.setFixedSize(500, 700);
-        bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.mapimage140);
+        bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.mapimage);
         mPaint = new Paint();
     }
 
@@ -168,9 +167,11 @@ public class AnimatedView extends SurfaceView implements SurfaceHolder.Callback{
                         Canvas canvas = surfaceHolder.lockCanvas();
                         canvas.drawColor(Color.WHITE);
 
-                        canvas.drawBitmap(bitmap, 50, 0, null);
+                        int width = canvas.getWidth();
+                        int height = canvas.getHeight();
 
-
+                        Bitmap resize_bitmap = Bitmap.createScaledBitmap(bitmap, width, height, true);
+                        canvas.drawBitmap(resize_bitmap, 0, 0, null);
 
                         Log.i("canvas", "x = " + canvas.getWidth() + " y = " + canvas.getHeight());
                         ball.draw(canvas);

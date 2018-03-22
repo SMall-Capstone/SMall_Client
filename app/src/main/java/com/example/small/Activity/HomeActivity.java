@@ -175,6 +175,18 @@ public class HomeActivity extends AppCompatActivity
         });
 
         beaconServiceStart();//비콘관련 코드 몰아놓음
+
+    }
+
+    /////////////////////////로그인 회원가입 버튼///////////////////////////
+
+    public void onButtonSignUp_home(View v){
+        Intent intent = new Intent(HomeActivity.this, SignUpActivity.class);
+        startActivity(intent);
+    }
+    public void onButtonLogin_home(View v){
+        Intent intent = new Intent(HomeActivity.this, LoginActivity.class);
+        startActivity(intent);
     }
 
     private void beaconServiceStart(){
@@ -291,13 +303,14 @@ public class HomeActivity extends AppCompatActivity
             intent.putExtra("activity","MyCupon activity");
             startActivity(intent);
 
-        } else if (id == R.id.menu_bookmark) {
+            ///////////////////////////////////////////STAMP////////////////////////////////////////////////////////
+        } else if (id == R.id.menu_stamp) {
             Intent intent=new Intent(HomeActivity.this, BookMarkActivity.class);
             intent.putExtra("activity","BookMark activity");
             startActivity(intent);
 
         } else if (id == R.id.menu_navi) {
-            Intent intent=new Intent(HomeActivity.this, NavigatorActivity.class);
+            Intent intent=new Intent(HomeActivity.this, MyLocationActivity.class);
             intent.putExtra("activity","Navi activity");
             startActivity(intent);
 
@@ -320,7 +333,7 @@ public class HomeActivity extends AppCompatActivity
         else if (id == R.id.menu_myInfo) {
             Intent intent=new Intent(HomeActivity.this, MyInfoActivity.class);
             intent.putExtra("activity","MyInfo activity");
-            startActivity(intent);
+            startActivity   (intent);
 
         } else if (id == R.id.menu_setting) {
             Intent intent=new Intent(HomeActivity.this, SettingActivity.class);

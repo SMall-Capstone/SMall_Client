@@ -1,4 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent" >
+
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -7,6 +13,7 @@
     android:layout_margin="30dp"
     android:orientation="vertical"
     tools:context="com.example.small.Activity.SignUpActivity">
+
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -89,7 +96,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:orientation="horizontal"
         android:padding="10dp">
 
@@ -111,16 +118,17 @@
             <RadioButton
                 android:id="@+id/radioButton_man"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:text="남" />
+
 
             <RadioButton
                 android:id="@+id/radioButton_woman"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:text="여" />
+                android:text="여"/>
         </RadioGroup>
 
     </LinearLayout>
@@ -150,8 +158,112 @@
     </LinearLayout>
 
     <TextView
+        android:padding="10dp"
+        android:id="@+id/textView8"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="> 관심사 체크" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <CheckBox
+                android:id="@+id/check_home_appliances"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="checkboxClick"
+                android:text="가전/전자기기" />
+
+            <CheckBox
+                android:id="@+id/check_furniture"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="checkboxClick"
+                android:text="가구/인테리어" />
+
+            <CheckBox
+                android:id="@+id/check_child"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="checkboxClick"
+                android:text="유아/어린이 용품" />
+
+            <CheckBox
+                android:id="@+id/check_beauty"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="checkboxClick"
+                android:text="화장품/미용" />
+
+            <CheckBox
+                android:id="@+id/check_health"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="checkboxClick"
+                android:text="식품/건강" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <CheckBox
+                android:id="@+id/check_acc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="false"
+                android:duplicateParentState="false"
+                android:onClick="checkboxClick"
+                android:text="시계/액세서리" />
+
+            <CheckBox
+                android:id="@+id/check_sport"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="checkboxClick"
+                android:text="스포츠/아웃도어" />
+
+            <CheckBox
+                android:id="@+id/check_casual"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="checkboxClick"
+                android:text="영 캐주얼/스트릿 캐주얼" />
+
+            <CheckBox
+                android:id="@+id/check_suit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="checkboxClick"
+                android:text="정장" />
+
+            <CheckBox
+                android:id="@+id/check_bag_shoes"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="checkboxClick"
+                android:text="핸드백/구두" />
+
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <TextView
         android:id="@+id/submitBtn"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_margin="30dp"
@@ -159,5 +271,6 @@
         android:gravity="center"
         android:padding="10dp"
         android:text="Sing Up"
-        android:textSize="15sp" />
+        android:textSize="15sp"/>
 </LinearLayout>
+</ScrollView>
