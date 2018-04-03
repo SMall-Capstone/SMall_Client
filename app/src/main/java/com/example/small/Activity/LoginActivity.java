@@ -107,6 +107,7 @@ public class LoginActivity extends AppCompatActivity {
                 userInfo.setName(info.getName());
                 userInfo.setBirth(info.getBirth());
                 userInfo.setGender(info.getGender());
+                userInfo.setStamp(info.getStamp());
 
                 Log.i(TAG, userInfo.getName()+"/"+userInfo.getBirth());
 

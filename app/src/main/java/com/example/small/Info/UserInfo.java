@@ -10,6 +10,8 @@ public class UserInfo implements Serializable{
     String userid;
     String password,name,gender;
     int birth;
+    int stamp;
+
     private static UserInfo userInfo = new UserInfo();
 
     private UserInfo(){
@@ -60,4 +62,15 @@ public class UserInfo implements Serializable{
         return userInfo;
     }
 
+    public int getStamp() {
+        return stamp;
+    }
+
+    public void setStamp(int stamp) {
+        this.stamp = stamp;
+    }
+
+    public void addStamp(){
+        this.stamp++;
+    }
 }

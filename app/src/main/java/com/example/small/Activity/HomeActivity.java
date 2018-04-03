@@ -72,7 +72,6 @@ public class HomeActivity extends AppCompatActivity
     private BluetoothAdapter bluetoothAdapter; //블루투스 어댑터에서 탐색, 연결을 담당하니 여기서는 어댑터가 주된 클래스입니다.
     private KalmanFilter mKalmanAccRSSI;
     public BeaconList beaconList;
-    private double previousX=-1,previousY=-1;
     public static double accumulationX = 65.29, accumulationY = 66; //축적 계산한 x,y값에 곱해야 할 값
 
     private UserInfo userInfo;
@@ -353,7 +352,6 @@ public class HomeActivity extends AppCompatActivity
     }
 
     static ArrayList<BeaconInfo> beaconInfos;
-    public static int stamp=0;
     public BluetoothAdapter.LeScanCallback mLeScanCallback = new BluetoothAdapter.LeScanCallback() {
         @Override
         public void onLeScan(BluetoothDevice device, int rssi, byte[] scanRecord) {
@@ -409,6 +407,7 @@ public class HomeActivity extends AppCompatActivity
                                 beaconInfos.get(0).setCount(beaconInfos.get(0).getCount() + 1);
                             }
                         }*/
+
                         ActivityManager activityManager = (ActivityManager)getSystemService(Context.ACTIVITY_SERVICE);
                         List<ActivityManager.RunningTaskInfo> info;
                         info = activityManager.getRunningTasks(7);
@@ -416,19 +415,24 @@ public class HomeActivity extends AppCompatActivity
                             ActivityManager.RunningTaskInfo runningTaskInfo = (ActivityManager.RunningTaskInfo) iterator.next();
                             if(runningTaskInfo.topActivity.getClassName().equals("com.example.small.Activity.StampActivity")) {
                                 if (beaconInfos.get(0).isStampBeacon()) {
-                                    if (beaconInfos.get(0).getCount() == 3) {
-                                        Log.i("StampEvent",beaconInfos.get(0).getMinor()+"스탬프 이벤트 발생 count="+beaconInfos.get(0).getCount());
-                                        //스탬프 비콘에 가장 가깝게 다가간 측정횟수가 3번일 때 스탬프 다이얼로그 발생
-                                        //stampDialog(getApplicationContext());
-                                        Intent intent = new Intent(getApplicationContext(),StampDialog.class);
-                                        intent.putExtra("stamp",stamp);
-                                        startActivity(intent);
+                                    if(userInfo.getName() != null){
+                                        if (beaconInfos.get(0).getCount() == 3) {
+                                            Log.i("StampEvent",beaconInfos.get(0).getMinor()+"스탬프 이벤트 발생 count="+beaconInfos.get(0).getCount());
+                                            //스탬프 비콘에 가장 가깝게 다가간 측정횟수가 3번일 때 스탬프 다이얼로그 발생
+                                            //stampDialog(getApplicationContext());
+                                            Intent intent = new Intent(getApplicationContext(),StampDialog.class);
+                                            startActivity(intent);
 
-                                        beaconInfos.get(0).setCount(beaconInfos.get(0).getCount() + 1);
-                                    } else {
-                                        //쿠폰 비콘에 가장 가깝게 다가간 측정횟수 +1
-                                        beaconInfos.get(0).setCount(beaconInfos.get(0).getCount() + 1);
+                                            beaconInfos.get(0).setCount(beaconInfos.get(0).getCount() + 1);
+                                        } else {
+                                            //쿠폰 비콘에 가장 가깝게 다가간 측정횟수 +1
+                                            beaconInfos.get(0).setCount(beaconInfos.get(0).getCount() + 1);
+                                        }
                                     }
+                                    else{
+                                        Toast.makeText(getApplicationContext(),"로그인 후 사용 가능한 서비스 입니다.",Toast.LENGTH_SHORT).show();
+                                    }
+
                                 }
                             }
                         }
