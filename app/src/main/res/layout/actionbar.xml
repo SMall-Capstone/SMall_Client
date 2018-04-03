@@ -11,27 +11,32 @@
     <TextView
         android:id="@+id/mytext"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_centerVertical="true"
         android:layout_marginLeft="30dp"
         android:layout_marginStart="90dp"
+        android:gravity="center"
         android:text="  Smart Mall  "
         android:textColor="@color/mainWhite"
         android:textSize="18sp" />
 
 
-    <ImageButton
-        android:background="@color/colorPrimary"
+    <Space
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_width="wrap_content"
+        android:layout_weight="1" />
+
+    <ImageButton
         android:id="@+id/mapButton"
-        app:srcCompat="@drawable/map"
-        android:layout_marginStart="110dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_marginRight="7dp"
-        android:padding="10dp"/>
+        android:background="@color/colorPrimary"
+        android:padding="10dp"
+        app:srcCompat="@drawable/map" />
 
 
 </LinearLayout>

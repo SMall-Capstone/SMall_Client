@@ -2,17 +2,21 @@ package com.example.small.Beacon;
 
 import android.util.Log;
 
+import java.util.ArrayList;
+
 /**
  * Created by 이예지 on 2018-03-07.
  */
 
 public class BeaconInfo implements Comparable<BeaconInfo>{
-    private String name,major,minor;
+    private String name,minor;
     private int filteredRSSIvalue;
     private boolean isFirst;
-    private double maxRSSI,minRSSI;
     private double location_x,location_y;
     private double distance;
+    private int nearestPoint;
+    private ArrayList<Integer> filteredRssiQueue = new ArrayList<Integer>();
+    private ArrayList<Integer> noFilterRssiQueue = new ArrayList<Integer>();
     //비콘을 이용한 이벤트를 위한 변수
     private boolean isStampBeacon;
     private int count;
@@ -21,15 +25,13 @@ public class BeaconInfo implements Comparable<BeaconInfo>{
 
     }
 
-    public BeaconInfo(String name, String major, String minor) {
+    public BeaconInfo(String name, String minor) {
         this.name = name;
-        this.major = major;
         this.minor = minor;
         this.isFirst = true;
         this.filteredRSSIvalue = -1000;
-        this.maxRSSI = -100;
-        this.minRSSI = 0;
         this.distance = -1;
+        this.nearestPoint=0;
         this.isStampBeacon = false;
         this.count=0;
     }
@@ -40,14 +42,6 @@ public class BeaconInfo implements Comparable<BeaconInfo>{
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getMajor() {
-        return major;
-    }
-
-    public void setMajor(String major) {
-        this.major = major;
     }
 
     public String getMinor() {
@@ -72,22 +66,6 @@ public class BeaconInfo implements Comparable<BeaconInfo>{
 
     public void setIsFirst(boolean isFirst) {
         this.isFirst = isFirst;
-    }
-
-    public double getMaxRSSI() {
-        return maxRSSI;
-    }
-
-    public void setMaxRSSI(double maxRSSI) {
-        this.maxRSSI = maxRSSI;
-    }
-
-    public double getMinRSSI() {
-        return minRSSI;
-    }
-
-    public void setMinRSSI(double minRSSI) {
-        this.minRSSI = minRSSI;
     }
 
     public double getLocation_x() {
@@ -145,5 +123,48 @@ public class BeaconInfo implements Comparable<BeaconInfo>{
         return 0;
     }
 
+    public void addFilteredRssiQueue(int rssi){
+        this.filteredRssiQueue.add(rssi);
+    }
+
+    public void removeInFilteredRssiQueue(){
+        this.filteredRssiQueue.remove(0);
+    }
+
+    public ArrayList<Integer> getFilteredRssiQueue() {
+        return filteredRssiQueue;
+    }
+
+    public int getAvgRssi(ArrayList<Integer> rssiQueue){
+        int sum = 0;
+        for(int i=0;i<rssiQueue.size();i++){
+            sum+=rssiQueue.get(i);
+        }
+        return (int)(sum/rssiQueue.size());
+    }
+
+    public void addNoFilterRssiQueue(int rssi){
+        this.noFilterRssiQueue.add(rssi);
+    }
+
+    public void removeInNoFilterRssiQueue(){
+        this.noFilterRssiQueue.remove(0);
+    }
+
+    public ArrayList<Integer> getNoFilterRssiQueue() {
+        return noFilterRssiQueue;
+    }
+
+    public void addNearestPoint(int point){
+        nearestPoint += point;
+    }
+
+    public int getNearestPoint() {
+        return nearestPoint;
+    }
+
+    public void setNearestPoint(int nearestPoint) {
+        this.nearestPoint = nearestPoint;
+    }
 
 }

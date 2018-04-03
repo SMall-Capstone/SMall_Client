@@ -38,9 +38,6 @@ public class StampActivity extends AppCompatActivity {
 
         stampGiftTextView = (TextView)findViewById(R.id.stampGiftTextView);
 
-        BeaconList beaconList = BeaconList.getBeaconListInstance();
-        final ArrayList<BeaconInfo> beaconInfos = beaconList.findNearestBeacons();
-
         giftBox.setEnabled(false);
         giftBox.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -62,6 +59,7 @@ public class StampActivity extends AppCompatActivity {
                         //stampTextView.setText("0개");
                         stampGiftTextView.setText("초콜릿 3개 당첨!");
                         giftBox.setImageResource(R.drawable.opengiftbox);
+                        giftBox.setEnabled(false);
                         dialog.dismiss();
                     }
                 }).setNegativeButton("No",

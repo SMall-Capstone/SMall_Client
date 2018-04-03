@@ -10,7 +10,7 @@ public class Map {
 
     private Map(){
         this.maxWidth = 14;
-        this.maxHeight = 28;
+        this.maxHeight = 23;
     }
 
 

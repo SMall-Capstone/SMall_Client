@@ -6,24 +6,19 @@ import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothManager;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.RemoteException;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
-import android.support.v7.app.AlertDialog;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -39,14 +34,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.small.Adapter.TabPagerAdapter;
-import com.example.small.Beacon.Ball;
 import com.example.small.Beacon.BeaconInfo;
 import com.example.small.Beacon.BeaconList;
 import com.example.small.Beacon.KalmanFilter;
 import com.example.small.Beacon.Map;
 import com.example.small.Dialog.StampDialog;
+import com.example.small.Info.UserInfo;
 import com.example.small.R;
-import com.example.small.Server.HttpClient;
 import com.example.small.ViewPager.CouponFragment;
 import com.example.small.ViewPager.EventFragment;
 import com.example.small.ViewPager.FloorInfoFragment;
@@ -61,7 +55,6 @@ import org.altbeacon.beacon.Region;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 
@@ -74,14 +67,16 @@ public class HomeActivity extends AppCompatActivity
     private ViewPager viewPager;
     private TabPagerAdapter pagerAdapter;
 
-    public Ball ball = Ball.getBallInstance();
     private BeaconManager beaconManager;
     private BluetoothManager bluetoothManager; //블루투스 매니저는 기본적으로 있어야하기때문에 여기서는 생략합니다.
     private BluetoothAdapter bluetoothAdapter; //블루투스 어댑터에서 탐색, 연결을 담당하니 여기서는 어댑터가 주된 클래스입니다.
     private KalmanFilter mKalmanAccRSSI;
     public BeaconList beaconList;
     private double previousX=-1,previousY=-1;
-    private double accumulationX = 65.29, accumulationY = 66; //축적 계산한 x,y값에 곱해야 할 값
+    public static double accumulationX = 65.29, accumulationY = 66; //축적 계산한 x,y값에 곱해야 할 값
+
+    private UserInfo userInfo;
+    private final String TAG="HomeActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -167,6 +162,20 @@ public class HomeActivity extends AppCompatActivity
 
         beaconServiceStart();//비콘관련 코드 몰아놓음
 
+        userInfo = UserInfo.getUserInfo();
+        Log.i(TAG,"userInfo->"+userInfo.getName());
+
+        TextView nav_userID = (TextView)navigationView.getHeaderView(0).findViewById(R.id.nav_userID);
+        if(userInfo.getName() == null){
+            nav_userID.setText("Guest");
+        }
+        else{
+            nav_userID.setText(userInfo.getName()+" 님");
+            Button loginBtn = (Button)navigationView.getHeaderView(0).findViewById(R.id.loginBtn);
+            loginBtn.setVisibility(View.INVISIBLE);
+            Button signupBtn = (Button)navigationView.getHeaderView(0).findViewById(R.id.signupBtn);
+            signupBtn.setVisibility(View.INVISIBLE);
+        }
     }
 
     /////////////////////////로그인 회원가입 버튼///////////////////////////
@@ -348,7 +357,6 @@ public class HomeActivity extends AppCompatActivity
     public BluetoothAdapter.LeScanCallback mLeScanCallback = new BluetoothAdapter.LeScanCallback() {
         @Override
         public void onLeScan(BluetoothDevice device, int rssi, byte[] scanRecord) {
-            Log.i("yunjae", "callback");
 
             if (device.getName() != null && device.getName().contains("MiniBeacon")) {
                 BeaconInfo beaconInfo = beaconList.findBeacon(device.getName());
@@ -363,23 +371,44 @@ public class HomeActivity extends AppCompatActivity
                     } else {
                         int filteredRSSI = (int) mKalmanAccRSSI.applyFilter(rssi);//새로 필터링 된 값
 
+                        //칼만필터+스몰필터
+                        if(beaconInfo.getFilteredRssiQueue().size()==10){
+                            beaconInfo.removeInFilteredRssiQueue();
+                            beaconInfo.addFilteredRssiQueue(filteredRSSI);
+                        }
+                        else{
+                            beaconInfo.addFilteredRssiQueue(filteredRSSI);
+                        }
+
+                        int doubleFilteredRSSI = beaconInfo.getAvgRssi(beaconInfo.getFilteredRssiQueue());
                         //새로 필터링 된 값으로 RSSI값 설정
-                        beaconInfo.setFilteredRSSIvalue(filteredRSSI);
+                        beaconInfo.setFilteredRSSIvalue(doubleFilteredRSSI);
 
                         //거리계산해서 setting
-                        double d = (double) pow(10, (beaconList.getTxPower() - filteredRSSI) / (10 * 2));
+                        double d = (double) pow(10, (beaconList.getTxPower() - doubleFilteredRSSI) / (10 * 2));
                         double distance = Double.parseDouble(String.format("%.2f",d));
                         beaconInfo.setDistance(distance);
 
                         //비콘을 rssi값 기준으로 정렬
-                        beaconInfos = beaconList.findNearestBeacons();
+                        beaconInfos = beaconList.findNearestBeaconsByRssi();
+                        beaconList.addPointByRssiSorting(beaconInfos);
 
-                        if(beaconInfos.size() >= 3) {
-                            //가장 가까운 3개의 비콘정보로 거리를 계산
-                            calculateDistance(beaconInfos.get(0), beaconInfos.get(1), beaconInfos.get(3));
-                        }
+                        /*check point*/
+                        /*if (beaconInfos.get(0).isStampBeacon()) {
+                            if (beaconInfos.get(0).getCount() == 3) {
+                                Log.i("StampEvent",beaconInfos.get(0).getMinor()+"스탬프 이벤트 발생 count="+beaconInfos.get(0).getCount());
+                                //스탬프 비콘에 가장 가깝게 다가간 측정횟수가 3번일 때 스탬프 다이얼로그 발생
+                                //stampDialog(getApplicationContext());
+                                Intent intent = new Intent(getApplicationContext(),StampDialog.class);
+                                intent.putExtra("stamp",stamp);
+                                startActivity(intent);
 
-
+                                beaconInfos.get(0).setCount(beaconInfos.get(0).getCount() + 1);
+                            } else {
+                                //쿠폰 비콘에 가장 가깝게 다가간 측정횟수 +1
+                                beaconInfos.get(0).setCount(beaconInfos.get(0).getCount() + 1);
+                            }
+                        }*/
                         ActivityManager activityManager = (ActivityManager)getSystemService(Context.ACTIVITY_SERVICE);
                         List<ActivityManager.RunningTaskInfo> info;
                         info = activityManager.getRunningTasks(7);
@@ -404,96 +433,12 @@ public class HomeActivity extends AppCompatActivity
                             }
                         }
 
-
-
                     }
                 }
 
             }
 
         }//onLeScan끝
-
-        double resultX,resultY;
-
-        public void calculateDistance(BeaconInfo b1,BeaconInfo b2, BeaconInfo b3){
-            double X1 = b1.getLocation_x();
-            double Y1 = b1.getLocation_y();
-            double X2 = b2.getLocation_x();
-            double Y2 = b2.getLocation_y();
-            double D1 = b1.getDistance();
-            double D2 = b2.getDistance();
-
-
-            Log.i("Check//",b1.getName()+"/"+b2.getName()+"/"+b3.getName());
-            Log.i("Check//",X1+"/"+Y1+"/"+X2+"/"+Y2+"/"+D1+"/"+D2);
-
-            double T = Math.log( Math.pow((X2 - X1),2) + Math.pow((Y2 - Y1),2));
-            double TrianglePlusX = X1 + D1 * Math.cos( Math.atan( (Y2 - Y1) / (X2 - X1) ) +
-                    Math.acos( (Math.pow(D1,2) - Math.pow(D2,2) + Math.pow(T,2) ) / (2 * D1 * T) ) );
-            double TriangleMinusX = X1 + D1 * Math.cos( Math.atan( (Y2 - Y1) / (X2 - X1) ) -
-                    Math.acos( (Math.pow(D1,2) - Math.pow(D2,2) + Math.pow(T,2) ) / (2 * D1 * T) ) );
-            double TrianglePlusY = Y1 + D1 * Math.sin( Math.atan( (Y2 - Y1) / (X2 - X1) ) +
-                    Math.acos( (Math.pow(D1,2) -  Math.pow(D2, 2) + Math.pow(T,2) ) / (2 * D1 * T) ) );
-            double TriangleMinusY = Y1 + D1 * Math.sin( Math.atan( (Y2 - Y1) / (X2 - X1) ) -
-                    Math.acos( (Math.pow(D1,2) -  Math.pow(D2, 2) + Math.pow(T,2) ) / (2 * D1 * T) ) );
-
-
-
-            double d1 = pointTopointDistance(TrianglePlusX,TrianglePlusY,b3.getLocation_x(),b3.getLocation_y());
-            double d2 = pointTopointDistance(TriangleMinusX,TriangleMinusY,b3.getLocation_x(),b3.getLocation_y());
-            if(d1 < d2){
-                resultX = TrianglePlusX;
-                resultY = TrianglePlusY;
-            }
-            else {
-                resultX = TriangleMinusX;
-                resultY = TriangleMinusY;
-            }
-
-            Map m = Map.getMapInstance();
-            if(resultX < 0 || resultX > m.getMaxWidth()) {
-                if(resultX<0)
-                    resultX = 0;
-                if(resultX>m.getMaxWidth())
-                    resultX = m.getMaxWidth();
-            }
-            if(resultY < 0 || resultX > m.getMaxHeight()) {
-                if(resultY<0)
-                    resultY = 0;
-                if(resultY>m.getMaxHeight())
-                    resultY = m.getMaxHeight();
-            }
-
-            //좌표가 NaN으로 나올 경우 이전값으로 대체하여 사용
-            if(Double.isNaN(resultX) || Double.isNaN(resultY)){
-                resultX = previousX;
-                resultY = previousY;
-            }
-
-            if(previousX==-1 && previousY==-1) {
-                //이전에 저장된 값이 없는 경우=>처음 측정된 값
-                previousX=resultX;
-                previousY=resultY;
-
-                Log.i("현재 위치","현재 위치 : ("+Double.parseDouble(String.format("%.2f",resultX))+","+Double.parseDouble(String.format("%.2f",resultY))+")\n");
-                ball.setLocation(resultX*accumulationX, resultY*accumulationY);
-                Log.i("yunjae", "x = " + resultX + " y = " + resultY);
-            }
-            else {
-                //이전의 값과 차이가 설정 값 이상 나지 않는 경우에만 좌표출력
-                if ( ! (previousX-resultX<-5 || previousX-resultX>5) ){
-                    Log.i("현재 위치","현재 위치 : ("+Double.parseDouble(String.format("%.2f",resultX))+","+Double.parseDouble(String.format("%.2f",resultY))+")\n");
-                    //ball.setLocation((float)resultX*(float)62.29, (float)resultY*(float)77.14);
-                    ball.setLocation(resultX*accumulationX, resultY*accumulationY);
-                    Log.i("yunjae", "x = " + resultX + " y = " + resultY);
-                }
-            }
-
-        }
-
-        public double pointTopointDistance(double x1,double y1,double x2,double y2){
-            return Math.sqrt((x1-x2)*(x1-x2)+(y1-y2)*(y1-y2));
-        }
 
     };
 }

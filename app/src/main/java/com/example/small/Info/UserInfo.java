@@ -1,13 +1,20 @@
 package com.example.small.Info;
 
+import java.io.Serializable;
+
 /**
  * Created by 이예지 on 2018-01-29.
  */
 
-public class UserInfo {
+public class UserInfo implements Serializable{
     String userid;
     String password,name,gender;
     int birth;
+    private static UserInfo userInfo = new UserInfo();
+
+    private UserInfo(){
+
+    }
 
     public String getUserid() {
         return userid;
@@ -48,4 +55,9 @@ public class UserInfo {
     public void setBirth(int birth) {
         this.birth = birth;
     }
+
+    public static UserInfo getUserInfo(){
+        return userInfo;
+    }
+
 }

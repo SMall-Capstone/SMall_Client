@@ -22,7 +22,8 @@ public class LoginActivity extends AppCompatActivity {
 
     String userid,password;
     String serverURL = "http://"+HttpClient.ipAdress+":8080/Android_login";
-    static UserInfo userInfo;
+    UserInfo userInfo;
+    private final String TAG = "LoginActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,11 +75,11 @@ public class LoginActivity extends AppCompatActivity {
 
             int statusCode = post.getHttpStatusCode();
 
-            Log.i("yunjae", "응답코드"+statusCode);
+            Log.i(TAG, "응답코드"+statusCode);
 
             String body = post.getBody();
 
-            Log.i("yunjae", "body : "+body);
+            Log.i(TAG, "body : "+body);
 
             return body;
 
@@ -87,10 +88,10 @@ public class LoginActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(String aVoid) {
             super.onPostExecute(aVoid);
-            Log.i("yunjae", aVoid);
+            Log.i(TAG, aVoid);
 
             if(aVoid.contains("fail")){
-                Log.i("yunjae", "로그인 실패");
+                Log.i(TAG, "로그인 실패");
                 Toast.makeText(getApplicationContext(),"로그인 실패",Toast.LENGTH_SHORT).show();
                 /*loginFailDialog = new LoginFailDialog(getApplicationContext(), "로그인에 실패하였습니다.", leftListener);
                 loginFailDialog.getWindow().setGravity(Gravity.CENTER_HORIZONTAL);
@@ -98,11 +99,19 @@ public class LoginActivity extends AppCompatActivity {
             }
             else{
                 Gson gson = new Gson();
-                userInfo = gson.fromJson(aVoid,UserInfo.class);
+                userInfo = UserInfo.getUserInfo();
 
-                Log.i("yunjae", userInfo.getName()+"/"+userInfo.getBirth());
+                UserInfo info = gson.fromJson(aVoid,UserInfo.class);
+
+                userInfo.setUserid(info.getUserid());
+                userInfo.setName(info.getName());
+                userInfo.setBirth(info.getBirth());
+                userInfo.setGender(info.getGender());
+
+                Log.i(TAG, userInfo.getName()+"/"+userInfo.getBirth());
 
                 Intent intent = new Intent(getApplicationContext(),HomeActivity.class);
+                intent.putExtra("userInfo",userInfo);
                 startActivity(intent);
                 finish();
             }
@@ -112,7 +121,7 @@ public class LoginActivity extends AppCompatActivity {
     }
     public View.OnClickListener leftListener = new View.OnClickListener() {
         public void onClick(View v) {
-            Log.i("yunjae", "왼쪽클릭");
+            Log.i(TAG, "왼쪽클릭");
             loginFailDialog.dismiss();
         }
     };
