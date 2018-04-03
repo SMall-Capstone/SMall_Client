@@ -8,6 +8,7 @@ import android.bluetooth.BluetoothManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.RemoteException;
 import android.support.design.widget.FloatingActionButton;
@@ -41,10 +42,12 @@ import com.example.small.Beacon.Map;
 import com.example.small.Dialog.StampDialog;
 import com.example.small.Info.UserInfo;
 import com.example.small.R;
+import com.example.small.Server.HttpClient;
 import com.example.small.ViewPager.CouponFragment;
 import com.example.small.ViewPager.EventFragment;
 import com.example.small.ViewPager.FloorInfoFragment;
 import com.example.small.ViewPager.ShoppingNewsFragment;
+import com.google.gson.Gson;
 
 import org.altbeacon.beacon.Beacon;
 import org.altbeacon.beacon.BeaconConsumer;
@@ -55,6 +58,7 @@ import org.altbeacon.beacon.Region;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 
@@ -182,10 +186,12 @@ public class HomeActivity extends AppCompatActivity
     public void onButtonSignUp_home(View v){
         Intent intent = new Intent(HomeActivity.this, SignUpActivity.class);
         startActivity(intent);
+        finish();
     }
     public void onButtonLogin_home(View v){
         Intent intent = new Intent(HomeActivity.this, LoginActivity.class);
         startActivity(intent);
+        finish();
     }
 
     private void beaconServiceStart(){
@@ -253,6 +259,15 @@ public class HomeActivity extends AppCompatActivity
     protected void onDestroy() {
         super.onDestroy();
         beaconManager.unbind(this);
+
+        if(userInfo.getName() != null){
+            java.util.Map<String,String> params = new HashMap<String,String>();
+            params.put("userid",userInfo.getUserid());
+            params.put("stamp",String.valueOf(userInfo.getStamp()));
+
+            stampDB SDB = new stampDB();
+            SDB.execute(params);
+        }
     }
 
     @Override
@@ -352,6 +367,7 @@ public class HomeActivity extends AppCompatActivity
     }
 
     static ArrayList<BeaconInfo> beaconInfos;
+    boolean firstLoginAlert=true;
     public BluetoothAdapter.LeScanCallback mLeScanCallback = new BluetoothAdapter.LeScanCallback() {
         @Override
         public void onLeScan(BluetoothDevice device, int rssi, byte[] scanRecord) {
@@ -393,28 +409,6 @@ public class HomeActivity extends AppCompatActivity
 
                         /*check point*/
                         /*if (beaconInfos.get(0).isStampBeacon()) {
-                            if (beaconInfos.get(0).getCount() == 3) {
-                                Log.i("StampEvent",beaconInfos.get(0).getMinor()+"스탬프 이벤트 발생 count="+beaconInfos.get(0).getCount());
-                                //스탬프 비콘에 가장 가깝게 다가간 측정횟수가 3번일 때 스탬프 다이얼로그 발생
-                                //stampDialog(getApplicationContext());
-                                Intent intent = new Intent(getApplicationContext(),StampDialog.class);
-                                intent.putExtra("stamp",stamp);
-                                startActivity(intent);
-
-                                beaconInfos.get(0).setCount(beaconInfos.get(0).getCount() + 1);
-                            } else {
-                                //쿠폰 비콘에 가장 가깝게 다가간 측정횟수 +1
-                                beaconInfos.get(0).setCount(beaconInfos.get(0).getCount() + 1);
-                            }
-                        }*/
-
-                        ActivityManager activityManager = (ActivityManager)getSystemService(Context.ACTIVITY_SERVICE);
-                        List<ActivityManager.RunningTaskInfo> info;
-                        info = activityManager.getRunningTasks(7);
-                        for (Iterator iterator = info.iterator(); iterator.hasNext();)  {
-                            ActivityManager.RunningTaskInfo runningTaskInfo = (ActivityManager.RunningTaskInfo) iterator.next();
-                            if(runningTaskInfo.topActivity.getClassName().equals("com.example.small.Activity.StampActivity")) {
-                                if (beaconInfos.get(0).isStampBeacon()) {
                                     if(userInfo.getName() != null){
                                         if (beaconInfos.get(0).getCount() == 3) {
                                             Log.i("StampEvent",beaconInfos.get(0).getMinor()+"스탬프 이벤트 발생 count="+beaconInfos.get(0).getCount());
@@ -430,12 +424,40 @@ public class HomeActivity extends AppCompatActivity
                                         }
                                     }
                                     else{
-                                        Toast.makeText(getApplicationContext(),"로그인 후 사용 가능한 서비스 입니다.",Toast.LENGTH_SHORT).show();
+                                        if(firstLoginAlert){
+                                            Toast.makeText(getApplicationContext(),"로그인 후 사용 가능한 서비스 입니다.",Toast.LENGTH_SHORT).show();
+                                            firstLoginAlert = false;
+                                        }
+                                    }
+
+                                }
+                        }*/
+
+                        ActivityManager activityManager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
+                        List<ActivityManager.RunningTaskInfo> info;
+                        info = activityManager.getRunningTasks(7);
+                        for (Iterator iterator = info.iterator(); iterator.hasNext(); ) {
+                            ActivityManager.RunningTaskInfo runningTaskInfo = (ActivityManager.RunningTaskInfo) iterator.next();
+                            if (runningTaskInfo.topActivity.getClassName().equals("com.example.small.Activity.MyLocationActivity") && userInfo.getName() != null) {
+                                if (beaconInfos.get(0).isStampBeacon()) {
+                                    if (beaconInfos.get(0).getCount() == 3) {
+                                        Log.i("StampEvent", beaconInfos.get(0).getMinor() + "스탬프 이벤트 발생 count=" + beaconInfos.get(0).getCount());
+                                        //스탬프 비콘에 가장 가깝게 다가간 측정횟수가 3번일 때 스탬프 다이얼로그 발생
+                                        //stampDialog(getApplicationContext());
+                                        Intent intent = new Intent(getApplicationContext(), StampDialog.class);
+                                        startActivity(intent);
+
+                                        beaconInfos.get(0).setCount(beaconInfos.get(0).getCount() + 1);
+                                    } else {
+                                        //쿠폰 비콘에 가장 가깝게 다가간 측정횟수 +1
+                                        beaconInfos.get(0).setCount(beaconInfos.get(0).getCount() + 1);
                                     }
 
                                 }
                             }
                         }
+
+
 
                     }
                 }
@@ -445,4 +467,32 @@ public class HomeActivity extends AppCompatActivity
         }//onLeScan끝
 
     };
+
+    class stampDB extends AsyncTask<java.util.Map<String, String>, Integer, String> {
+        String serverURL = "http://"+HttpClient.ipAdress+":8080/Android_saveStamp";
+
+        @Override
+        protected String doInBackground(java.util.Map<String, String>...maps) {
+
+            Log.i("StampDB", "서버와 통신");
+            HttpClient.Builder http = new HttpClient.Builder("POST",serverURL);
+            http.addAllParameters(maps[0]);
+
+            HttpClient post = http.create();
+            post.request();
+
+            int statusCode = post.getHttpStatusCode();
+
+            Log.i(TAG, "응답코드"+statusCode);
+
+            String body = post.getBody();
+
+            Log.i(TAG, "body : "+body);
+
+            return body;
+
+        }
+
+
+    }
 }

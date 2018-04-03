@@ -126,4 +126,5 @@ public class LoginActivity extends AppCompatActivity {
             loginFailDialog.dismiss();
         }
     };
+
 }
