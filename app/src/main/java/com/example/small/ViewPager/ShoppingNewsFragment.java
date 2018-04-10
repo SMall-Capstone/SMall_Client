@@ -38,8 +38,8 @@ public class ShoppingNewsFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_shopping_news, container, false);
 
-        errorVeiw = (TextView)view.findViewById(R.id.web_error_view);
-        mWebView = (WebView)view.findViewById(R.id.web_shopping_news);
+        errorVeiw = (TextView)view.findViewById(R.id.web_error_view_news);
+        mWebView = (WebView)view.findViewById(R.id.web_shopping_news_page);
 
         WebSettings webSettings = mWebView.getSettings();
         webSettings.setJavaScriptEnabled(true);
@@ -128,7 +128,7 @@ public class ShoppingNewsFragment extends Fragment {
             }
         });
 
-        mWebView.loadUrl("http://m.naver.com");
+        mWebView.loadUrl("http://223.194.131.184:8080/shoppingnews");
         return view;
     }
 

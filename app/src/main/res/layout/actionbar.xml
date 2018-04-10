@@ -24,7 +24,7 @@
 
 
     <Space
-        android:layout_width="0dp"
+        android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:layout_weight="1" />
 
@@ -36,7 +36,7 @@
         android:layout_marginRight="7dp"
         android:background="@color/colorPrimary"
         android:padding="10dp"
-        app:srcCompat="@drawable/map" />
+        app:srcCompat="@drawable/mapicon" />
 
 
 </LinearLayout>

@@ -52,27 +52,27 @@ public class StampActivity extends AppCompatActivity {
             Log.i("StampCount","StampActivity ->"+userInfo.getStamp());
             switch (userInfo.getStamp()) {
                 case 0:
-                    StampActivity.stamp1.setImageResource(R.drawable.graystamp);
-                    StampActivity.stamp2.setImageResource(R.drawable.graystamp);
-                    StampActivity.stamp3.setImageResource(R.drawable.graystamp);
+                    StampActivity.stamp1.setImageResource(R.drawable.stamp_x);
+                    StampActivity.stamp2.setImageResource(R.drawable.stamp_x);
+                    StampActivity.stamp3.setImageResource(R.drawable.stamp_x);
                     StampActivity.stampTextView.setText("0개");
                     break;
                 case 1:
-                    StampActivity.stamp1.setImageResource(R.drawable.purplestamp);
-                    StampActivity.stamp2.setImageResource(R.drawable.graystamp);
-                    StampActivity.stamp3.setImageResource(R.drawable.graystamp);
+                    StampActivity.stamp1.setImageResource(R.drawable.stamp_o);
+                    StampActivity.stamp2.setImageResource(R.drawable.stamp_x);
+                    StampActivity.stamp3.setImageResource(R.drawable.stamp_x);
                     StampActivity.stampTextView.setText("1개");
                     break;
                 case 2:
-                    StampActivity.stamp1.setImageResource(R.drawable.purplestamp);
-                    StampActivity.stamp2.setImageResource(R.drawable.purplestamp);
-                    StampActivity.stamp3.setImageResource(R.drawable.graystamp);
+                    StampActivity.stamp1.setImageResource(R.drawable.stamp_o);
+                    StampActivity.stamp2.setImageResource(R.drawable.stamp_o);
+                    StampActivity.stamp3.setImageResource(R.drawable.stamp_x);
                     StampActivity.stampTextView.setText("2개");
                     break;
                 case 3:
-                    StampActivity.stamp1.setImageResource(R.drawable.purplestamp);
-                    StampActivity.stamp2.setImageResource(R.drawable.purplestamp);
-                    StampActivity.stamp3.setImageResource(R.drawable.purplestamp);
+                    StampActivity.stamp1.setImageResource(R.drawable.stamp_o);
+                    StampActivity.stamp2.setImageResource(R.drawable.stamp_o);
+                    StampActivity.stamp3.setImageResource(R.drawable.stamp_o);
                     //여기서 stamp초기화 하고 giftbox클릭 가능하게 만들기 + giftDialog띄우기
                     userInfo.setStamp(0);
                     StampActivity.giftBox.setEnabled(true);
@@ -100,7 +100,7 @@ public class StampActivity extends AppCompatActivity {
                         beaconList.initEventBeacon();
                         //stampTextView.setText("0개");
                         stampGiftTextView.setText("초콜릿 3개 당첨!");
-                        giftBox.setImageResource(R.drawable.opengiftbox);
+                        giftBox.setImageResource(R.drawable.get_gift);
                         giftBox.setEnabled(false);
                         dialog.dismiss();
                     }

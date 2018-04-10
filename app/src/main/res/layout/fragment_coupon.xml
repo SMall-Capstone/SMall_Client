@@ -4,10 +4,19 @@
     android:layout_height="match_parent"
     tools:context="com.example.small.ViewPager.CouponFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <WebView
+        android:id="@+id/web_coupon_page"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="cupon fragment" />
+        android:fadingEdge="none">
+    </WebView>
 
+    <TextView
+        android:id="@+id/web_error_view_coupon"
+        android:layout_gravity="center"
+        android:fadingEdge="none"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="접속이 원활하지 않습니다."
+        android:visibility="gone"/>
 </FrameLayout>

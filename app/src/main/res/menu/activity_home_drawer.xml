@@ -31,7 +31,7 @@
                     android:title="쇼핑뉴스" />
                 <item
                     android:id="@+id/menu_infoFloor"
-                    android:title="층별안내" />
+                    android:title="매장안내" />
             </group>
         </menu>
     </item>

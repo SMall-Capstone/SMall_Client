@@ -103,7 +103,7 @@ public class HomeActivity extends AppCompatActivity
         tabLayout.addTab(tabLayout.newTab().setText("쇼핑뉴스"));
         tabLayout.addTab(tabLayout.newTab().setText("이벤트"));
         tabLayout.addTab(tabLayout.newTab().setText("쿠폰"));
-        tabLayout.addTab(tabLayout.newTab().setText("층별안내"));
+        tabLayout.addTab(tabLayout.newTab().setText("매장안내"));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
         tabLayout.setSelectedTabIndicatorColor(getResources().getColor(R.color.selectedTextColor));
@@ -136,15 +136,6 @@ public class HomeActivity extends AppCompatActivity
             }
         });
 
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(

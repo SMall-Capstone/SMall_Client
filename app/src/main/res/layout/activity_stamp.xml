@@ -10,10 +10,10 @@
     <ImageButton
         android:id="@+id/giftboxImageButton"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="230dp"
         android:layout_margin="20dp"
         android:background="@color/mainWhite"
-        app:srcCompat="@drawable/giftbox" />
+        app:srcCompat="@drawable/gift" />
 
     <TextView
         android:id="@+id/stampGiftTextView"
@@ -33,23 +33,23 @@
         <ImageView
             android:id="@+id/stampImageView1"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="110dp"
             android:layout_weight="1"
-            app:srcCompat="@drawable/graystamp" />
+            app:srcCompat="@drawable/stamp_o" />
 
         <ImageView
             android:id="@+id/stampImageView2"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="110dp"
             android:layout_weight="1"
-            app:srcCompat="@drawable/graystamp" />
+            app:srcCompat="@drawable/stamp_x" />
 
         <ImageView
             android:id="@+id/stampImageView3"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="110dp"
             android:layout_weight="1"
-            app:srcCompat="@drawable/graystamp" />
+            app:srcCompat="@drawable/stamp_x" />
 
     </LinearLayout>
 
@@ -77,7 +77,7 @@
             android:layout_gravity="center"
             android:layout_weight="1"
             android:gravity="left|center"
-            android:text="0개"
+            android:text="1개"
             android:textSize="27sp" />
 
     </LinearLayout>
