@@ -163,6 +163,78 @@ public class BeaconList {
         }
     }
 
+    private void removeOutlier(ArrayList<BeaconInfo> beaconInfos, String s) {
+        for(int i=1;i<beaconInfos.size();i++){ //i=0은 안해도됨
+            if(beaconInfos.get(i).getMinor().contains(s)) {
+                beaconInfos.remove(i);
+                i--;
+            }
+        }
+    }
+    public void removeOutlierAll(ArrayList<BeaconInfo> beaconInfosSortByPoint){
+        //이상치 비콘 삭제
+        if(beaconInfosSortByPoint.get(0).getMinor().contains("13298")||beaconInfosSortByPoint.get(0).getMinor().contains("14997")||beaconInfosSortByPoint.get(0).getMinor().contains("12928")){
+            removeOutlier(beaconInfosSortByPoint,"165");
+            removeOutlier(beaconInfosSortByPoint,"175");
+            removeOutlier(beaconInfosSortByPoint,"14863");
+            if(beaconInfosSortByPoint.get(0).getMinor().contains("13298")){
+                removeOutlier(beaconInfosSortByPoint,"1031");
+                removeOutlier(beaconInfosSortByPoint,"177");
+
+            }
+        }
+        if(beaconInfosSortByPoint.get(0).getMinor().contains("165")||beaconInfosSortByPoint.get(0).getMinor().contains("175")||beaconInfosSortByPoint.get(0).getMinor().contains("14863")){
+            removeOutlier(beaconInfosSortByPoint,"13298");
+            removeOutlier(beaconInfosSortByPoint,"14997");
+            removeOutlier(beaconInfosSortByPoint,"12928");
+            removeOutlier(beaconInfosSortByPoint,"14990");
+            if (beaconInfosSortByPoint.get(0).getMinor().contains("14863")) {
+                removeOutlier(beaconInfosSortByPoint,"783");
+            }
+        }
+        if(beaconInfosSortByPoint.get(0).getMinor().contains("14990") || beaconInfosSortByPoint.get(0).getMinor().contains("177")||beaconInfosSortByPoint.get(0).getMinor().contains("1352")) {
+            removeOutlier(beaconInfosSortByPoint, "14863");
+            if (beaconInfosSortByPoint.get(0).getMinor().contains("14990")) {
+                removeOutlier(beaconInfosSortByPoint, "12802");
+                removeOutlier(beaconInfosSortByPoint, "175");
+            }
+        }
+        if(beaconInfosSortByPoint.get(0).getMinor().contains("1031")) {
+            removeOutlier(beaconInfosSortByPoint, "783");
+        }
+
+        //haneul 예지확인받기ㅠㅠㅠㅠㅠㅠㅠ
+        if(beaconInfosSortByPoint.get(0).getMinor().contains("1352") || beaconInfosSortByPoint.get(0).getMinor().contains("12802")||beaconInfosSortByPoint.get(0).getMinor().contains("12928")) {
+            removeOutlier(beaconInfosSortByPoint, "175");
+            removeOutlier(beaconInfosSortByPoint, "165");
+            removeOutlier(beaconInfosSortByPoint, "14863");
+
+            if (beaconInfosSortByPoint.get(0).getMinor().contains("12928")) {
+                removeOutlier(beaconInfosSortByPoint, "1031");
+                removeOutlier(beaconInfosSortByPoint, "783");
+            }
+            if(beaconInfosSortByPoint.get(0).getMinor().contains("12802")) {
+                removeOutlier(beaconInfosSortByPoint, "14990");
+            }
+        }
+
+        if(beaconInfosSortByPoint.get(0).getMinor().contains("165") || beaconInfosSortByPoint.get(0).getMinor().contains("175")||beaconInfosSortByPoint.get(0).getMinor().contains("783")) {
+            removeOutlier(beaconInfosSortByPoint, "14997");
+            removeOutlier(beaconInfosSortByPoint, "1352");
+            removeOutlier(beaconInfosSortByPoint, "12928");
+            removeOutlier(beaconInfosSortByPoint, "12802");
+
+            if (beaconInfosSortByPoint.get(0).getMinor().contains("175")) {
+                removeOutlier(beaconInfosSortByPoint, "14990");
+
+            }
+            if (beaconInfosSortByPoint.get(0).getMinor().contains("165")) {
+                removeOutlier(beaconInfosSortByPoint, "1352");
+
+            }
+        }
+    }
+
     public ArrayList<BeaconInfo> findNearestBeaconsByPoint(){
         beaconInfosSortByPoint.clear();
         beaconInfosSortByPoint.addAll(beaconInfos);
@@ -189,6 +261,7 @@ public class BeaconList {
             Log.i("Sort","beaconInfos setting fail");
         }
 
+        removeOutlierAll(beaconInfosSortByPoint);
         return beaconInfosSortByPoint;
     }
 

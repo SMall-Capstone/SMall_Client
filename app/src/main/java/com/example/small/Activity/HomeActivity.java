@@ -80,6 +80,7 @@ public class HomeActivity extends AppCompatActivity
 
     private UserInfo userInfo;
     private final String TAG="HomeActivity";
+    private final int SIZEOFQUEUE = 7;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -173,7 +174,7 @@ public class HomeActivity extends AppCompatActivity
             nav_userID.setText("Guest");
         }
         else{
-            nav_userID.setText(userInfo.getName()+" 님");
+            nav_userID.setText("환영합니다\n"+userInfo.getName()+" 님♡");
             Button loginBtn = (Button)navigationView.getHeaderView(0).findViewById(R.id.loginBtn);
             loginBtn.setVisibility(View.INVISIBLE);
             Button signupBtn = (Button)navigationView.getHeaderView(0).findViewById(R.id.signupBtn);
@@ -386,7 +387,7 @@ public class HomeActivity extends AppCompatActivity
                         int filteredRSSI = (int) mKalmanAccRSSI.applyFilter(rssi);//새로 필터링 된 값
 
                         //칼만필터+스몰필터
-                        if(beaconInfo.getFilteredRssiQueue().size()==10){
+                        if(beaconInfo.getFilteredRssiQueue().size()==SIZEOFQUEUE){
                             beaconInfo.removeInFilteredRssiQueue();
                             beaconInfo.addFilteredRssiQueue(filteredRSSI);
                         }
@@ -399,7 +400,7 @@ public class HomeActivity extends AppCompatActivity
                         beaconInfo.setFilteredRSSIvalue(doubleFilteredRSSI);
 
                         //거리계산해서 setting
-                        double d = (double) pow(10, (beaconList.getTxPower() - doubleFilteredRSSI) / (10 * 2));
+                        double d = (double) pow(10, (beaconList.getTxPower() - doubleFilteredRSSI) / (10 * 2.0));
                         double distance = Double.parseDouble(String.format("%.2f",d));
                         beaconInfo.setDistance(distance);
 
@@ -407,14 +408,19 @@ public class HomeActivity extends AppCompatActivity
                         beaconInfos = beaconList.findNearestBeaconsByRssi();
                         beaconList.addPointByRssiSorting(beaconInfos);
 
-                        /*check point*/
-                        /*if (beaconInfos.get(0).isStampBeacon()) {
-                                    if(userInfo.getName() != null){
+                        ActivityManager activityManager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
+                        List<ActivityManager.RunningTaskInfo> info;
+                        info = activityManager.getRunningTasks(7);
+                        for (Iterator iterator = info.iterator(); iterator.hasNext(); ) {
+                            ActivityManager.RunningTaskInfo runningTaskInfo = (ActivityManager.RunningTaskInfo) iterator.next();
+                            if (runningTaskInfo.topActivity.getClassName().contains("StampActivty") || runningTaskInfo.topActivity.getClassName().contains("MyLocationActivity")) {
+                                if(userInfo.getName() != null){
+                                    if (beaconInfos.get(0).isStampBeacon()) {
                                         if (beaconInfos.get(0).getCount() == 3) {
-                                            Log.i("StampEvent",beaconInfos.get(0).getMinor()+"스탬프 이벤트 발생 count="+beaconInfos.get(0).getCount());
+                                            Log.i("StampEvent", beaconInfos.get(0).getMinor() + "스탬프 이벤트 발생 count=" + beaconInfos.get(0).getCount());
                                             //스탬프 비콘에 가장 가깝게 다가간 측정횟수가 3번일 때 스탬프 다이얼로그 발생
                                             //stampDialog(getApplicationContext());
-                                            Intent intent = new Intent(getApplicationContext(),StampDialog.class);
+                                            Intent intent = new Intent(getApplicationContext(), StampDialog.class);
                                             startActivity(intent);
 
                                             beaconInfos.get(0).setCount(beaconInfos.get(0).getCount() + 1);
@@ -422,37 +428,8 @@ public class HomeActivity extends AppCompatActivity
                                             //쿠폰 비콘에 가장 가깝게 다가간 측정횟수 +1
                                             beaconInfos.get(0).setCount(beaconInfos.get(0).getCount() + 1);
                                         }
+
                                     }
-                                    else{
-                                        if(firstLoginAlert){
-                                            Toast.makeText(getApplicationContext(),"로그인 후 사용 가능한 서비스 입니다.",Toast.LENGTH_SHORT).show();
-                                            firstLoginAlert = false;
-                                        }
-                                    }
-
-                                }
-                        }*/
-
-                        ActivityManager activityManager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
-                        List<ActivityManager.RunningTaskInfo> info;
-                        info = activityManager.getRunningTasks(7);
-                        for (Iterator iterator = info.iterator(); iterator.hasNext(); ) {
-                            ActivityManager.RunningTaskInfo runningTaskInfo = (ActivityManager.RunningTaskInfo) iterator.next();
-                            if (runningTaskInfo.topActivity.getClassName().equals("com.example.small.Activity.MyLocationActivity") && userInfo.getName() != null) {
-                                if (beaconInfos.get(0).isStampBeacon()) {
-                                    if (beaconInfos.get(0).getCount() == 3) {
-                                        Log.i("StampEvent", beaconInfos.get(0).getMinor() + "스탬프 이벤트 발생 count=" + beaconInfos.get(0).getCount());
-                                        //스탬프 비콘에 가장 가깝게 다가간 측정횟수가 3번일 때 스탬프 다이얼로그 발생
-                                        //stampDialog(getApplicationContext());
-                                        Intent intent = new Intent(getApplicationContext(), StampDialog.class);
-                                        startActivity(intent);
-
-                                        beaconInfos.get(0).setCount(beaconInfos.get(0).getCount() + 1);
-                                    } else {
-                                        //쿠폰 비콘에 가장 가깝게 다가간 측정횟수 +1
-                                        beaconInfos.get(0).setCount(beaconInfos.get(0).getCount() + 1);
-                                    }
-
                                 }
                             }
                         }
@@ -470,7 +447,6 @@ public class HomeActivity extends AppCompatActivity
 
     class stampDB extends AsyncTask<java.util.Map<String, String>, Integer, String> {
         String serverURL = "http://"+HttpClient.ipAdress+":8080/Android_saveStamp";
-
         @Override
         protected String doInBackground(java.util.Map<String, String>...maps) {
 
@@ -492,7 +468,7 @@ public class HomeActivity extends AppCompatActivity
             return body;
 
         }
-
-
     }
+
+
 }
