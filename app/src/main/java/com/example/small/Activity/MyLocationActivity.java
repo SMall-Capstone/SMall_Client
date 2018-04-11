@@ -1,5 +1,6 @@
 package com.example.small.Activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -10,7 +11,12 @@ import android.view.animation.TranslateAnimation;
 import android.widget.ImageView;
 
 import com.example.small.Beacon.BeaconList;
+import com.example.small.Beacon.NodeInfo;
+import com.example.small.Beacon.NodeList;
 import com.example.small.R;
+
+import java.util.HashMap;
+import java.util.Vector;
 
 public class MyLocationActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -46,7 +52,6 @@ public class MyLocationActivity extends AppCompatActivity implements View.OnClic
                             //img.setAnimation(ani);
                             img.startAnimation(ani);
                             //ani.start();
-
 //                            Log.i("Ball_Animation_update", "Values = " + (float) previousX + "\n" +  (float) (resultX*MainActivity.accumulationX) + "\n" +
 //                                    (float)previousY + "\n" + (float)(resultY*MainActivity.accumulationY));
 
@@ -74,8 +79,28 @@ public class MyLocationActivity extends AppCompatActivity implements View.OnClic
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         supportRequestWindowFeature(Window.FEATURE_NO_TITLE);
-
         setContentView(R.layout.activity_my_location);
+
+        Intent intent = getIntent();
+        int nodeNum = intent.getIntExtra("nodeNum",-1);
+        if(nodeNum != -1){
+            beaconList.calculateDistance();
+            resultX = beaconList.getResultX();
+            resultY = beaconList.getResultY();
+
+            NodeList nodeList = NodeList.getNodeList();
+            int startNode = nodeList.searchNearestNode(resultX,resultY);
+            nodeList.init();
+
+            Vector<Integer> route = nodeList.startNavigator(startNode,nodeNum); //다익스트라
+
+
+            Log.i("nodeNum","startNode =>"+startNode);
+            HashMap<Integer, NodeInfo> nodeInfos = nodeList.getNodeInfos();
+            for(int i=0;i<route.size();i++){
+                Log.i("Navigator"," -> "+route.get(i) +" : "+nodeInfos.get(route.get(i)).getLocationX()+","+nodeInfos.get(route.get(i)).getLocationY());
+            }
+        }
 
         img = (ImageView) findViewById(R.id.RedPoint);
         thread = new TimeThread();

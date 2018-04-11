@@ -315,7 +315,7 @@ public class HomeActivity extends AppCompatActivity
             startActivity(intent);
 
         } else if (id == R.id.menu_navi) {
-            Intent intent=new Intent(HomeActivity.this, MyLocationActivity.class);
+            Intent intent=new Intent(HomeActivity.this, NavigatorActivity.class);
             intent.putExtra("activity","Navi activity");
             startActivity(intent);
 

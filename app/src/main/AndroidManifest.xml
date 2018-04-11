@@ -7,12 +7,13 @@
     <uses-permission android:name="android.permission.READ_PROFILE" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.GET_TASKS"/>
+    <uses-permission android:name="android.permission.GET_TASKS" />
 
-    <!--<activity
+    <!--
+    <activity
         android:name=".Dialog.LoginFailDialog"
-        android:theme="@style/Theme.AppCompat.Dialog" />-->
-
+        android:theme="@style/Theme.AppCompat.Dialog" />
+    -->
     <application
         android:allowBackup="true"
         android:icon="@mipmap/small_logo"
@@ -32,17 +33,16 @@
         </activity>
         <activity android:name=".Activity.LoginActivity" />
         <activity android:name=".Activity.SignUpActivity" />
-        <activity android:name=".Activity.NavigatorActivity" />
         <activity android:name=".Activity.MyCouponActivity" />
         <activity android:name=".Activity.BookMarkActivity" />
         <activity android:name=".Activity.MyInfoActivity" />
         <activity android:name=".Activity.SettingActivity" />
         <activity android:name=".Activity.MyLocationActivity" />
         <activity android:name=".Activity.StampActivity" />
-
-        <activity android:name=".Dialog.StampDialog"
-            android:theme="@style/Theme.AppCompat.Dialog"
-            ></activity>
+        <activity
+            android:name=".Dialog.StampDialog"
+            android:theme="@style/Theme.AppCompat.Dialog" />
+        <activity android:name=".Activity.NavigatorActivity"></activity>
     </application>
 
 </manifest>

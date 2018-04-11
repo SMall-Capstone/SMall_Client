@@ -16,6 +16,7 @@ import android.webkit.WebViewClient;
 import android.widget.TextView;
 
 import com.example.small.R;
+import com.example.small.Server.HttpClient;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -127,7 +128,7 @@ public class FloorInfoFragment extends Fragment {
             }
         });
 
-        mWebView.loadUrl("http://223.194.131.184:8080/floorInfo");
+        mWebView.loadUrl("http://"+ HttpClient.ipAdress+":8080/floorInfo");
         return view;
     }
 

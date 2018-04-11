@@ -7,19 +7,43 @@
     android:orientation="vertical"
     tools:context="com.example.small.Activity.NavigatorActivity">
 
-    <TextView
-        android:id="@+id/Textview"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="text" />
+        android:orientation="horizontal">
 
-    <Button
-        android:id="@+id/button"
-        android:layout_width="wrap_content"
+        <Button
+            android:id="@+id/grazzie"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="grazzie" />
+
+        <Button
+            android:id="@+id/info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Info" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:onClick="OnButtonClicked"
-        android:text="Run" />
+        android:orientation="horizontal">
 
+        <Button
+            android:id="@+id/atm"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="atm" />
+
+        <Button
+            android:id="@+id/printerCenter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="printerCenter" />
+    </LinearLayout>
 </LinearLayout>
