@@ -117,7 +117,7 @@ public class SignUpActivity extends AppCompatActivity {
 
         ArrayAdapter spinnerAdapter;
         spinnerAdapter = new ArrayAdapter(this, R.layout.support_simple_spinner_dropdown_item, list);
-        spinner_fashion.setAdapter(spinnerAdapter);
+        spinner_fashion.setAdapter(spinnerAdapter);//////
         spinner_beauty.setAdapter(spinnerAdapter);
         spinner_general.setAdapter(spinnerAdapter);
         spinner_sports.setAdapter(spinnerAdapter);
