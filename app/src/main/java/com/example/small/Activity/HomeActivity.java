@@ -57,6 +57,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import static java.lang.Math.pow;
 
@@ -92,6 +93,9 @@ public class HomeActivity extends AppCompatActivity
 
         actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
         actionBar.setCustomView(R.layout.actionbar);
+
+        Recommand recommand = new Recommand();
+        recommand.execute();
 
        // getActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
 
@@ -454,6 +458,30 @@ public class HomeActivity extends AppCompatActivity
 
             return body;
 
+        }
+    }
+
+    class Recommand extends AsyncTask<java.util.Map<String, String>, Integer, String> {
+        String serverURL = "http://"+HttpClient.ipAdress+":8080/main";
+        @Override
+        protected String doInBackground(Map<String, String>...maps) {
+
+            HttpClient.Builder http = new HttpClient.Builder("POST",serverURL);
+            //http.addAllParameters(maps[0]);
+
+            HttpClient post = http.create();
+            post.request();
+
+            int statusCode = post.getHttpStatusCode();
+
+            Log.i(TAG, "응답코드"+statusCode);
+
+            String body = post.getBody();
+
+            Log.i(TAG, "body : "+body);
+
+
+            return body;
         }
     }
 
