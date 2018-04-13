@@ -6,9 +6,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.RadioButton;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -17,6 +20,7 @@ import com.example.small.R;
 import com.example.small.Server.HttpClient;
 import com.google.gson.Gson;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.Matcher;
@@ -29,23 +33,24 @@ public class SignUpActivity extends AppCompatActivity {
     String serverURL_duplicate_check = "http://"+HttpClient.ipAdress+":8080/Android_login_duplicate_check";
     String serverURL_register = "http://"+HttpClient.ipAdress+":8080/Android_register";
 
-    private CheckBox check_acc;
-    private CheckBox check_bag_shoes;
-    private CheckBox check_beauty;
-    private CheckBox check_casual;
-    private CheckBox check_child;
-    private CheckBox check_furniture;
-    private CheckBox check_health;
-    private CheckBox check_home_appliances;
-    private CheckBox check_sport;
-    private CheckBox check_suit;
+    private Spinner spinner_fashion;
+    private Spinner spinner_beauty;
+    private Spinner spinner_general;
+    private Spinner spinner_sports;
+    private Spinner spinner_health;
+
+    private int fashion_point = 0;
+    private int beauty_point = 0;
+    private int general_point = 0;
+    private int sports_point = 0;
+    private int health_point = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
 
-        TextView checkIdBtn = (TextView)findViewById(R.id.checkIdBtn);
+        TextView checkIdBtn = (TextView) findViewById(R.id.checkIdBtn);
         checkIdBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -55,72 +60,94 @@ public class SignUpActivity extends AppCompatActivity {
             }
         });
 
-        TextView submitBtn = (TextView)findViewById(R.id.submitBtn);
+        TextView submitBtn = (TextView) findViewById(R.id.submitBtn);
         submitBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(isCheckId == false){
-                    Toast.makeText(getApplicationContext(),"아이디 중복을 확인해주세요.",Toast.LENGTH_SHORT).show();
-                }
-                else{
-                    if(checkPW() && checkGender() && checkBirth()){
-                        name = ((EditText)findViewById(R.id.editText_name)).getText().toString();
+                if (isCheckId == false) {
+                    Toast.makeText(getApplicationContext(), "아이디 중복을 확인해주세요.", Toast.LENGTH_SHORT).show();
+                } else {
+                    if (checkPW() && checkGender() && checkBirth()) {
 
-                        Map<String,String> params = new HashMap<String,String>();
-                        params.put("userid",userid);
-                        params.put("password",password);
-                        params.put("name",name);
-                        params.put("gender",gender);
-                        params.put("birth",birth);
+                        fashion_point = spinnerPoint(spinner_fashion);
+                        beauty_point = spinnerPoint(spinner_beauty);
+                        general_point = spinnerPoint(spinner_general);
+                        sports_point = spinnerPoint(spinner_sports);
+                        health_point = spinnerPoint(spinner_health);
 
-                        registDB RDB = new registDB();
-                        RDB.execute(params);
+                        Log.i("haneul","fashion point : " + fashion_point +" / "+ spinner_fashion.getSelectedItem() + "\n" +
+                                "beauty point : " + beauty_point +" / "+ spinner_beauty.getSelectedItem() + "\n" +
+                                "general point : " + general_point +" / "+ spinner_general.getSelectedItem() + "\n" +
+                                "sports point : " + sports_point +" / "+ spinner_sports.getSelectedItem() + "\n" +
+                                "health point : " + health_point +" / "+ spinner_health.getSelectedItem() + "\n");
+
+
+                        name = ((EditText) findViewById(R.id.editText_name)).getText().toString();
+
+                        Map<String, String> params = new HashMap<String, String>();
+                        params.put("userid", userid);
+                        params.put("password", password);
+                        params.put("name", name);
+                        params.put("gender", gender);
+                        params.put("birth", birth);
+
+                        /*registDB RDB = new registDB();
+                        RDB.execute(params);*/
                     }
                 }
 
             }
         });
 
+        /////////////////////관심사 spinner/////////////////////////
 
-        /////////////////////관심사 체크박스/////////////////////////
 
-        check_acc = (CheckBox)findViewById(R.id.check_acc);
-        check_bag_shoes = (CheckBox)findViewById(R.id.check_bag_shoes);
-        check_beauty = (CheckBox)findViewById(R.id.check_beauty);
-        check_casual = (CheckBox)findViewById(R.id.check_casual);
-        check_child = (CheckBox)findViewById(R.id.check_child);
-        check_furniture = (CheckBox)findViewById(R.id.check_furniture);
-        check_health = (CheckBox)findViewById(R.id.check_health);
-        check_home_appliances = (CheckBox)findViewById(R.id.check_home_appliances);
-        check_sport = (CheckBox)findViewById(R.id.check_sport);
-        check_suit = (CheckBox)findViewById(R.id.check_suit);
 
+        spinner_fashion = (Spinner) findViewById(R.id.spinner_fashion);
+        spinner_beauty = (Spinner) findViewById(R.id.spinner_beauty);
+        spinner_general = (Spinner) findViewById(R.id.spinner_general);
+        spinner_sports = (Spinner) findViewById(R.id.spinner_sports);
+        spinner_health = (Spinner) findViewById(R.id.spinner_health);
+
+        //input array data
+        final ArrayList<String> list = new ArrayList<>();
+        list.add("관심없음");
+        list.add("그저그럼");
+        list.add("관심있음");
+
+        ArrayAdapter spinnerAdapter;
+        spinnerAdapter = new ArrayAdapter(this, R.layout.support_simple_spinner_dropdown_item, list);
+        spinner_fashion.setAdapter(spinnerAdapter);
+        spinner_beauty.setAdapter(spinnerAdapter);
+        spinner_general.setAdapter(spinnerAdapter);
+        spinner_sports.setAdapter(spinnerAdapter);
+        spinner_health.setAdapter(spinnerAdapter);
+
+     /*   spinner_fashion.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+                Toast.makeText(SignUpActivity.this,"fashion : "+ fashion , Toast.LENGTH_SHORT);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });*/
     }
 
-    public void checkboxClick(View v){              // CheckBox 에 onClick 메소드 설정, CheckBox에 설정한 id 값으로 제어
-        if(check_acc.isChecked()){
-            Toast.makeText(getApplicationContext(), check_acc.getText().toString(), Toast.LENGTH_SHORT).show();
-        } else if(check_bag_shoes.isChecked()) {
-            Toast.makeText(getApplicationContext(), check_bag_shoes.getText().toString(), Toast.LENGTH_SHORT).show();
-        } else if(check_beauty.isChecked()) {
-            Toast.makeText(getApplicationContext(),check_beauty.getText().toString(),Toast.LENGTH_SHORT).show();
-        }else if(check_casual.isChecked()) {
-            Toast.makeText(getApplicationContext(), check_casual.getText().toString(), Toast.LENGTH_SHORT).show();
-        }else if(check_child.isChecked()) {
-            Toast.makeText(getApplicationContext(), check_child.getText().toString(), Toast.LENGTH_SHORT).show();
-        }else if(check_furniture.isChecked()) {
-            Toast.makeText(getApplicationContext(), check_furniture.getText().toString(), Toast.LENGTH_SHORT).show();
-        }else if(check_health.isChecked()) {
-            Toast.makeText(getApplicationContext(), check_health.getText().toString(), Toast.LENGTH_SHORT).show();
-        }else if(check_home_appliances.isChecked()) {
-            Toast.makeText(getApplicationContext(), check_home_appliances.getText().toString(), Toast.LENGTH_SHORT).show();
-        }else if(check_sport.isChecked()) {
-            Toast.makeText(getApplicationContext(), check_sport.getText().toString(), Toast.LENGTH_SHORT).show();
-        }else if(check_suit.isChecked()) {
-            Toast.makeText(getApplicationContext(), check_suit.getText().toString(), Toast.LENGTH_SHORT).show();
+    private int spinnerPoint (Spinner spinner) {
+        int point = 0;
+
+        if (spinner.getSelectedItem().toString().equals("관심있음")) {
+            point = 5;
+        } else if (spinner.getSelectedItem().toString().equals("그저그럼")){
+            point = 2;
         }
-    }
 
+        return point;
+    }
     private void checkID(){
         //서버에 아이디 보내서 중복 확인
         userid = ((EditText)findViewById(R.id.editText_id)).getText().toString();

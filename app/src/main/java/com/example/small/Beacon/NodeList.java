@@ -16,7 +16,7 @@ public class NodeList {
 
     private static NodeList nodeList = new NodeList();
     private  HashMap<Integer, NodeInfo> nodeInfos = new HashMap<Integer, NodeInfo>();
-    public final static int INF = 987654321;// 선이 없는 곳... 무지 큰수로 설정
+    public final static int INF = 9876542;// 선이 없는 곳... 무지 큰수로 설정
     public final static int N = 10;// 정점의 갯수
 
     // [from_node][to_node] = distance
@@ -61,7 +61,7 @@ public class NodeList {
 
         LEN[2][3] = LEN[3][2] = 5;
 
-        LEN[2][9] = LEN[9][2] = 4;
+        LEN[2][9] = LEN[9][2] = 3;
 
         LEN[3][4] = LEN[4][3] = 5;
         LEN[4][5] = LEN[5][4] = 4;
@@ -173,11 +173,18 @@ public class NodeList {
 
         tmp = e - 1;
 
+        int j=0;
         while (true) {
+
             stack[++top] = tmp + 1;
-            if (tmp == s - 1)
+            Log.i("tmp", "tmp = " + tmp + " stack[" + j +"] : " + stack[j]);
+            if (tmp == s - 1) {
+                Log.i("tmp", "break");
                 break; /* 시작점에 이르렀으면 종료 */
+            }
+
             tmp = prev[tmp];
+            j++;
         }
 
 		/* 역추적 결과 출력 */
