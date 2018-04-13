@@ -18,10 +18,10 @@ public class NavigatorActivity extends AppCompatActivity {
         setContentView(R.layout.activity_navigator);
 
         //매장선택후 인텐트로 선택한 매장번호 넘기기
-        //프린트 -> 6번
-        //info -> 4번
-        //그라지에 -> 8번
-        //ATM -> 0번
+        //프린트 -> 7번
+        //info -> 5번
+        //그라지에 -> 9번
+        //ATM -> 1번
 
         final Intent intent = new Intent(this,MyLocationActivity.class);
 
@@ -29,7 +29,7 @@ public class NavigatorActivity extends AppCompatActivity {
         grazzie.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                intent.putExtra("nodeNum",8);
+                intent.putExtra("nodeNum",9);
                 startActivity(intent);
                 finish();
             }
@@ -38,7 +38,7 @@ public class NavigatorActivity extends AppCompatActivity {
         atm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                intent.putExtra("nodeNum",0);
+                intent.putExtra("nodeNum",1);
                 startActivity(intent);
                 finish();
             }
@@ -47,7 +47,7 @@ public class NavigatorActivity extends AppCompatActivity {
         info.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                intent.putExtra("nodeNum",4);
+                intent.putExtra("nodeNum",5);
                 startActivity(intent);
                 finish();
             }
@@ -56,7 +56,7 @@ public class NavigatorActivity extends AppCompatActivity {
         printerCenter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                intent.putExtra("nodeNum",6);
+                intent.putExtra("nodeNum",7);
                 startActivity(intent);
                 finish();
             }

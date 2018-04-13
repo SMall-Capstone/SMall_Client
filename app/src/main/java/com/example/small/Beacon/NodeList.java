@@ -14,39 +14,38 @@ import static java.lang.Math.sqrt;
 
 public class NodeList {
 
-    private static NodeList nodeList = new NodeList();
-    private  HashMap<Integer, NodeInfo> nodeInfos = new HashMap<Integer, NodeInfo>();
-    public final static int INF = 9876542;// 선이 없는 곳... 무지 큰수로 설정
+    //private static NodeList nodeList = new NodeList();
+    private HashMap<Integer, NodeInfo> nodeInfos;
+    public final static int INF = 987654321;// 선이 없는 곳... 무지 큰수로 설정
     public final static int N = 10;// 정점의 갯수
 
     // [from_node][to_node] = distance
     int[][] LEN = new int[N][N];
 
-    private NodeList(){
-
-        nodeSetting();
+    public NodeList() {
+        nodeInfos = nodeSetting();
         distanceSetting();
     }
 
-    public static NodeList getNodeList(){
+    /*public static NodeList getNodeList(){
         return nodeList;
     }
+*/
+    public HashMap<Integer, NodeInfo> nodeSetting() {
+        HashMap<Integer, NodeInfo> nodeInfos = new HashMap<Integer, NodeInfo>();
 
-    private void nodeSetting() {
-        if(nodeInfos == null){
-        }else{
-            nodeInfos.put(0, new NodeInfo(11, 22));
-            nodeInfos.put(1, new NodeInfo(11, 18));
-            nodeInfos.put(2, new NodeInfo(11, 14));
-            nodeInfos.put(3, new NodeInfo(11, 9));
-            nodeInfos.put(4, new NodeInfo(11, 4));
-            nodeInfos.put(5, new NodeInfo(9, 4));
-            nodeInfos.put(6, new NodeInfo(3, 4));
-            nodeInfos.put(7, new NodeInfo(3, 9));
-            nodeInfos.put(8, new NodeInfo(3, 14));
-            nodeInfos.put(9, new NodeInfo(7, 14));
-        }
+        nodeInfos.put(1, new NodeInfo(11, 22));
+        nodeInfos.put(2, new NodeInfo(11, 18));
+        nodeInfos.put(3, new NodeInfo(11, 14));
+        nodeInfos.put(4, new NodeInfo(11, 9));
+        nodeInfos.put(5, new NodeInfo(11, 4));
+        nodeInfos.put(6, new NodeInfo(9, 4));
+        nodeInfos.put(7, new NodeInfo(3, 4));
+        nodeInfos.put(8, new NodeInfo(3, 9));
+        nodeInfos.put(9, new NodeInfo(3, 14));
+        nodeInfos.put(10, new NodeInfo(7, 14));
 
+        return nodeInfos;
     }
 
     private void distanceSetting() {
@@ -54,15 +53,10 @@ public class NodeList {
             for (int j = 0; j < N; j++)
                 LEN[i][j] = INF;
         }
-
         LEN[0][1] = LEN[1][0] = 4;
-
         LEN[1][2] = LEN[2][1] = 4;
-
         LEN[2][3] = LEN[3][2] = 5;
-
-        LEN[2][9] = LEN[9][2] = 3;
-
+        LEN[2][9] = LEN[9][2] = 4;
         LEN[3][4] = LEN[4][3] = 5;
         LEN[4][5] = LEN[5][4] = 4;
         LEN[5][6] = LEN[6][5] = 4;
@@ -79,21 +73,21 @@ public class NodeList {
     }
 
     public int searchNearestNode(double x, double y) {
-        int index=0;
-        double min=100;
+        int index = 0;
+        double min = 100;
 
-        for(int i=0;i<N;i++) {
+        for (int i = 1; i <= N; i++) {
             NodeInfo nodeInfo = nodeInfos.get(i);
-            double d = pointToPointDistance(x,y,nodeInfo.getLocationX(),nodeInfo.getLocationY());
-            if(min>d) {
+            double d = pointToPointDistance(x, y, nodeInfo.getLocationX(), nodeInfo.getLocationY());
+            if (min > d) {
                 min = d;
-                index=i;
+                index = i;
             }
         }
         return index;
     }
 
-    public double pointToPointDistance(double x1,double y1,double x2,double y2) {
+    public double pointToPointDistance(double x1, double y1, double x2, double y2) {
         return Math.round(sqrt((x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2)));
     }
 
@@ -105,6 +99,7 @@ public class NodeList {
     int s, e; // 시작점과 끝점 저장
     int stack[]; // 시작점부터 끝점까지의 순서 저장
     Vector<Integer> stackV;
+
     public void init() // 다익스트라(Dijkstra) 알고리즘/단일 점에 따라 최단거리
     {
         data = LEN;
@@ -173,18 +168,11 @@ public class NodeList {
 
         tmp = e - 1;
 
-        int j=0;
         while (true) {
-
             stack[++top] = tmp + 1;
-            Log.i("tmp", "tmp = " + tmp + " stack[" + j +"] : " + stack[j]);
-            if (tmp == s - 1) {
-                Log.i("tmp", "break");
+            if (tmp == s - 1)
                 break; /* 시작점에 이르렀으면 종료 */
-            }
-
             tmp = prev[tmp];
-            j++;
         }
 
 		/* 역추적 결과 출력 */
@@ -194,7 +182,7 @@ public class NodeList {
             //System.out.printf("%d", stack[i]);
             stackV.add(stack[i]);
             //if (i != 0)
-                //System.out.printf(" -> ");
+            //System.out.printf(" -> ");
         }
         //System.out.printf("\n");
         return stackV;

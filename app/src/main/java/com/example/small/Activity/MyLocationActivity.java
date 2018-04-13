@@ -84,21 +84,23 @@ public class MyLocationActivity extends AppCompatActivity implements View.OnClic
         Intent intent = getIntent();
         int nodeNum = intent.getIntExtra("nodeNum",-1);
         if(nodeNum != -1){
+            Log.i("nodeNum","nodeNum =>"+nodeNum);
             beaconList.calculateDistance();
             resultX = beaconList.getResultX();
             resultY = beaconList.getResultY();
+            Log.i("nodeNum","x,y =>"+resultX+","+resultY);
 
-            NodeList nodeList = NodeList.getNodeList();
+            NodeList nodeList = new NodeList();
             int startNode = nodeList.searchNearestNode(resultX,resultY);
+
+            Log.i("nodeNum","startNode =>"+startNode);
             nodeList.init();
 
             Vector<Integer> route = nodeList.startNavigator(startNode,nodeNum); //다익스트라
 
-
-            Log.i("nodeNum","startNode =>"+startNode);
             HashMap<Integer, NodeInfo> nodeInfos = nodeList.getNodeInfos();
             for(int i=0;i<route.size();i++){
-                Log.i("Navigator"," -> "+route.get(i) +" : "+nodeInfos.get(route.get(i)).getLocationX()+","+nodeInfos.get(route.get(i)).getLocationY());
+                Log.i("nodeNum","Navigator -> "+route.get(i) +" : "+nodeInfos.get(route.get(i)).getLocationX()+","+nodeInfos.get(route.get(i)).getLocationY());
             }
         }
 
