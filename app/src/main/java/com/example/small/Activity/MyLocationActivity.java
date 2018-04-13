@@ -1,14 +1,20 @@
 package com.example.small.Activity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.animation.Animation;
 import android.view.animation.TranslateAnimation;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 
 import com.example.small.Beacon.BeaconList;
 import com.example.small.Beacon.NodeInfo;
@@ -26,6 +32,9 @@ public class MyLocationActivity extends AppCompatActivity implements View.OnClic
     Animation ani;
     ImageView img;
     TimeThread thread;
+    private Vector<Integer> route;
+    private  HashMap<Integer, NodeInfo> nodeInfos;
+    private float prevX, prevY;
 
     BeaconList beaconList = BeaconList.getBeaconListInstance();
 
@@ -81,6 +90,11 @@ public class MyLocationActivity extends AppCompatActivity implements View.OnClic
         supportRequestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_my_location);
 
+        RelativeLayout lineContainer = (RelativeLayout)findViewById(R.id.lineContainer);
+
+        DrawingView drawingView = new DrawingView(this);
+
+
         Intent intent = getIntent();
         int nodeNum = intent.getIntExtra("nodeNum",-1);
         if(nodeNum != -1){
@@ -88,6 +102,8 @@ public class MyLocationActivity extends AppCompatActivity implements View.OnClic
             beaconList.calculateDistance();
             resultX = beaconList.getResultX();
             resultY = beaconList.getResultY();
+            prevX = (float)resultX;
+            prevY=(float)resultY;
             Log.i("nodeNum","x,y =>"+resultX+","+resultY);
 
             NodeList nodeList = new NodeList();
@@ -96,19 +112,65 @@ public class MyLocationActivity extends AppCompatActivity implements View.OnClic
             Log.i("nodeNum","startNode =>"+startNode);
             nodeList.init();
 
-            Vector<Integer> route = nodeList.startNavigator(startNode,nodeNum); //다익스트라
+            route = nodeList.startNavigator(startNode,nodeNum); //다익스트라
 
-            HashMap<Integer, NodeInfo> nodeInfos = nodeList.getNodeInfos();
+            nodeInfos = nodeList.getNodeInfos();
             for(int i=0;i<route.size();i++){
                 Log.i("nodeNum","Navigator -> "+route.get(i) +" : "+nodeInfos.get(route.get(i)).getLocationX()+","+nodeInfos.get(route.get(i)).getLocationY());
             }
+            lineContainer.addView(drawingView);
         }
 
         img = (ImageView) findViewById(R.id.RedPoint);
         thread = new TimeThread();
         thread.start();
 
+
+
     }
+
+    /*윤재*/
+    public class DrawingView extends View{
+
+        public DrawingView(Context context) {
+            super(context);
+        }
+
+        public DrawingView(Context context, AttributeSet attrs, int defStyle) {
+            super(context, attrs, defStyle);
+        }
+
+        public DrawingView(Context context, AttributeSet attrs) {
+            super(context, attrs);
+        }
+
+        @Override
+        protected void onDraw(Canvas canvas) {
+            super.onDraw(canvas);
+
+            Paint paint = new Paint();
+            paint.setColor(getResources().getColor(R.color.pathColor));
+            paint.setAntiAlias(true);
+
+            Log.i("path_yunjae", "축적x = " + canvas.getWidth() + " 축적y = " + canvas.getHeight());
+
+
+            for(int i=0;i<route.size();i++){
+                Log.i("nodeNum","Navigator -> "+route.get(i) +" : "+nodeInfos.get(route.get(i)).getLocationX()+","+nodeInfos.get(route.get(i)).getLocationY());
+                paint.setStrokeWidth(13);
+                canvas.drawLine((float)(prevX*HomeActivity.accumulationX), (float)(prevY*HomeActivity.accumulationY), (float)(nodeInfos.get(route.get(i)).getLocationX()*HomeActivity.accumulationX), (float)(nodeInfos.get(route.get(i)).getLocationY()*HomeActivity.accumulationY), paint);
+                Log.i("path_yunjae", "endX = " + nodeInfos.get(route.get(i)).getLocationX() + "endY = " + nodeInfos.get(route.get(i)).getLocationY());
+                prevX = nodeInfos.get(route.get(i)).getLocationX();
+                prevY = nodeInfos.get(route.get(i)).getLocationY();
+            }
+
+
+            canvas.drawBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.mapicon), (float)(prevX*HomeActivity.accumulationX)-50, (float)(prevY*HomeActivity.accumulationY)-100, paint);
+
+        }
+    }
+    //
+
 
     @Override
     protected void onDestroy() {

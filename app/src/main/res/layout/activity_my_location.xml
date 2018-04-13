@@ -5,10 +5,18 @@
     android:layout_height="match_parent"
     android:background="@drawable/smallmap">
 
-    <ImageView
-        android:id="@+id/RedPoint"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:src="@drawable/redpoint" />
+    <RelativeLayout
+        android:id="@+id/lineContainer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/RedPoint"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/redpoint" />
+
+
+    </RelativeLayout>
 
 </LinearLayout>

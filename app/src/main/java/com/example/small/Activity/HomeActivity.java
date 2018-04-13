@@ -11,24 +11,22 @@ import android.content.pm.PackageManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.RemoteException;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
+import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.view.ViewPager;
-import android.support.v7.app.ActionBar;
-import android.util.Log;
-import android.view.View;
-import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
+import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -38,7 +36,6 @@ import com.example.small.Adapter.TabPagerAdapter;
 import com.example.small.Beacon.BeaconInfo;
 import com.example.small.Beacon.BeaconList;
 import com.example.small.Beacon.KalmanFilter;
-import com.example.small.Beacon.Map;
 import com.example.small.Dialog.StampDialog;
 import com.example.small.Info.UserInfo;
 import com.example.small.R;
@@ -47,7 +44,6 @@ import com.example.small.ViewPager.CouponFragment;
 import com.example.small.ViewPager.EventFragment;
 import com.example.small.ViewPager.FloorInfoFragment;
 import com.example.small.ViewPager.ShoppingNewsFragment;
-import com.google.gson.Gson;
 
 import org.altbeacon.beacon.Beacon;
 import org.altbeacon.beacon.BeaconConsumer;
@@ -76,7 +72,7 @@ public class HomeActivity extends AppCompatActivity
     private BluetoothAdapter bluetoothAdapter; //블루투스 어댑터에서 탐색, 연결을 담당하니 여기서는 어댑터가 주된 클래스입니다.
     private KalmanFilter mKalmanAccRSSI;
     public BeaconList beaconList;
-    public static double accumulationX = 65.29, accumulationY = 66; //축적 계산한 x,y값에 곱해야 할 값
+    public static double accumulationX = 77.14, accumulationY = 80.34; //축적 계산한 x,y값에 곱해야 할 값
 
     private UserInfo userInfo;
     private final String TAG="HomeActivity";
