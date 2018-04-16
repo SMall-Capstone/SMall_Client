@@ -21,8 +21,8 @@
         <menu>
             <group android:checkableBehavior="single">
                 <item
-                    android:id="@+id/menu_event"
-                    android:title="이벤트" />
+                    android:id="@+id/menu_recommend"
+                    android:title="추천상품" />
                 <item
                     android:id="@+id/menu_coupon"
                     android:title="쿠폰" />

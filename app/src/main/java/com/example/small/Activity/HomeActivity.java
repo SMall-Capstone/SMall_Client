@@ -40,10 +40,6 @@ import com.example.small.Dialog.StampDialog;
 import com.example.small.Info.UserInfo;
 import com.example.small.R;
 import com.example.small.Server.HttpClient;
-import com.example.small.ViewPager.CouponFragment;
-import com.example.small.ViewPager.EventFragment;
-import com.example.small.ViewPager.FloorInfoFragment;
-import com.example.small.ViewPager.ShoppingNewsFragment;
 
 import org.altbeacon.beacon.Beacon;
 import org.altbeacon.beacon.BeaconConsumer;
@@ -100,8 +96,8 @@ public class HomeActivity extends AppCompatActivity
        // getActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
 
         tabLayout = (TabLayout)findViewById(R.id.tabLayout);
+        tabLayout.addTab(tabLayout.newTab().setText("추천상품"));
         tabLayout.addTab(tabLayout.newTab().setText("쇼핑뉴스"));
-        tabLayout.addTab(tabLayout.newTab().setText("이벤트"));
         tabLayout.addTab(tabLayout.newTab().setText("쿠폰"));
         tabLayout.addTab(tabLayout.newTab().setText("매장안내"));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
@@ -299,10 +295,7 @@ public class HomeActivity extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
-        CouponFragment couponFragment = new CouponFragment();
-        EventFragment eventFragment = new EventFragment();
-        FloorInfoFragment floorInfoFragment = new FloorInfoFragment();
-        ShoppingNewsFragment shoppingNewsFragment = new ShoppingNewsFragment();
+
 
         if (id == R.id.menu_myCoupon) {
             Intent intent=new Intent(HomeActivity.this, MyCouponActivity.class);
@@ -321,10 +314,10 @@ public class HomeActivity extends AppCompatActivity
 
         }
         //////////////프레그먼트//////////////////////////////////
-        else if (id == R.id.menu_news) {
+        else if (id == R.id.menu_recommend) {
             viewPager.setCurrentItem(0);
 
-        } else if (id == R.id.menu_event) {
+        } else if (id == R.id.menu_news) {
             viewPager.setCurrentItem(1);
 
         } else if (id == R.id.menu_coupon) {

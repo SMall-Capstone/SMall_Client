@@ -1,6 +1,5 @@
 package com.example.small.ViewPager;
 
-
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -18,16 +17,13 @@ import android.widget.TextView;
 import com.example.small.R;
 import com.example.small.Server.HttpClient;
 
-/**
- * A simple {@link Fragment} subclass.
- */
-public class EventFragment extends Fragment {
 
+public class RecommendFragment extends Fragment {
     private WebView mWebView;
     private TextView errorVeiw;
 
 
-    public EventFragment() {
+    public RecommendFragment() {
         // Required empty public constructor
     }
 

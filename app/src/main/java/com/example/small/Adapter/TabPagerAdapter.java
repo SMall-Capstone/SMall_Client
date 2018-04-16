@@ -5,8 +5,8 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
 import com.example.small.ViewPager.CouponFragment;
-import com.example.small.ViewPager.EventFragment;
 import com.example.small.ViewPager.FloorInfoFragment;
+import com.example.small.ViewPager.RecommendFragment;
 import com.example.small.ViewPager.ShoppingNewsFragment;
 
 /**
@@ -17,7 +17,7 @@ public class TabPagerAdapter extends FragmentStatePagerAdapter {
 
     private int tabCount;
     private ShoppingNewsFragment shoppingNewsFragment = new ShoppingNewsFragment();
-    private EventFragment eventFragment = new EventFragment();
+    private RecommendFragment recommendFragment = new RecommendFragment();
     private CouponFragment couponFragment = new CouponFragment();
     private FloorInfoFragment floorInfoFragment = new FloorInfoFragment();
 
@@ -32,9 +32,9 @@ public class TabPagerAdapter extends FragmentStatePagerAdapter {
         // Returning the current tabs
         switch (position) {
             case 0:
-                return shoppingNewsFragment;
+                return recommendFragment;
             case 1:
-                return eventFragment;
+                return shoppingNewsFragment;
             case 2:
                 return couponFragment;
             case 3:
