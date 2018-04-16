@@ -455,9 +455,17 @@ public class HomeActivity extends AppCompatActivity
     }
 
     class Recommand extends AsyncTask<java.util.Map<String, String>, Integer, String> {
-        String serverURL = "http://"+HttpClient.ipAdress+":8080/main";
+        private UserInfo userInfo = UserInfo.getUserInfo();
+
+        String serverURL = "";
+
         @Override
         protected String doInBackground(Map<String, String>...maps) {
+
+            if(userInfo.getName() == null)
+                serverURL = "http://"+HttpClient.ipAdress+":8080/main";
+            else
+                serverURL = "http://"+HttpClient.ipAdress+":8080/Nmain";
 
             HttpClient.Builder http = new HttpClient.Builder("POST",serverURL);
             //http.addAllParameters(maps[0]);
