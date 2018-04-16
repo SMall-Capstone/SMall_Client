@@ -90,9 +90,15 @@ public class SignUpActivity extends AppCompatActivity {
                         params.put("name", name);
                         params.put("gender", gender);
                         params.put("birth", birth);
+                        params.put("fashion_point", fashion_point+"");
+                        params.put("beauty_point", beauty_point+"");
+                        params.put("general_point", general_point+"");
+                        params.put("sports_point", sports_point+"");
+                        params.put("health_point", health_point+"");
 
-                        /*registDB RDB = new registDB();
-                        RDB.execute(params);*/
+
+                        registDB RDB = new registDB();
+                        RDB.execute(params);
                     }
                 }
 
