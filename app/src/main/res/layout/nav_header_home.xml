@@ -35,27 +35,36 @@
 
         </LinearLayout>
 
-       <LinearLayout
-           android:layout_width="wrap_content"
-           android:layout_height="match_parent">
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent">
 
-           <Button
-               android:id="@+id/loginBtn"
-               android:layout_width="wrap_content"
-               android:layout_height="wrap_content"
-               android:layout_alignParentStart="true"
-               android:onClick="onButtonLogin_home"
-               android:text="로그인" />
+            <Button
+                android:id="@+id/loginBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:onClick="onButtonLogin_home"
+                android:text="로그인" />
 
-           <Button
-               android:id="@+id/signupBtn"
-               android:layout_width="wrap_content"
-               android:layout_height="wrap_content"
-               android:layout_alignParentBottom="true"
-               android:layout_toEndOf="@+id/loginBtn"
-               android:onClick="onButtonSignUp_home"
-               android:text="회원가입" />
-    </LinearLayout>
+            <Button
+                android:id="@+id/logoutBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:onClick="onButtonLogout_home"
+                android:text="로그아웃"
+                android:visibility="invisible" />
+
+            <Button
+                android:id="@+id/signupBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_toEndOf="@+id/loginBtn"
+                android:onClick="onButtonSignUp_home"
+                android:text="회원가입" />
+        </RelativeLayout>
     </LinearLayout>
 
     <LinearLayout

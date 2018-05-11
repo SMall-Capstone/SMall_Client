@@ -161,11 +161,13 @@ public class HomeActivity extends AppCompatActivity
             nav_userID.setText("Guest");
         }
         else{
-            nav_userID.setText("환영합니다\n"+userInfo.getName()+" 님♡");
+            nav_userID.setText(userInfo.getName()+" 님");
             Button loginBtn = (Button)navigationView.getHeaderView(0).findViewById(R.id.loginBtn);
             loginBtn.setVisibility(View.INVISIBLE);
             Button signupBtn = (Button)navigationView.getHeaderView(0).findViewById(R.id.signupBtn);
             signupBtn.setVisibility(View.INVISIBLE);
+            Button logoutBtn = (Button)navigationView.getHeaderView(0).findViewById(R.id.logoutBtn);
+            logoutBtn.setVisibility(View.VISIBLE);
         }
     }
 
@@ -178,6 +180,19 @@ public class HomeActivity extends AppCompatActivity
     }
     public void onButtonLogin_home(View v){
         Intent intent = new Intent(HomeActivity.this, LoginActivity.class);
+        startActivity(intent);
+        finish();
+    }
+    public void onButtonLogout_home(View v){
+        //서버에 logout알리기
+        java.util.Map<String,String> params = new HashMap<String,String>();
+        params.put("userid",userInfo.getUserid());
+        params.put("stamp",String.valueOf(userInfo.getStamp()));
+
+        stampDB SDB = new stampDB();
+        SDB.execute(params);
+        userInfo.logout();//userInfo 객체 null로 초기화
+        Intent intent = new Intent(HomeActivity.this, HomeActivity.class);
         startActivity(intent);
         finish();
     }
@@ -400,17 +415,17 @@ public class HomeActivity extends AppCompatActivity
                             if (runningTaskInfo.topActivity.getClassName().contains("StampActivty") || runningTaskInfo.topActivity.getClassName().contains("MyLocationActivity")) {
                                 if(userInfo.getName() != null){
                                     if (beaconInfos.get(0).isStampBeacon()) {
-                                        if (beaconInfos.get(0).getCount() == 3) {
-                                            Log.i("StampEvent", beaconInfos.get(0).getMinor() + "스탬프 이벤트 발생 count=" + beaconInfos.get(0).getCount());
+                                        if (beaconInfos.get(0).getStampCount() == 3) {
+                                            Log.i("StampEvent", beaconInfos.get(0).getMinor() + "스탬프 이벤트 발생 count=" + beaconInfos.get(0).getStampCount());
                                             //스탬프 비콘에 가장 가깝게 다가간 측정횟수가 3번일 때 스탬프 다이얼로그 발생
                                             //stampDialog(getApplicationContext());
                                             Intent intent = new Intent(getApplicationContext(), StampDialog.class);
                                             startActivity(intent);
 
-                                            beaconInfos.get(0).setCount(beaconInfos.get(0).getCount() + 1);
+                                            beaconInfos.get(0).setStampCount(beaconInfos.get(0).getStampCount() + 1);
                                         } else {
                                             //쿠폰 비콘에 가장 가깝게 다가간 측정횟수 +1
-                                            beaconInfos.get(0).setCount(beaconInfos.get(0).getCount() + 1);
+                                            beaconInfos.get(0).setStampCount(beaconInfos.get(0).getStampCount() + 1);
                                         }
 
                                     }
@@ -418,7 +433,40 @@ public class HomeActivity extends AppCompatActivity
                             }
                         }
 
+                        if(beaconInfos.get(0).isPopUpBeacon()){
+                            if (beaconInfos.get(0).getPopUpCount() == 3) {
+                                /*Intent intent = new Intent(getApplicationContext(), StampDialog.class);
+                                startActivity(intent);*/
 
+                                if(userInfo.getFavorite() == null){
+                                    //로그인 안한 사용자 -> 기본 광고
+                                    Toast.makeText(getApplicationContext(),"Default Pop Up",Toast.LENGTH_SHORT).show();
+                                }
+                                else{
+                                    //로그인 한 사용자 -> 관심사별 팝업광고
+                                    if(userInfo.getFavorite().equals("fashion")){
+                                        Toast.makeText(getApplicationContext(),"fashion Pop Up",Toast.LENGTH_SHORT).show();
+                                    }
+                                    else if(userInfo.getFavorite().equals("beauty")){
+                                        Toast.makeText(getApplicationContext(),"beauty Pop Up",Toast.LENGTH_SHORT).show();
+                                    }
+                                    else if(userInfo.getFavorite().equals("general")){
+                                        Toast.makeText(getApplicationContext(),"general Pop Up",Toast.LENGTH_SHORT).show();
+                                    }
+                                    else if(userInfo.getFavorite().equals("sports")){
+                                        Toast.makeText(getApplicationContext(),"sports Pop Up",Toast.LENGTH_SHORT).show();
+                                    }
+                                    else{
+                                        //health
+                                        Toast.makeText(getApplicationContext(),"health Pop Up",Toast.LENGTH_SHORT).show();
+                                    }
+                                }
+                                beaconInfos.get(0).setPopUpCount(beaconInfos.get(0).getPopUpCount() + 1);
+                            } else {
+                                //쿠폰 비콘에 가장 가깝게 다가간 측정횟수 +1
+                                beaconInfos.get(0).setPopUpCount(beaconInfos.get(0).getPopUpCount() + 1);
+                            }
+                        }
 
                     }
                 }
@@ -455,9 +503,17 @@ public class HomeActivity extends AppCompatActivity
     }
 
     class Recommand extends AsyncTask<java.util.Map<String, String>, Integer, String> {
-        String serverURL = "http://"+HttpClient.ipAdress+":8080/main";
+        private UserInfo userInfo = UserInfo.getUserInfo();
+
+        String serverURL = "";
+
         @Override
         protected String doInBackground(Map<String, String>...maps) {
+
+            if(userInfo.getName() == null)
+                serverURL = "http://"+HttpClient.ipAdress+":8080/main";
+            else
+                serverURL = "http://"+HttpClient.ipAdress+":8080/Nmain";
 
             HttpClient.Builder http = new HttpClient.Builder("POST",serverURL);
             //http.addAllParameters(maps[0]);

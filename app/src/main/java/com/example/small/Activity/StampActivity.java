@@ -97,7 +97,7 @@ public class StampActivity extends AppCompatActivity {
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         BeaconList beaconList = BeaconList.getBeaconListInstance();
-                        beaconList.initEventBeacon();
+                        beaconList.initStampBeacon();
                         //stampTextView.setText("0개");
                         stampGiftTextView.setText("초콜릿 3개 당첨!");
                         giftBox.setImageResource(R.drawable.get_gift);

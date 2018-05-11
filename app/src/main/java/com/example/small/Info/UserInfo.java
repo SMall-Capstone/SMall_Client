@@ -11,6 +11,7 @@ public class UserInfo implements Serializable{
     String password,name,gender;
     int birth;
     int stamp;
+    String favorite;
 
     private static UserInfo userInfo = new UserInfo();
 
@@ -72,5 +73,17 @@ public class UserInfo implements Serializable{
 
     public void addStamp(){
         this.stamp++;
+    }
+
+    public String getFavorite() {
+        return favorite;
+    }
+
+    public void setFavorite(String favorite) {
+        this.favorite = favorite;
+    }
+
+    public void logout(){
+        userInfo = new UserInfo();
     }
 }

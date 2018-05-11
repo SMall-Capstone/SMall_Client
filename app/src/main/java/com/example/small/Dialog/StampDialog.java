@@ -27,7 +27,7 @@ public class StampDialog extends AppCompatActivity {
         titleView = (TextView) findViewById(R.id.stampDialogTitle_textView);
         titleView.setText("Stamp Get!");
         contentTextView = (TextView) findViewById(R.id.stampDialogContentTextView);
-        contentTextView.setText("스템프를 획득하셨습니다.\n 적립하시겠습니까?");
+        contentTextView.setText("스탬프를 획득하셨습니다.\n 이벤트 화면에서 확인해주세요.");
 
         yesBtn = (Button) findViewById(R.id.yesBtn);
         yesBtn.setOnClickListener(new View.OnClickListener() {
@@ -41,13 +41,6 @@ public class StampDialog extends AppCompatActivity {
                     userInfo.setStamp(0);
                     //Notification띄우기
                 }
-                finish();
-            }
-        });
-        noBtn = (Button) findViewById(R.id.noBtn);
-        noBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
                 finish();
             }
         });

@@ -4,6 +4,7 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +15,7 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.TextView;
 
+import com.example.small.Info.UserInfo;
 import com.example.small.R;
 import com.example.small.Server.HttpClient;
 
@@ -21,6 +23,7 @@ import com.example.small.Server.HttpClient;
 public class RecommendFragment extends Fragment {
     private WebView mWebView;
     private TextView errorVeiw;
+    private UserInfo userInfo = UserInfo.getUserInfo();
 
 
     public RecommendFragment() {
@@ -33,8 +36,8 @@ public class RecommendFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_coupon, container, false);
 
-        errorVeiw = (TextView)view.findViewById(R.id.web_error_view_coupon);
-        mWebView = (WebView)view.findViewById(R.id.web_coupon_page);
+        errorVeiw = (TextView) view.findViewById(R.id.web_error_view_coupon);
+        mWebView = (WebView) view.findViewById(R.id.web_coupon_page);
 
         WebSettings webSettings = mWebView.getSettings();
         webSettings.setJavaScriptEnabled(true);
@@ -45,10 +48,11 @@ public class RecommendFragment extends Fragment {
                 view.loadUrl(url);
                 return true;
             }
+
             //네트워크연결에러
             @Override
-            public void onReceivedError(WebView view, int errorCode,String description, String failingUrl) {
-                switch(errorCode) {
+            public void onReceivedError(WebView view, int errorCode, String description, String failingUrl) {
+                switch (errorCode) {
                     case ERROR_AUTHENTICATION:
                         break;               // 서버에서 사용자 인증 실패
                     case ERROR_BAD_URL:
@@ -95,7 +99,7 @@ public class RecommendFragment extends Fragment {
                         .setTitle("알림")
                         .setMessage(message)
                         .setPositiveButton(android.R.string.ok,
-                                new AlertDialog.OnClickListener(){
+                                new AlertDialog.OnClickListener() {
                                     public void onClick(DialogInterface dialog, int which) {
                                         result.confirm();
                                     }
@@ -110,11 +114,11 @@ public class RecommendFragment extends Fragment {
             @Override
             public boolean onJsConfirm(WebView view, String url, String message, final JsResult result) {
                 new AlertDialog.Builder(view.getContext()).setTitle("알림").setMessage(message).setPositiveButton("Yes",
-                        new AlertDialog.OnClickListener(){
+                        new AlertDialog.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
                                 result.confirm();
                             }
-                        }).setNegativeButton("No", new AlertDialog.OnClickListener(){
+                        }).setNegativeButton("No", new AlertDialog.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         result.cancel();
                     }
@@ -123,7 +127,14 @@ public class RecommendFragment extends Fragment {
             }
         });
 
-        mWebView.loadUrl("http://"+ HttpClient.ipAdress+":8080/recommendationService");
+        if(userInfo.getName()==null) {
+            mWebView.loadUrl("http://" + HttpClient.ipAdress + ":8080/recommendationService");
+            Log.i("eventFragmentSpring", "recommendationService");
+        }
+        else {
+            mWebView.loadUrl("http://" + HttpClient.ipAdress + ":8080/Android_login/recommendationService");
+            Log.i("eventFragmentSpring", "Android_login/recommendationService");
+        }
         return view;
     }
 
