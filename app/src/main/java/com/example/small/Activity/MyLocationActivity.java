@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
 import android.view.animation.Animation;
 import android.view.animation.TranslateAnimation;
 import android.widget.ImageView;
@@ -27,9 +28,12 @@ import com.example.small.R;
 import java.util.HashMap;
 import java.util.Vector;
 
+import android.view.Menu;
+import android.view.MenuItem;
+import android.widget.Toast;
+
 public class MyLocationActivity extends AppCompatActivity implements View.OnClickListener {
 
-    boolean isFirst = true;
     double previousX = 0, previousY = 0;
     double resultX, resultY;
     Animation ani;
@@ -91,6 +95,9 @@ public class MyLocationActivity extends AppCompatActivity implements View.OnClic
 
     }
 
+    NodeList nodeList = new NodeList();
+    int startNode,nodeNum;
+    private boolean isFirst = true;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -104,6 +111,7 @@ public class MyLocationActivity extends AppCompatActivity implements View.OnClic
 
         stampmap_location =   (LinearLayout) findViewById(R.id.location_activity_layout);
 
+        isFirst = true;
         DrawingView drawingView = new DrawingView(this);
 
         Log.i("path_yunjae", "Activity X = " + this.getWindowManager().getDefaultDisplay().getWidth() + "Activity Y = " + this.getWindowManager().getDefaultDisplay().getHeight());
@@ -111,7 +119,7 @@ public class MyLocationActivity extends AppCompatActivity implements View.OnClic
         ActivityY = this.getWindowManager().getDefaultDisplay().getHeight()/24.0;
 
         Intent intent = getIntent();
-        int nodeNum = intent.getIntExtra("nodeNum", -1);
+        nodeNum = intent.getIntExtra("nodeNum", -1);
         if (nodeNum != -1) {
             Log.i("nodeNum", "nodeNum =>" + nodeNum);
             beaconList.calculateDistance();
@@ -121,8 +129,8 @@ public class MyLocationActivity extends AppCompatActivity implements View.OnClic
             prevY = (float) resultY;
             Log.i("nodeNum", "x,y =>" + resultX + "," + resultY);
 
-            NodeList nodeList = new NodeList();
-            int startNode = nodeList.searchNearestNode(resultX, resultY);
+            nodeList = new NodeList();
+            startNode = nodeList.searchNearestNode(resultX, resultY);
 
             Log.i("nodeNum", "startNode =>" + startNode);
             nodeList.init();
@@ -133,16 +141,16 @@ public class MyLocationActivity extends AppCompatActivity implements View.OnClic
             for (int i = 0; i < route.size(); i++) {
                 Log.i("nodeNum", "Navigator -> " + route.get(i) + " : " + nodeInfos.get(route.get(i)).getLocationX() + "," + nodeInfos.get(route.get(i)).getLocationY());
             }
-            if(isFirst){
-                lineContainer.addView(drawingView);
-                isFirst=false; //화면이 껐다켜지면 다시 그리는 현상 방지
-            }
+
+            lineContainer.addView(drawingView);
+
         }
 
         img = (ImageView) findViewById(R.id.RedPoint);
         thread = new TimeThread();
         thread.start();
 
+        Toast.makeText(getApplicationContext(),"onCreate",Toast.LENGTH_SHORT).show();
     }
 
     /*윤재*/
@@ -187,7 +195,11 @@ public class MyLocationActivity extends AppCompatActivity implements View.OnClic
 
             canvas.drawBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.mapicon), (float) (prevX * X) - 50, (float) (prevY * Y) - 100, paint);
 
-        }
+            prevX = (float) resultX;
+            prevY = (float) resultY;
+            }
+
+
     }
     //
 /////////////////////////////////스탬프 지도로 바꾸기/////////////////////////////////////////
