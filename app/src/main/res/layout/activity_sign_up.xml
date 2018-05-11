@@ -2,388 +2,305 @@
 
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_height="match_parent"
-    android:layout_width="match_parent" >
-
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_margin="30dp"
-    android:orientation="vertical"
-    tools:context="com.example.small.Activity.SignUpActivity">
+    android:layout_height="match_parent">
 
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:padding="10dp">
-
-        <TextView
-            android:id="@+id/textView3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="3"
-            android:text="ID              " />
-
-        <EditText
-            android:id="@+id/editText_id"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="10"
-            android:ems="10"
-            android:inputType="text" />
-
-        <TextView
-            android:id="@+id/checkIdBtn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginLeft="5dp"
-            android:background="@drawable/text_button_gray"
-            android:gravity="center"
-            android:padding="10dp"
-            android:text="중복확인"
-            android:textSize="12sp" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:padding="10dp">
-
-        <TextView
-            android:id="@+id/textView4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="3"
-            android:text="PW    " />
-
-        <EditText
-            android:id="@+id/editText_pw"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="7"
-            android:ems="10"
-            android:text="aaaa1111"
-            android:hint="문자,숫자조합 8자이상"
-            android:inputType="textPassword" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:padding="10dp">
-
-        <TextView
-            android:id="@+id/textView5"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="3"
-            android:text="Name" />
-
-        <EditText
-            android:id="@+id/editText_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="7"
-            android:ems="10"
-            android:inputType="textPersonName" />
-    </LinearLayout>
-
-    <LinearLayout
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="horizontal"
-        android:padding="10dp">
+        android:layout_margin="30dp"
+        android:orientation="vertical"
+        tools:context="com.example.small.Activity.SignUpActivity">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="10dp">
+
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:text="ID              " />
+
+            <EditText
+                android:id="@+id/editText_id"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="10"
+                android:ems="10"
+                android:inputType="text" />
+
+            <TextView
+                android:id="@+id/checkIdBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="5dp"
+                android:background="@drawable/text_button_gray"
+                android:gravity="center"
+                android:padding="10dp"
+                android:text="중복확인"
+                android:textSize="12sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="10dp">
+
+            <TextView
+                android:id="@+id/textView4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:text="PW    " />
+
+            <EditText
+                android:id="@+id/editText_pw"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="7"
+                android:ems="10"
+                android:hint="문자,숫자조합 8자이상"
+                android:inputType="textPassword"
+                android:text="aaaa1111" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="10dp">
+
+            <TextView
+                android:id="@+id/textView5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:text="Name" />
+
+            <EditText
+                android:id="@+id/editText_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="7"
+                android:ems="10"
+                android:inputType="textPersonName" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="20dp"
+            android:orientation="horizontal"
+            android:layout_margin="10dp">
+
+            <TextView
+                android:id="@+id/textView6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="15dp"
+                android:text="Gender   "
+                android:textSize="15sp" />
+
+            <RadioGroup
+                android:id="@+id/radioGroup_gender"
+                android:layout_width="match_parent"
+                android:layout_height="20dp"
+                android:checkedButton="@+id/radioButton_man"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/radioButton_man"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="남" />
+
+
+                <RadioButton
+                    android:id="@+id/radioButton_woman"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="여" />
+            </RadioGroup>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="10dp">
+
+            <TextView
+                android:id="@+id/textView7"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:text="Birth   " />
+
+            <EditText
+                android:id="@+id/editText_birth"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="7"
+                android:ems="10"
+                android:hint="ex)19960723"
+                android:inputType="number"
+                android:text="19950826" />
+
+        </LinearLayout>
 
         <TextView
-            android:id="@+id/textView6"
-            android:layout_width="wrap_content"
+            android:id="@+id/textView8"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginRight="15dp"
-            android:text="Gender   "
-            android:textSize="15sp" />
+            android:padding="10dp"
+            android:text="> 관심사 체크" />
 
-        <RadioGroup
-            android:id="@+id/radioGroup_gender"
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal"
+                    android:text="패션" />
+
+                <Spinner
+                    android:id="@+id/spinner_fashion"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    app:layout_constraintLeft_toRightOf="parent" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal"
+                    android:text="뷰티" />
+
+                <Spinner
+                    android:id="@+id/spinner_beauty"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    app:layout_constraintLeft_toRightOf="parent" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal"
+                    android:text="잡화" />
+
+                <Spinner
+                    android:id="@+id/spinner_general"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    app:layout_constraintLeft_toRightOf="parent" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal"
+                    android:text="스포츠" />
+
+                <Spinner
+                    android:id="@+id/spinner_sports"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    app:layout_constraintLeft_toRightOf="parent" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal"
+                    android:text="건강" />
+
+                <Spinner
+                    android:id="@+id/spinner_health"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    app:layout_constraintLeft_toRightOf="parent" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:checkedButton="@+id/radioButton_man"
-            android:orientation="horizontal">
+            android:layout_margin="15dp">
 
-            <RadioButton
-                android:id="@+id/radioButton_man"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:text="남" />
+            <TextView
+                android:id="@+id/submitBtn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="30dp"
+                android:background="@drawable/text_button_gray"
+                android:gravity="center"
+                android:padding="10dp"
+                android:text="Sing Up"
+                android:textSize="15sp" />
 
-
-            <RadioButton
-                android:id="@+id/radioButton_woman"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:text="여"/>
-        </RadioGroup>
-
+        </LinearLayout>
     </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:padding="10dp">
-
-        <TextView
-            android:id="@+id/textView7"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="3"
-            android:text="Birth   " />
-
-        <EditText
-            android:id="@+id/editText_birth"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="7"
-            android:ems="10"
-            android:hint="ex)19960723"
-            android:text="19950826"
-            android:inputType="number" />
-
-    </LinearLayout>
-
-    <TextView
-        android:padding="10dp"
-        android:id="@+id/textView8"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="> 관심사 체크" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:orientation="vertical">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center_horizontal"
-            android:text="패션" />
-
-        <Spinner
-            android:id="@+id/spinner_fashion"
-            android:layout_weight="2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintLeft_toRightOf="parent" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center_horizontal"
-                android:text="뷰티" />
-
-            <Spinner
-                android:id="@+id/spinner_beauty"
-                android:layout_weight="2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintLeft_toRightOf="parent" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center_horizontal"
-                android:text="잡화" />
-
-            <Spinner
-                android:id="@+id/spinner_general"
-                android:layout_weight="2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintLeft_toRightOf="parent" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center_horizontal"
-                android:text="스포츠" />
-
-            <Spinner
-                android:id="@+id/spinner_sports"
-                android:layout_weight="2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintLeft_toRightOf="parent" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center_horizontal"
-                android:text="건강" />
-
-            <Spinner
-                android:id="@+id/spinner_health"
-                android:layout_weight="2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintLeft_toRightOf="parent" />
-
-        </LinearLayout>
-
-       <!-- <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="vertical">
-
-            <CheckBox
-                android:id="@+id/check_home_appliances"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:onClick="checkboxClick"
-                android:text="가전/전자기기" />
-
-            <CheckBox
-                android:id="@+id/check_furniture"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:onClick="checkboxClick"
-                android:text="가구/인테리어" />
-
-            <CheckBox
-                android:id="@+id/check_child"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:onClick="checkboxClick"
-                android:text="유아/어린이 용품" />
-
-            <CheckBox
-                android:id="@+id/check_beauty"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:onClick="checkboxClick"
-                android:text="화장품/미용" />
-
-            <CheckBox
-                android:id="@+id/check_health"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:onClick="checkboxClick"
-                android:text="식품/건강" />
-
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="vertical">
-
-            <CheckBox
-                android:id="@+id/check_acc"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:checked="false"
-                android:duplicateParentState="false"
-                android:onClick="checkboxClick"
-                android:text="시계/액세서리" />
-
-            <CheckBox
-                android:id="@+id/check_sport"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:onClick="checkboxClick"
-                android:text="스포츠/아웃도어" />
-
-            <CheckBox
-                android:id="@+id/check_casual"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:onClick="checkboxClick"
-                android:text="영 캐주얼/스트릿 캐주얼" />
-
-            <CheckBox
-                android:id="@+id/check_suit"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:onClick="checkboxClick"
-                android:text="정장" />
-
-            <CheckBox
-                android:id="@+id/check_bag_shoes"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:onClick="checkboxClick"
-                android:text="핸드백/구두" />
-
-
-        </LinearLayout>-->
-
-    </LinearLayout>
-
-    <TextView
-        android:id="@+id/submitBtn"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_margin="30dp"
-        android:background="@drawable/text_button_gray"
-        android:gravity="center"
-        android:padding="10dp"
-        android:text="Sing Up"
-        android:textSize="15sp"/>
-</LinearLayout>
 </ScrollView>
