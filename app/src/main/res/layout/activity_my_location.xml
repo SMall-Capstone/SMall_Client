@@ -3,7 +3,8 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/smallmap">
+    android:background="@drawable/exitmap"
+    android:id="@+id/location_activity_layout">
 
     <RelativeLayout
         android:id="@+id/lineContainer"

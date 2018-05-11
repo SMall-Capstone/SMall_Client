@@ -68,6 +68,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="7"
             android:ems="10"
+            android:text="aaaa1111"
             android:hint="문자,숫자조합 8자이상"
             android:inputType="textPassword" />
     </LinearLayout>
@@ -153,6 +154,7 @@
             android:layout_weight="7"
             android:ems="10"
             android:hint="ex)19960723"
+            android:text="19950826"
             android:inputType="number" />
 
     </LinearLayout>

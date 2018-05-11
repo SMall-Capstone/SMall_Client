@@ -6,6 +6,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.AttributeSet;
 import android.util.Log;
@@ -14,6 +15,7 @@ import android.view.Window;
 import android.view.animation.Animation;
 import android.view.animation.TranslateAnimation;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import com.example.small.Beacon.BeaconList;
@@ -24,6 +26,9 @@ import com.example.small.R;
 import java.util.HashMap;
 import java.util.Vector;
 
+import android.view.Menu;
+import android.view.MenuItem;
+
 public class MyLocationActivity extends AppCompatActivity implements View.OnClickListener {
 
 
@@ -33,8 +38,10 @@ public class MyLocationActivity extends AppCompatActivity implements View.OnClic
     ImageView img;
     TimeThread thread;
     private Vector<Integer> route;
-    private  HashMap<Integer, NodeInfo> nodeInfos;
+    private HashMap<Integer, NodeInfo> nodeInfos;
     private float prevX, prevY;
+
+    private  LinearLayout stampmap_location;
 
     BeaconList beaconList = BeaconList.getBeaconListInstance();
 
@@ -87,36 +94,42 @@ public class MyLocationActivity extends AppCompatActivity implements View.OnClic
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        supportRequestWindowFeature(Window.FEATURE_NO_TITLE);
+        //supportRequestWindowFeature(Window.FEATURE_ACTION_BAR_OVERLAY);
         setContentView(R.layout.activity_my_location);
 
-        RelativeLayout lineContainer = (RelativeLayout)findViewById(R.id.lineContainer);
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
+
+        RelativeLayout lineContainer = (RelativeLayout) findViewById(R.id.lineContainer);
+
+        stampmap_location =   (LinearLayout) findViewById(R.id.location_activity_layout);
 
         DrawingView drawingView = new DrawingView(this);
 
 
+
         Intent intent = getIntent();
-        int nodeNum = intent.getIntExtra("nodeNum",-1);
-        if(nodeNum != -1){
-            Log.i("nodeNum","nodeNum =>"+nodeNum);
+        int nodeNum = intent.getIntExtra("nodeNum", -1);
+        if (nodeNum != -1) {
+            Log.i("nodeNum", "nodeNum =>" + nodeNum);
             beaconList.calculateDistance();
             resultX = beaconList.getResultX();
             resultY = beaconList.getResultY();
-            prevX = (float)resultX;
-            prevY=(float)resultY;
-            Log.i("nodeNum","x,y =>"+resultX+","+resultY);
+            prevX = (float) resultX;
+            prevY = (float) resultY;
+            Log.i("nodeNum", "x,y =>" + resultX + "," + resultY);
 
             NodeList nodeList = new NodeList();
-            int startNode = nodeList.searchNearestNode(resultX,resultY);
+            int startNode = nodeList.searchNearestNode(resultX, resultY);
 
-            Log.i("nodeNum","startNode =>"+startNode);
+            Log.i("nodeNum", "startNode =>" + startNode);
             nodeList.init();
 
-            route = nodeList.startNavigator(startNode,nodeNum); //다익스트라
+            route = nodeList.startNavigator(startNode, nodeNum); //다익스트라
 
             nodeInfos = nodeList.getNodeInfos();
-            for(int i=0;i<route.size();i++){
-                Log.i("nodeNum","Navigator -> "+route.get(i) +" : "+nodeInfos.get(route.get(i)).getLocationX()+","+nodeInfos.get(route.get(i)).getLocationY());
+            for (int i = 0; i < route.size(); i++) {
+                Log.i("nodeNum", "Navigator -> " + route.get(i) + " : " + nodeInfos.get(route.get(i)).getLocationX() + "," + nodeInfos.get(route.get(i)).getLocationY());
             }
             lineContainer.addView(drawingView);
         }
@@ -125,12 +138,10 @@ public class MyLocationActivity extends AppCompatActivity implements View.OnClic
         thread = new TimeThread();
         thread.start();
 
-
-
     }
 
     /*윤재*/
-    public class DrawingView extends View{
+    public class DrawingView extends View {
 
         public DrawingView(Context context) {
             super(context);
@@ -155,21 +166,58 @@ public class MyLocationActivity extends AppCompatActivity implements View.OnClic
             Log.i("path_yunjae", "축적x = " + canvas.getWidth() + " 축적y = " + canvas.getHeight());
 
 
-            for(int i=0;i<route.size();i++){
-                Log.i("nodeNum","Navigator -> "+route.get(i) +" : "+nodeInfos.get(route.get(i)).getLocationX()+","+nodeInfos.get(route.get(i)).getLocationY());
+            for (int i = 0; i < route.size(); i++) {
+                Log.i("nodeNum", "Navigator -> " + route.get(i) + " : " + nodeInfos.get(route.get(i)).getLocationX() + "," + nodeInfos.get(route.get(i)).getLocationY());
                 paint.setStrokeWidth(13);
-                canvas.drawLine((float)(prevX*HomeActivity.accumulationX), (float)(prevY*HomeActivity.accumulationY), (float)(nodeInfos.get(route.get(i)).getLocationX()*HomeActivity.accumulationX), (float)(nodeInfos.get(route.get(i)).getLocationY()*HomeActivity.accumulationY), paint);
+                canvas.drawLine((float) (prevX * HomeActivity.accumulationX), (float) (prevY * HomeActivity.accumulationY), (float) (nodeInfos.get(route.get(i)).getLocationX() * HomeActivity.accumulationX), (float) (nodeInfos.get(route.get(i)).getLocationY() * HomeActivity.accumulationY), paint);
                 Log.i("path_yunjae", "endX = " + nodeInfos.get(route.get(i)).getLocationX() + "endY = " + nodeInfos.get(route.get(i)).getLocationY());
                 prevX = nodeInfos.get(route.get(i)).getLocationX();
                 prevY = nodeInfos.get(route.get(i)).getLocationY();
             }
 
-
-            canvas.drawBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.mapicon), (float)(prevX*HomeActivity.accumulationX)-50, (float)(prevY*HomeActivity.accumulationY)-100, paint);
+            canvas.drawBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.mapicon), (float) (prevX * HomeActivity.accumulationX) - 50, (float) (prevY * HomeActivity.accumulationY) - 100, paint);
 
         }
     }
     //
+/////////////////////////////////스탬프 지도로 바꾸기/////////////////////////////////////////
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_stamp, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        finish();
+        return super.onSupportNavigateUp();
+    }
+
+    private boolean background = true;
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        int id = item.getItemId();
+
+        if (id == R.id.stamp_show_btn) {
+
+            if(background == false) {
+                background = true;
+            } else {
+                background = false;
+            }
+
+           if (!background) {
+               stampmap_location.setBackgroundResource(R.drawable.stampmap);
+               Log.i("hhhhhhh",background+"");
+           }
+           else {
+               stampmap_location.setBackgroundResource(R.drawable.exitmap);
+               Log.i("hhhhhhh",background+"");
+           }
+        }
+
+        return super.onOptionsItemSelected(item);
+
+    }
 
 
     @Override

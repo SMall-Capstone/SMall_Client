@@ -17,15 +17,15 @@
         <Button
             android:id="@+id/grazzie"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_height="175dp"
             android:layout_margin="10dp"
-            android:background="@drawable/graziebtn"/>
+            android:layout_weight="1"
+            android:background="@drawable/graziebtn" />
 
         <Button
             android:id="@+id/info"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="175dp"
             android:layout_weight="1"
             android:layout_margin="10dp"
             android:background="@drawable/infobtn"/>
@@ -40,7 +40,7 @@
         <Button
             android:id="@+id/atm"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="175dp"
             android:layout_margin="10dp"
             android:layout_weight="1"
             android:background="@drawable/atmbtn" />
@@ -48,7 +48,7 @@
         <Button
             android:id="@+id/printerCenter"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="175dp"
             android:layout_weight="1"
             android:layout_margin="10dp"
             android:background="@drawable/printbtn" />
