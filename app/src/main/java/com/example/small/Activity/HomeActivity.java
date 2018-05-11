@@ -80,6 +80,7 @@ public class HomeActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -170,6 +171,49 @@ public class HomeActivity extends AppCompatActivity
             logoutBtn.setVisibility(View.VISIBLE);
         }
     }
+
+/*
+    //┌Seongwon 안드로이드 생명주기 확인용 Toast 0511 =====================================================
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Toast.makeText(this, "onResume 호출 됨",Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        Toast.makeText(this, "onRestart 호출 됨",Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        Toast.makeText(this, "onPause 호출 됨",Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        Toast.makeText(this, "onStop 호출 됨",Toast.LENGTH_LONG).show();
+    }
+
+   */
+/* @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Toast.makeText(this, "onDestroy 호출 됨",Toast.LENGTH_LONG).show();
+    }*//*
+
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        Toast.makeText(this, "onStart 호출 됨",Toast.LENGTH_LONG).show();
+    }
+    //└Seongwon 안드로이드 생명주기 확인용 Toast 0511 =====================================================
+
+*/
 
     /////////////////////////로그인 회원가입 버튼///////////////////////////
 
@@ -262,7 +306,6 @@ public class HomeActivity extends AppCompatActivity
     protected void onDestroy() {
         super.onDestroy();
         beaconManager.unbind(this);
-
         if(userInfo.getName() != null){
             java.util.Map<String,String> params = new HashMap<String,String>();
             params.put("userid",userInfo.getUserid());
