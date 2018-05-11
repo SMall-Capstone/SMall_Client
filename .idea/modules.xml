@@ -2,7 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/SMall.iml" filepath="$PROJECT_DIR$/SMall.iml" />
+      <module fileurl="file://C:\Users\khl08\StudioProjects\SMall_Android\SMall.iml" filepath="C:\Users\khl08\StudioProjects\SMall_Android\SMall.iml" />
+      <module fileurl="file://$PROJECT_DIR$/SMall_Android.iml" filepath="$PROJECT_DIR$/SMall_Android.iml" />
       <module fileurl="file://C:\AndroidProject_SMall\SMall\SMall_Android.iml" filepath="C:\AndroidProject_SMall\SMall\SMall_Android.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
