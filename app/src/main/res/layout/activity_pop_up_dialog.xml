@@ -10,7 +10,7 @@
 
     <fragment
         android:id="@+id/popUpFragment"
-        android:name="com.example.small.ViewPager.ShoppingNewsFragment"
+        android:name="com.example.small.Dialog.PopUpFragment"
         android:layout_width="match_parent"
         android:layout_height="400dp"
         android:layout_weight="1" />
