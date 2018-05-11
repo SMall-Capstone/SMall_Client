@@ -1,0 +1,25 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.small.Dialog.PopUpFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+
+    <WebView
+        android:id="@+id/web_popUp_page"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </WebView>
+
+    <TextView
+        android:id="@+id/web_error_view_popup"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:fadingEdge="none"
+        android:text="접속이 원활하지 않습니다."
+        android:visibility="gone" />
+
+</FrameLayout>

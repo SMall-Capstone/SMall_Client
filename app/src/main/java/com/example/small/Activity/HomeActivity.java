@@ -36,6 +36,7 @@ import com.example.small.Adapter.TabPagerAdapter;
 import com.example.small.Beacon.BeaconInfo;
 import com.example.small.Beacon.BeaconList;
 import com.example.small.Beacon.KalmanFilter;
+import com.example.small.Dialog.PopUpDialog;
 import com.example.small.Dialog.StampDialog;
 import com.example.small.Info.UserInfo;
 import com.example.small.R;
@@ -434,8 +435,8 @@ public class HomeActivity extends AppCompatActivity
 
                         if(beaconInfos.get(0).isPopUpBeacon()){
                             if (beaconInfos.get(0).getPopUpCount() == 3) {
-                                /*Intent intent = new Intent(getApplicationContext(), StampDialog.class);
-                                startActivity(intent);*/
+                                Intent intent = new Intent(getApplicationContext(), PopUpDialog.class);
+                                startActivity(intent);
 
                                 if(userInfo.getFavorite() == null){
                                     //로그인 안한 사용자 -> 기본 광고

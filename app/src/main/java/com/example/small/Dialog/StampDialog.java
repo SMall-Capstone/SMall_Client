@@ -8,8 +8,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.example.small.Activity.HomeActivity;
-import com.example.small.Activity.StampActivity;
 import com.example.small.Info.UserInfo;
 import com.example.small.R;
 
