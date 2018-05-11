@@ -69,7 +69,6 @@ public class HomeActivity extends AppCompatActivity
     private BluetoothAdapter bluetoothAdapter; //블루투스 어댑터에서 탐색, 연결을 담당하니 여기서는 어댑터가 주된 클래스입니다.
     private KalmanFilter mKalmanAccRSSI;
     public BeaconList beaconList;
-    public static double accumulationX = 77.14, accumulationY = 80.34; //축적 계산한 x,y값에 곱해야 할 값
 
     private UserInfo userInfo;
     private final String TAG="HomeActivity";
@@ -491,7 +490,7 @@ public class HomeActivity extends AppCompatActivity
 
             int statusCode = post.getHttpStatusCode();
 
-            Log.i(TAG, "응답코드"+statusCode);
+            Log.i(TAG, "응답코드stampDB"+statusCode);
 
             String body = post.getBody();
 
@@ -511,7 +510,7 @@ public class HomeActivity extends AppCompatActivity
         protected String doInBackground(Map<String, String>...maps) {
 
             if(userInfo.getName() == null)
-                serverURL = "http://"+HttpClient.ipAdress+":8080/main";
+                serverURL = "http://"+HttpClient.ipAdress+":8080//main";
             else
                 serverURL = "http://"+HttpClient.ipAdress+":8080/Nmain";
 
@@ -523,7 +522,7 @@ public class HomeActivity extends AppCompatActivity
 
             int statusCode = post.getHttpStatusCode();
 
-            Log.i(TAG, "응답코드"+statusCode);
+            Log.i(TAG, "응답코드Recommand"+statusCode);
 
             String body = post.getBody();
 

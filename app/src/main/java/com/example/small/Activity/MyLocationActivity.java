@@ -10,8 +10,9 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.AttributeSet;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
-import android.view.Window;
 import android.view.animation.Animation;
 import android.view.animation.TranslateAnimation;
 import android.widget.ImageView;
@@ -26,9 +27,6 @@ import com.example.small.R;
 import java.util.HashMap;
 import java.util.Vector;
 
-import android.view.Menu;
-import android.view.MenuItem;
-
 public class MyLocationActivity extends AppCompatActivity implements View.OnClickListener {
 
     boolean isFirst = true;
@@ -40,6 +38,8 @@ public class MyLocationActivity extends AppCompatActivity implements View.OnClic
     private Vector<Integer> route;
     private HashMap<Integer, NodeInfo> nodeInfos;
     private float prevX, prevY;
+    private double ActivityX, ActivityY;
+
 
     private  LinearLayout stampmap_location;
 
@@ -59,8 +59,8 @@ public class MyLocationActivity extends AppCompatActivity implements View.OnClic
                             resultX = beaconList.getResultX();
                             resultY = beaconList.getResultY();
                             Log.i("Ball_Animation_update", "\npreviousX = " + (float) previousX + "\n" + "previousY = " + (float) previousY);
-                            ani = new TranslateAnimation((float) (previousX * HomeActivity.accumulationX), (float) (resultX * HomeActivity.accumulationX),
-                                    (float) (previousY * HomeActivity.accumulationX), (float) (resultY * HomeActivity.accumulationY));
+                            ani = new TranslateAnimation((float) (previousX * ActivityX), (float) (resultX * ActivityY),
+                                    (float) (previousY * ActivityX), (float) (resultY * ActivityY));
 
                             ani.setDuration(1500);   //애니매이션 지속 시간
                             ani.setFillAfter(true);  // animation를 setFillAfter를 이용하여 animation후에 그대로 있도록 합니다.
@@ -106,7 +106,9 @@ public class MyLocationActivity extends AppCompatActivity implements View.OnClic
 
         DrawingView drawingView = new DrawingView(this);
 
-
+        Log.i("path_yunjae", "Activity X = " + this.getWindowManager().getDefaultDisplay().getWidth() + "Activity Y = " + this.getWindowManager().getDefaultDisplay().getHeight());
+        ActivityX = this.getWindowManager().getDefaultDisplay().getWidth()/14.0;
+        ActivityY = this.getWindowManager().getDefaultDisplay().getHeight()/24.0;
 
         Intent intent = getIntent();
         int nodeNum = intent.getIntExtra("nodeNum", -1);
@@ -146,6 +148,8 @@ public class MyLocationActivity extends AppCompatActivity implements View.OnClic
     /*윤재*/
     public class DrawingView extends View {
 
+        private double X, Y;
+
         public DrawingView(Context context) {
             super(context);
         }
@@ -166,19 +170,22 @@ public class MyLocationActivity extends AppCompatActivity implements View.OnClic
             paint.setColor(getResources().getColor(R.color.pathColor));
             paint.setAntiAlias(true);
 
+            X = canvas.getWidth()/14.0;
+            Y = canvas.getHeight()/24.0;
+
             Log.i("path_yunjae", "축적x = " + canvas.getWidth() + " 축적y = " + canvas.getHeight());
 
 
             for (int i = 0; i < route.size(); i++) {
                 Log.i("nodeNum", "Navigator -> " + route.get(i) + " : " + nodeInfos.get(route.get(i)).getLocationX() + "," + nodeInfos.get(route.get(i)).getLocationY());
                 paint.setStrokeWidth(13);
-                canvas.drawLine((float) (prevX * HomeActivity.accumulationX), (float) (prevY * HomeActivity.accumulationY), (float) (nodeInfos.get(route.get(i)).getLocationX() * HomeActivity.accumulationX), (float) (nodeInfos.get(route.get(i)).getLocationY() * HomeActivity.accumulationY), paint);
+                canvas.drawLine((float) (prevX * X), (float) (prevY * Y), (float) (nodeInfos.get(route.get(i)).getLocationX() * X), (float) (nodeInfos.get(route.get(i)).getLocationY() * Y), paint);
                 Log.i("path_yunjae", "endX = " + nodeInfos.get(route.get(i)).getLocationX() + "endY = " + nodeInfos.get(route.get(i)).getLocationY());
                 prevX = nodeInfos.get(route.get(i)).getLocationX();
                 prevY = nodeInfos.get(route.get(i)).getLocationY();
             }
 
-            canvas.drawBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.mapicon), (float) (prevX * HomeActivity.accumulationX) - 50, (float) (prevY * HomeActivity.accumulationY) - 100, paint);
+            canvas.drawBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.mapicon), (float) (prevX * X) - 50, (float) (prevY * Y) - 100, paint);
 
         }
     }
