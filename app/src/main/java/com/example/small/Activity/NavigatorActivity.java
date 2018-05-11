@@ -25,6 +25,7 @@ public class NavigatorActivity extends AppCompatActivity {
 
         final Intent intent = new Intent(this,MyLocationActivity.class);
 
+
         Button grazzie = (Button)findViewById(R.id.grazzie);
         grazzie.setOnClickListener(new View.OnClickListener() {
             @Override

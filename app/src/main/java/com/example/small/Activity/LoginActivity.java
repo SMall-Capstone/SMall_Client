@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.small.Beacon.BeaconList;
 import com.example.small.Info.UserInfo;
 import com.example.small.Dialog.LoginFailDialog;
 import com.example.small.R;
@@ -110,6 +111,8 @@ public class LoginActivity extends AppCompatActivity {
                 userInfo.setStamp(info.getStamp());
                 userInfo.setFavorite(info.getFavorite());
 
+                BeaconList beaconList = BeaconList.getBeaconListInstance();
+                beaconList.initPopUpBeacon();
 
                 Log.i(TAG, userInfo.getName()+"/"+userInfo.getBirth());
 

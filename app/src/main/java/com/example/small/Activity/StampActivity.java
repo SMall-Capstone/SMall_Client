@@ -87,7 +87,6 @@ public class StampActivity extends AppCompatActivity {
             StampActivity.stampGiftTextView.setText("로그인 후 이용 가능한 서비스입니다.");
         }
 
-
     }
 
     private void giftDialog() {

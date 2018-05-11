@@ -15,6 +15,7 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.TextView;
 
+import com.example.small.Info.UserInfo;
 import com.example.small.R;
 import com.example.small.Server.HttpClient;
 
@@ -34,7 +35,7 @@ public class PopUpFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
 
-        View view = inflater.inflate(R.layout.fragment_coupon, container, false);
+        View view = inflater.inflate(R.layout.fragment_pop_up, container, false);
 
         errorVeiw = (TextView)view.findViewById(R.id.web_error_view_popup);
         mWebView = (WebView)view.findViewById(R.id.web_popUp_page);
@@ -126,7 +127,17 @@ public class PopUpFragment extends Fragment {
             }
         });
 
-        mWebView.loadUrl("http://"+ HttpClient.ipAdress+":8080/couponPage");
+        UserInfo userInfo = UserInfo.getUserInfo();
+
+        String favorite = userInfo.getFavorite();
+        if(favorite != null) {
+            //mWebView.loadUrl("http://" + HttpClient.ipAdress + ":8080/" + favorite + "Page");
+            mWebView.loadUrl("http://" + HttpClient.ipAdress + ":8080/shoppingnews");
+        }
+        else {
+            //default
+            mWebView.loadUrl("http://" + HttpClient.ipAdress + ":8080/shoppingnews");
+        }
         return view;
 
     }

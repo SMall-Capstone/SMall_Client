@@ -63,10 +63,10 @@ public class MyLocationActivity extends AppCompatActivity implements View.OnClic
                             resultX = beaconList.getResultX();
                             resultY = beaconList.getResultY();
                             Log.i("Ball_Animation_update", "\npreviousX = " + (float) previousX + "\n" + "previousY = " + (float) previousY);
-                            ani = new TranslateAnimation((float) (previousX * ActivityX), (float) (resultX * ActivityY),
-                                    (float) (previousY * ActivityX), (float) (resultY * ActivityY));
+                            ani = new TranslateAnimation((float) (previousX * ActivityX), (float) (resultX * ActivityX),
+                                    (float) (previousY * ActivityY), (float) (resultY * ActivityY));
 
-                            ani.setDuration(1500);   //애니매이션 지속 시간
+                            ani.setDuration(3000);   //애니매이션 지속 시간
                             ani.setFillAfter(true);  // animation를 setFillAfter를 이용하여 animation후에 그대로 있도록 합니다.
                             img.setVisibility(View.VISIBLE);
                             //img.setAnimation(ani);
