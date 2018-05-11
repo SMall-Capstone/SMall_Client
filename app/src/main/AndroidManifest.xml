@@ -45,7 +45,7 @@
         <activity android:name=".Activity.NavigatorActivity" />
         <activity
             android:name=".Dialog.PopUpDialog"
-            android:theme="@style/Theme.AppCompat.Dialog" />
+            android:theme="@style/AppTheme.Dialog" />
     </application>
 
 </manifest>
