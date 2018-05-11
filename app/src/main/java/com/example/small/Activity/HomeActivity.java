@@ -400,17 +400,17 @@ public class HomeActivity extends AppCompatActivity
                             if (runningTaskInfo.topActivity.getClassName().contains("StampActivty") || runningTaskInfo.topActivity.getClassName().contains("MyLocationActivity")) {
                                 if(userInfo.getName() != null){
                                     if (beaconInfos.get(0).isStampBeacon()) {
-                                        if (beaconInfos.get(0).getCount() == 3) {
-                                            Log.i("StampEvent", beaconInfos.get(0).getMinor() + "스탬프 이벤트 발생 count=" + beaconInfos.get(0).getCount());
+                                        if (beaconInfos.get(0).getStampCount() == 3) {
+                                            Log.i("StampEvent", beaconInfos.get(0).getMinor() + "스탬프 이벤트 발생 count=" + beaconInfos.get(0).getStampCount());
                                             //스탬프 비콘에 가장 가깝게 다가간 측정횟수가 3번일 때 스탬프 다이얼로그 발생
                                             //stampDialog(getApplicationContext());
                                             Intent intent = new Intent(getApplicationContext(), StampDialog.class);
                                             startActivity(intent);
 
-                                            beaconInfos.get(0).setCount(beaconInfos.get(0).getCount() + 1);
+                                            beaconInfos.get(0).setStampCount(beaconInfos.get(0).getStampCount() + 1);
                                         } else {
                                             //쿠폰 비콘에 가장 가깝게 다가간 측정횟수 +1
-                                            beaconInfos.get(0).setCount(beaconInfos.get(0).getCount() + 1);
+                                            beaconInfos.get(0).setStampCount(beaconInfos.get(0).getStampCount() + 1);
                                         }
 
                                     }
@@ -418,7 +418,18 @@ public class HomeActivity extends AppCompatActivity
                             }
                         }
 
+                        if(beaconInfos.get(0).isPopUpBeacon()){
+                            if (beaconInfos.get(0).getPopUpCount() == 3) {
+                                /*Intent intent = new Intent(getApplicationContext(), StampDialog.class);
+                                startActivity(intent);*/
+                                Toast.makeText(getApplicationContext(),"Pop Up 광고 띄움",Toast.LENGTH_SHORT).show();
 
+                                beaconInfos.get(0).setPopUpCount(beaconInfos.get(0).getPopUpCount() + 1);
+                            } else {
+                                //쿠폰 비콘에 가장 가깝게 다가간 측정횟수 +1
+                                beaconInfos.get(0).setPopUpCount(beaconInfos.get(0).getPopUpCount() + 1);
+                            }
+                        }
 
                     }
                 }

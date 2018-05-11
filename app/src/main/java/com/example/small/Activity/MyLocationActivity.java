@@ -26,7 +26,7 @@ import java.util.Vector;
 
 public class MyLocationActivity extends AppCompatActivity implements View.OnClickListener {
 
-
+    boolean isFirst = true;
     double previousX = 0, previousY = 0;
     double resultX, resultY;
     Animation ani;
@@ -118,7 +118,10 @@ public class MyLocationActivity extends AppCompatActivity implements View.OnClic
             for(int i=0;i<route.size();i++){
                 Log.i("nodeNum","Navigator -> "+route.get(i) +" : "+nodeInfos.get(route.get(i)).getLocationX()+","+nodeInfos.get(route.get(i)).getLocationY());
             }
-            lineContainer.addView(drawingView);
+            if(isFirst){
+                lineContainer.addView(drawingView);
+                isFirst=false; //화면이 껐다켜지면 다시 그리는 현상 방지
+            }
         }
 
         img = (ImageView) findViewById(R.id.RedPoint);

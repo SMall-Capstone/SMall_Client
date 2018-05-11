@@ -45,6 +45,7 @@ public class BeaconList {
 
         beaconInfoHashMap.put("MiniBeacon_01352",new BeaconInfo("MiniBeacon_01352","1352"));
         beaconInfoHashMap.get("MiniBeacon_01352").setLocation(7,15);
+        beaconInfoHashMap.get("MiniBeacon_01352").setPopUpBeacon(true);
 
         beaconInfoHashMap.put("MiniBeacon12802",new BeaconInfo("MiniBeacon12802","12802"));
         beaconInfoHashMap.get("MiniBeacon12802").setLocation(12,13);
@@ -399,10 +400,10 @@ public class BeaconList {
 
     }
 
-    public void initEventBeacon(){
-        beaconInfoHashMap.get("MiniBeacon_14863").setCount(0);
-        beaconInfoHashMap.get("MiniBeacon_14990").setCount(0);
-        beaconInfoHashMap.get("MiniBeacon_14997").setCount(0);
+    public void initStampBeacon(){
+        beaconInfoHashMap.get("MiniBeacon_14863").setStampCount(0);
+        beaconInfoHashMap.get("MiniBeacon_14990").setStampCount(0);
+        beaconInfoHashMap.get("MiniBeacon_14997").setStampCount(0);
     }
 
     public int getTxPower() {

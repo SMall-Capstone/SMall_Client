@@ -19,7 +19,8 @@ public class BeaconInfo implements Comparable<BeaconInfo>{
     private ArrayList<Integer> noFilterRssiQueue = new ArrayList<Integer>();
     //비콘을 이용한 이벤트를 위한 변수
     private boolean isStampBeacon;
-    private int count;
+    private boolean isPopUpBeacon;
+    private int stampCount,popUpCount;
 
     public BeaconInfo(){
 
@@ -33,7 +34,9 @@ public class BeaconInfo implements Comparable<BeaconInfo>{
         this.distance = -1;
         this.nearestPoint=0;
         this.isStampBeacon = false;
-        this.count=0;
+        this.isPopUpBeacon = false;
+        this.stampCount=0;
+        this.popUpCount=0;
     }
 
     public String getName() {
@@ -106,12 +109,20 @@ public class BeaconInfo implements Comparable<BeaconInfo>{
         isStampBeacon = stampBeacon;
     }
 
-    public int getCount() {
-        return count;
+    public int getStampCount() {
+        return stampCount;
     }
 
-    public void setCount(int count) {
-        this.count = count;
+    public void setStampCount(int stampCount) {
+        this.stampCount = stampCount;
+    }
+
+    public int getPopUpCount() {
+        return popUpCount;
+    }
+
+    public void setPopUpCount(int popUpCount) {
+        this.popUpCount = popUpCount;
     }
 
     @Override
@@ -167,4 +178,11 @@ public class BeaconInfo implements Comparable<BeaconInfo>{
         this.nearestPoint = nearestPoint;
     }
 
+    public boolean isPopUpBeacon() {
+        return isPopUpBeacon;
+    }
+
+    public void setPopUpBeacon(boolean popUpBeacon) {
+        isPopUpBeacon = popUpBeacon;
+    }
 }
