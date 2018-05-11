@@ -36,6 +36,7 @@ import com.example.small.Adapter.TabPagerAdapter;
 import com.example.small.Beacon.BeaconInfo;
 import com.example.small.Beacon.BeaconList;
 import com.example.small.Beacon.KalmanFilter;
+import com.example.small.Dialog.PopUpDialog;
 import com.example.small.Dialog.StampDialog;
 import com.example.small.Info.UserInfo;
 import com.example.small.R;
@@ -69,7 +70,6 @@ public class HomeActivity extends AppCompatActivity
     private BluetoothAdapter bluetoothAdapter; //블루투스 어댑터에서 탐색, 연결을 담당하니 여기서는 어댑터가 주된 클래스입니다.
     private KalmanFilter mKalmanAccRSSI;
     public BeaconList beaconList;
-    public static double accumulationX = 77.14, accumulationY = 80.34; //축적 계산한 x,y값에 곱해야 할 값
 
     private UserInfo userInfo;
     private final String TAG="HomeActivity";
@@ -435,8 +435,8 @@ public class HomeActivity extends AppCompatActivity
 
                         if(beaconInfos.get(0).isPopUpBeacon()){
                             if (beaconInfos.get(0).getPopUpCount() == 3) {
-                                /*Intent intent = new Intent(getApplicationContext(), StampDialog.class);
-                                startActivity(intent);*/
+                                Intent intent = new Intent(getApplicationContext(), PopUpDialog.class);
+                                startActivity(intent);
 
                                 if(userInfo.getFavorite() == null){
                                     //로그인 안한 사용자 -> 기본 광고
@@ -491,7 +491,7 @@ public class HomeActivity extends AppCompatActivity
 
             int statusCode = post.getHttpStatusCode();
 
-            Log.i(TAG, "응답코드"+statusCode);
+            Log.i(TAG, "응답코드stampDB"+statusCode);
 
             String body = post.getBody();
 
@@ -511,7 +511,7 @@ public class HomeActivity extends AppCompatActivity
         protected String doInBackground(Map<String, String>...maps) {
 
             if(userInfo.getName() == null)
-                serverURL = "http://"+HttpClient.ipAdress+":8080/main";
+                serverURL = "http://"+HttpClient.ipAdress+":8080//main";
             else
                 serverURL = "http://"+HttpClient.ipAdress+":8080/Nmain";
 
@@ -523,7 +523,7 @@ public class HomeActivity extends AppCompatActivity
 
             int statusCode = post.getHttpStatusCode();
 
-            Log.i(TAG, "응답코드"+statusCode);
+            Log.i(TAG, "응답코드Recommand"+statusCode);
 
             String body = post.getBody();
 

@@ -42,7 +42,10 @@
         <activity
             android:name=".Dialog.StampDialog"
             android:theme="@style/Theme.AppCompat.Dialog" />
-        <activity android:name=".Activity.NavigatorActivity"></activity>
+        <activity android:name=".Activity.NavigatorActivity" />
+        <activity
+            android:name=".Dialog.PopUpDialog"
+            android:theme="@style/Theme.AppCompat.Dialog" />
     </application>
 
 </manifest>

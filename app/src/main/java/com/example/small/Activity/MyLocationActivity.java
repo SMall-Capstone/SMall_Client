@@ -10,6 +10,8 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.AttributeSet;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.animation.Animation;
@@ -28,10 +30,10 @@ import java.util.Vector;
 
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 public class MyLocationActivity extends AppCompatActivity implements View.OnClickListener {
 
-    boolean isFirst = true;
     double previousX = 0, previousY = 0;
     double resultX, resultY;
     Animation ani;
@@ -40,6 +42,8 @@ public class MyLocationActivity extends AppCompatActivity implements View.OnClic
     private Vector<Integer> route;
     private HashMap<Integer, NodeInfo> nodeInfos;
     private float prevX, prevY;
+    private double ActivityX, ActivityY;
+
 
     private  LinearLayout stampmap_location;
 
@@ -59,8 +63,8 @@ public class MyLocationActivity extends AppCompatActivity implements View.OnClic
                             resultX = beaconList.getResultX();
                             resultY = beaconList.getResultY();
                             Log.i("Ball_Animation_update", "\npreviousX = " + (float) previousX + "\n" + "previousY = " + (float) previousY);
-                            ani = new TranslateAnimation((float) (previousX * HomeActivity.accumulationX), (float) (resultX * HomeActivity.accumulationX),
-                                    (float) (previousY * HomeActivity.accumulationX), (float) (resultY * HomeActivity.accumulationY));
+                            ani = new TranslateAnimation((float) (previousX * ActivityX), (float) (resultX * ActivityY),
+                                    (float) (previousY * ActivityX), (float) (resultY * ActivityY));
 
                             ani.setDuration(1500);   //애니매이션 지속 시간
                             ani.setFillAfter(true);  // animation를 setFillAfter를 이용하여 animation후에 그대로 있도록 합니다.
@@ -91,6 +95,9 @@ public class MyLocationActivity extends AppCompatActivity implements View.OnClic
 
     }
 
+    NodeList nodeList = new NodeList();
+    int startNode,nodeNum;
+    private boolean isFirst = true;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -104,12 +111,15 @@ public class MyLocationActivity extends AppCompatActivity implements View.OnClic
 
         stampmap_location =   (LinearLayout) findViewById(R.id.location_activity_layout);
 
+        isFirst = true;
         DrawingView drawingView = new DrawingView(this);
 
-
+        Log.i("path_yunjae", "Activity X = " + this.getWindowManager().getDefaultDisplay().getWidth() + "Activity Y = " + this.getWindowManager().getDefaultDisplay().getHeight());
+        ActivityX = this.getWindowManager().getDefaultDisplay().getWidth()/14.0;
+        ActivityY = this.getWindowManager().getDefaultDisplay().getHeight()/24.0;
 
         Intent intent = getIntent();
-        int nodeNum = intent.getIntExtra("nodeNum", -1);
+        nodeNum = intent.getIntExtra("nodeNum", -1);
         if (nodeNum != -1) {
             Log.i("nodeNum", "nodeNum =>" + nodeNum);
             beaconList.calculateDistance();
@@ -119,8 +129,8 @@ public class MyLocationActivity extends AppCompatActivity implements View.OnClic
             prevY = (float) resultY;
             Log.i("nodeNum", "x,y =>" + resultX + "," + resultY);
 
-            NodeList nodeList = new NodeList();
-            int startNode = nodeList.searchNearestNode(resultX, resultY);
+            nodeList = new NodeList();
+            startNode = nodeList.searchNearestNode(resultX, resultY);
 
             Log.i("nodeNum", "startNode =>" + startNode);
             nodeList.init();
@@ -131,20 +141,22 @@ public class MyLocationActivity extends AppCompatActivity implements View.OnClic
             for (int i = 0; i < route.size(); i++) {
                 Log.i("nodeNum", "Navigator -> " + route.get(i) + " : " + nodeInfos.get(route.get(i)).getLocationX() + "," + nodeInfos.get(route.get(i)).getLocationY());
             }
-            if(isFirst){
-                lineContainer.addView(drawingView);
-                isFirst=false; //화면이 껐다켜지면 다시 그리는 현상 방지
-            }
+
+            lineContainer.addView(drawingView);
+
         }
 
         img = (ImageView) findViewById(R.id.RedPoint);
         thread = new TimeThread();
         thread.start();
 
+        Toast.makeText(getApplicationContext(),"onCreate",Toast.LENGTH_SHORT).show();
     }
 
     /*윤재*/
     public class DrawingView extends View {
+
+        private double X, Y;
 
         public DrawingView(Context context) {
             super(context);
@@ -166,21 +178,28 @@ public class MyLocationActivity extends AppCompatActivity implements View.OnClic
             paint.setColor(getResources().getColor(R.color.pathColor));
             paint.setAntiAlias(true);
 
+            X = canvas.getWidth()/14.0;
+            Y = canvas.getHeight()/24.0;
+
             Log.i("path_yunjae", "축적x = " + canvas.getWidth() + " 축적y = " + canvas.getHeight());
 
 
             for (int i = 0; i < route.size(); i++) {
                 Log.i("nodeNum", "Navigator -> " + route.get(i) + " : " + nodeInfos.get(route.get(i)).getLocationX() + "," + nodeInfos.get(route.get(i)).getLocationY());
                 paint.setStrokeWidth(13);
-                canvas.drawLine((float) (prevX * HomeActivity.accumulationX), (float) (prevY * HomeActivity.accumulationY), (float) (nodeInfos.get(route.get(i)).getLocationX() * HomeActivity.accumulationX), (float) (nodeInfos.get(route.get(i)).getLocationY() * HomeActivity.accumulationY), paint);
+                canvas.drawLine((float) (prevX * X), (float) (prevY * Y), (float) (nodeInfos.get(route.get(i)).getLocationX() * X), (float) (nodeInfos.get(route.get(i)).getLocationY() * Y), paint);
                 Log.i("path_yunjae", "endX = " + nodeInfos.get(route.get(i)).getLocationX() + "endY = " + nodeInfos.get(route.get(i)).getLocationY());
                 prevX = nodeInfos.get(route.get(i)).getLocationX();
                 prevY = nodeInfos.get(route.get(i)).getLocationY();
             }
 
-            canvas.drawBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.mapicon), (float) (prevX * HomeActivity.accumulationX) - 50, (float) (prevY * HomeActivity.accumulationY) - 100, paint);
+            canvas.drawBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.mapicon), (float) (prevX * X) - 50, (float) (prevY * Y) - 100, paint);
 
-        }
+            prevX = (float) resultX;
+            prevY = (float) resultY;
+            }
+
+
     }
     //
 /////////////////////////////////스탬프 지도로 바꾸기/////////////////////////////////////////
