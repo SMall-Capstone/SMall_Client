@@ -174,7 +174,7 @@ public class BeaconList {
     }
     public void removeOutlierAll(ArrayList<BeaconInfo> beaconInfosSortByPoint){
         //이상치 비콘 삭제
-        if(beaconInfosSortByPoint.get(0).getMinor().contains("13298")||beaconInfosSortByPoint.get(0).getMinor().contains("14997")||beaconInfosSortByPoint.get(0).getMinor().contains("12928")){
+        /*if(beaconInfosSortByPoint.get(0).getMinor().contains("13298")||beaconInfosSortByPoint.get(0).getMinor().contains("14997")||beaconInfosSortByPoint.get(0).getMinor().contains("12928")){
             removeOutlier(beaconInfosSortByPoint,"165");
             removeOutlier(beaconInfosSortByPoint,"175");
             removeOutlier(beaconInfosSortByPoint,"14863");
@@ -233,7 +233,7 @@ public class BeaconList {
                 removeOutlier(beaconInfosSortByPoint, "1352");
 
             }
-        }
+        }*/
     }
 
     public ArrayList<BeaconInfo> findNearestBeaconsByPoint(){
@@ -356,6 +356,7 @@ public class BeaconList {
         double a = b1.getLocation_x(), b = b1.getLocation_y(), r = b1.getDistance();
         double c = b2.getLocation_x(), d = b2.getLocation_y(), s = b2.getDistance();
 
+/*
 
         if(r>8){
             r *= 0.8;
@@ -374,6 +375,12 @@ public class BeaconList {
         }
         if(4.5>s){
             s *= 1.6;
+        }
+*/
+
+        if(12 > s){
+            r *= 0.8;
+            s *= 0.8;
         }
 
         double e = c - a;

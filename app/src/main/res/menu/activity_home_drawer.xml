@@ -2,7 +2,14 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     tools:showIn="navigation_view"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     >
+
+<!-- <item
+        android:title="Map"
+        android:id="@+id/map_button"
+        android:icon="@drawable/mapicon"
+        app:showAsAction="ifRoom" />-->
 
     <group android:checkableBehavior="single">
 
@@ -48,4 +55,7 @@
             </group>
         </menu>
     </item>
+
+
 </menu>
+

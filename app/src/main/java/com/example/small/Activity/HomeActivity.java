@@ -329,9 +329,13 @@ public class HomeActivity extends AppCompatActivity
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        //getMenuInflater().inflate(R.menu.home, menu);
+       // getMenuInflater().inflate(R.menu.activity_home_drawer, menu);
+       // getMenuInflater().inflate(R.menu.menu_map, menu);
+
         return true;
     }
+
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -354,6 +358,10 @@ public class HomeActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
+        /*if(id == R.id.map_button) {
+            Intent intent = new Intent(getApplicationContext(),MyLocationActivity.class);
+            startActivity(intent);
+        }*/
 
         if (id == R.id.menu_myCoupon) {
             Intent intent=new Intent(HomeActivity.this, MyCouponActivity.class);

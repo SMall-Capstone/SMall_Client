@@ -62,7 +62,7 @@ public class MyLocationActivity extends AppCompatActivity implements View.OnClic
                             ani = new TranslateAnimation((float) (previousX * ActivityX), (float) (resultX * ActivityX),
                                     (float) (previousY * ActivityY), (float) (resultY * ActivityY));
 
-                            ani.setDuration(3000);   //애니매이션 지속 시간
+                            ani.setDuration(1500);   //애니매이션 지속 시간
                             ani.setFillAfter(true);  // animation를 setFillAfter를 이용하여 animation후에 그대로 있도록 합니다.
                             img.setVisibility(View.VISIBLE);
                             //img.setAnimation(ani);
@@ -79,7 +79,7 @@ public class MyLocationActivity extends AppCompatActivity implements View.OnClic
                     });
 
                     beaconList.initNearestPoint();
-                    sleep(3000);
+                    sleep(1500);
 
                 } catch (Exception e) {
 

@@ -1,42 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
+    android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:background="@color/colorPrimary"
-    android:gravity="center"
-    android:orientation="horizontal">
 
-    <TextView
+   >
+
+<!--    <TextView
         android:id="@+id/mytext"
         android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_centerVertical="true"
-        android:layout_marginLeft="30dp"
-        android:layout_marginStart="90dp"
-        android:gravity="center"
-        android:text="  Smart Mall  "
-        android:textColor="@color/mainWhite"
-        android:textSize="18sp" />
-
-
-    <Space
-        android:layout_width="100dp"
         android:layout_height="wrap_content"
-        android:layout_weight="1" />
+        android:layout_centerInParent="true"
+        android:text="Smart Mall"
+        android:textColor="@color/mainWhite"
+        android:textSize="18sp" />-->
 
-    <ImageButton
+
+
+    <!--
+        <Space
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />-->
+    <!--<ImageButton
         android:id="@+id/mapButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
-        android:layout_marginRight="7dp"
+
         android:background="@color/colorPrimary"
         android:padding="10dp"
-        app:srcCompat="@drawable/mapicon" />
+        app:srcCompat="@drawable/mapicon" />-->
 
 
-</LinearLayout>
+
+</RelativeLayout>
