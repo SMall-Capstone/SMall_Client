@@ -132,7 +132,7 @@ public class RecommendFragment extends Fragment {
             Log.i("eventFragmentSpring", "recommendationService");
         }
         else {
-            mWebView.loadUrl("http://" + HttpClient.ipAdress + ":8080/Android_login/recommendationService");
+            mWebView.loadUrl("http://" + HttpClient.ipAdress + ":8080/Android_login/recommendationService/"+userInfo.getUserid());
             Log.i("eventFragmentSpring", "Android_login/recommendationService");
         }
         return view;

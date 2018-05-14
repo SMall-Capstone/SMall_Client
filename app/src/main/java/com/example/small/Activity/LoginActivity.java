@@ -109,7 +109,7 @@ public class LoginActivity extends AppCompatActivity {
                 userInfo.setBirth(info.getBirth());
                 userInfo.setGender(info.getGender());
                 userInfo.setStamp(info.getStamp());
-                userInfo.setFavorite(info.getFavorite());
+                //userInfo.setFavorite(info.getFavorite());
 
                 BeaconList beaconList = BeaconList.getBeaconListInstance();
                 beaconList.initPopUpBeacon();

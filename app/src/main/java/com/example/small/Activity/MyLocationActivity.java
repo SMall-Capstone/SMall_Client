@@ -13,12 +13,12 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.Window;
 import android.view.animation.Animation;
 import android.view.animation.TranslateAnimation;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import com.example.small.Beacon.BeaconList;
 import com.example.small.Beacon.NodeInfo;
@@ -27,10 +27,6 @@ import com.example.small.R;
 
 import java.util.HashMap;
 import java.util.Vector;
-
-import android.view.Menu;
-import android.view.MenuItem;
-import android.widget.Toast;
 
 public class MyLocationActivity extends AppCompatActivity implements View.OnClickListener {
 
