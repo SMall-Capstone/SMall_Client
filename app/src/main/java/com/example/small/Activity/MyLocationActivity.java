@@ -150,7 +150,6 @@ public class MyLocationActivity extends AppCompatActivity implements View.OnClic
         thread = new TimeThread();
         thread.start();
 
-        Toast.makeText(getApplicationContext(),"onCreate",Toast.LENGTH_SHORT).show();
     }
 
     /*윤재*/
