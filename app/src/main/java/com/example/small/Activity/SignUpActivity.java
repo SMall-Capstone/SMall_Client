@@ -1,24 +1,19 @@
 package com.example.small.Activity;
 
-import android.content.Intent;
 import android.os.AsyncTask;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.small.Info.UserInfo;
 import com.example.small.R;
 import com.example.small.Server.HttpClient;
-import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -141,6 +136,12 @@ public class SignUpActivity extends AppCompatActivity {
 
             }
         });*/
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        setResult(102);
     }
 
     private int spinnerPoint (Spinner spinner) {
@@ -274,8 +275,10 @@ public class SignUpActivity extends AppCompatActivity {
 
             if(aVoid.contains("OK")){
                 Toast.makeText(getApplicationContext(),"회원가입을 환영합니다. 로그인 후 이용해 주세요.",Toast.LENGTH_LONG).show();
-                Intent intent = new Intent(getApplicationContext(),LoginActivity.class);
-                startActivity(intent);
+                //Intent intent = new Intent(getApplicationContext(),LoginActivity.class);
+                //startActivity(intent);
+                setResult(104);
+
                 finish();
             }
             else{

@@ -71,9 +71,13 @@ public class HomeActivity extends AppCompatActivity
     private KalmanFilter mKalmanAccRSSI;
     public BeaconList beaconList;
 
-    private UserInfo userInfo;
+    private UserInfo userInfo = null;
     private final String TAG="HomeActivity";
     private final int SIZEOFQUEUE = 7;
+
+    NavigationView navigationView;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -140,7 +144,7 @@ public class HomeActivity extends AppCompatActivity
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
         ImageButton mapButton = (ImageButton)findViewById(R.id.mapButton);
@@ -170,6 +174,16 @@ public class HomeActivity extends AppCompatActivity
             Button logoutBtn = (Button)navigationView.getHeaderView(0).findViewById(R.id.logoutBtn);
             logoutBtn.setVisibility(View.VISIBLE);
         }
+        /*
+        else{
+            nav_userID.setText(userInfo.getName()+" 님");
+            Button loginBtn = (Button)navigationView.getHeaderView(0).findViewById(R.id.loginBtn);
+            loginBtn.setVisibility(View.INVISIBLE);
+            Button signupBtn = (Button)navigationView.getHeaderView(0).findViewById(R.id.signupBtn);
+            signupBtn.setVisibility(View.INVISIBLE);
+            Button logoutBtn = (Button)navigationView.getHeaderView(0).findViewById(R.id.logoutBtn);
+            logoutBtn.setVisibility(View.VISIBLE);
+        }*/
     }
 
 /*
@@ -219,13 +233,31 @@ public class HomeActivity extends AppCompatActivity
 
     public void onButtonSignUp_home(View v){
         Intent intent = new Intent(HomeActivity.this, SignUpActivity.class);
-        startActivity(intent);
-        finish();
+        startActivityForResult(intent, 101);
+        //startActivity(intent);
+        //finish();
     }
+
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        switch (requestCode) {
+            case 101:
+                if(resultCode == 102) {
+
+                }
+                break;
+        }
+    }
+
     public void onButtonLogin_home(View v){
         Intent intent = new Intent(HomeActivity.this, LoginActivity.class);
-        startActivity(intent);
-        finish();
+        //startActivity(intent);
+        //finish();
+        startActivityForResult(intent, 103);
     }
     public void onButtonLogout_home(View v){
         //서버에 logout알리기
@@ -306,7 +338,8 @@ public class HomeActivity extends AppCompatActivity
     protected void onDestroy() {
         super.onDestroy();
         beaconManager.unbind(this);
-        if(userInfo.getName() != null){
+        //if(userInfo.getName() != null ){
+        if(userInfo != null ){
             java.util.Map<String,String> params = new HashMap<String,String>();
             params.put("userid",userInfo.getUserid());
             params.put("stamp",String.valueOf(userInfo.getStamp()));
