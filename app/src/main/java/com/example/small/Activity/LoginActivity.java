@@ -116,16 +116,10 @@ public class LoginActivity extends AppCompatActivity {
 
                 Log.i(TAG, userInfo.getName()+"/"+userInfo.getFavorite());
 
-                //예지
                 Intent intent = new Intent(getApplicationContext(),HomeActivity.class);
                 intent.putExtra("userInfo",userInfo);
                 startActivity(intent);
                 finish();
-
-                /*Intent intent = new Intent();
-                intent.putExtra("userInfo", userInfo);
-                setResult(104, intent);
-                finish();*/
             }
 
         }

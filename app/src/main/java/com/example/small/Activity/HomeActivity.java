@@ -174,16 +174,6 @@ public class HomeActivity extends AppCompatActivity
             Button logoutBtn = (Button)navigationView.getHeaderView(0).findViewById(R.id.logoutBtn);
             logoutBtn.setVisibility(View.VISIBLE);
         }
-        /*
-        else{
-            nav_userID.setText(userInfo.getName()+" 님");
-            Button loginBtn = (Button)navigationView.getHeaderView(0).findViewById(R.id.loginBtn);
-            loginBtn.setVisibility(View.INVISIBLE);
-            Button signupBtn = (Button)navigationView.getHeaderView(0).findViewById(R.id.signupBtn);
-            signupBtn.setVisibility(View.INVISIBLE);
-            Button logoutBtn = (Button)navigationView.getHeaderView(0).findViewById(R.id.logoutBtn);
-            logoutBtn.setVisibility(View.VISIBLE);
-        }*/
     }
 
 /*
@@ -255,9 +245,9 @@ public class HomeActivity extends AppCompatActivity
 
     public void onButtonLogin_home(View v){
         Intent intent = new Intent(HomeActivity.this, LoginActivity.class);
-        //startActivity(intent);
-        //finish();
-        startActivityForResult(intent, 103);
+        startActivity(intent);
+        finish();
+        //startActivityForResult(intent, 103);
     }
     public void onButtonLogout_home(View v){
         //서버에 logout알리기
