@@ -132,11 +132,11 @@ public class PopUpFragment extends Fragment {
         String favorite = userInfo.getFavorite();
         if(favorite != null) {
             //mWebView.loadUrl("http://" + HttpClient.ipAdress + ":8080/" + favorite + "Page");
-            mWebView.loadUrl("http://" + HttpClient.ipAdress + ":8080/shoppingnews");
+            mWebView.loadUrl("http://" + HttpClient.ipAdress + ":8080/fashionPage");
         }
         else {
             //default
-            mWebView.loadUrl("http://" + HttpClient.ipAdress + ":8080/shoppingnews");
+            mWebView.loadUrl("http://" + HttpClient.ipAdress + ":8080/beautyPage");
         }
         return view;
 

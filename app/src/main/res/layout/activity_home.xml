@@ -5,7 +5,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/gradaition"
     tools:context="com.example.small.Activity.HomeActivity">
 
     <android.support.design.widget.AppBarLayout
@@ -13,6 +12,7 @@
         android:layout_height="wrap_content"
         android:theme="@style/AppTheme.AppBarOverlay"
         >
+
 
 <RelativeLayout
     android:layout_width="match_parent"
@@ -22,16 +22,20 @@
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
+
         android:layout_alignParentEnd="true"
         android:layout_alignParentTop="true"
-        android:background="@drawable/gradaition"
+        android:background="?attr/colorPrimary"
         app:popupTheme="@style/AppTheme.PopupOverlay">
+
 
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
             android:layout_gravity="center"
-            android:src="@drawable/mapicon"/>
+            android:src="@drawable/small_title1" />
 
     </android.support.v7.widget.Toolbar>
 
@@ -41,7 +45,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
-        android:background="@android:color/transparent"
+        android:background="@color/colorPrimary"
         android:foregroundGravity="right"
         android:padding="10dp"
         app:srcCompat="@drawable/mapicon" />
