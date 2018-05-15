@@ -5,6 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/gradaition"
     tools:context="com.example.small.Activity.HomeActivity">
 
     <android.support.design.widget.AppBarLayout
@@ -13,44 +14,39 @@
         android:theme="@style/AppTheme.AppBarOverlay"
         >
 
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-<RelativeLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentTop="true"
+                android:background="@drawable/gradaition"
+                app:popupTheme="@style/AppTheme.PopupOverlay">
 
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:src="@drawable/small_title1"/>
 
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentTop="true"
-        android:background="?attr/colorPrimary"
-        app:popupTheme="@style/AppTheme.PopupOverlay">
+            </android.support.v7.widget.Toolbar>
 
+            <ImageButton
+                android:id="@+id/mapButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentEnd="true"
+                android:background="@android:color/transparent"
+                android:foregroundGravity="right"
+                android:padding="10dp"
+                app:srcCompat="@drawable/mapicon" />
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"
-            android:layout_gravity="center"
-            android:src="@drawable/small_title1" />
-
-    </android.support.v7.widget.Toolbar>
-
-    <ImageButton
-        android:id="@+id/mapButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentEnd="true"
-        android:background="@color/colorPrimary"
-        android:foregroundGravity="right"
-        android:padding="10dp"
-        app:srcCompat="@drawable/mapicon" />
-
-</RelativeLayout>
+        </RelativeLayout>
 
     </android.support.design.widget.AppBarLayout>
 
@@ -63,28 +59,19 @@
         android:layout_marginTop="?attr/actionBarSize"
         tools:openDrawer="start">
 
-    <include layout="@layout/content_home" />
+        <include layout="@layout/content_home" />
 
-    <android.support.design.widget.NavigationView
-        android:id="@+id/nav_view"
-        android:background="#ffffff"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_gravity="start"
-        android:fitsSystemWindows="true"
-        app:headerLayout="@layout/nav_header_home"
-        app:menu="@menu/activity_home_drawer" >
-    </android.support.design.widget.NavigationView>
+        <android.support.design.widget.NavigationView
+            android:id="@+id/nav_view"
+            android:background="#ffffff"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="start"
+            android:fitsSystemWindows="true"
+            app:headerLayout="@layout/nav_header_home"
+            app:menu="@menu/activity_home_drawer" >
+        </android.support.design.widget.NavigationView>
 
     </android.support.v4.widget.DrawerLayout>
 
 </android.support.design.widget.CoordinatorLayout>
-
-
-
-
-
-
-
-
-
