@@ -11,6 +11,7 @@ import android.content.pm.PackageManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.RemoteException;
+import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.ActivityCompat;
@@ -144,7 +145,7 @@ public class HomeActivity extends AppCompatActivity
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-        navigationView = (NavigationView) findViewById(R.id.nav_view);
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
         ImageButton mapButton = (ImageButton)findViewById(R.id.mapButton);
@@ -257,6 +258,7 @@ public class HomeActivity extends AppCompatActivity
 
         stampDB SDB = new stampDB();
         SDB.execute(params);
+
         userInfo.logout();//userInfo 객체 null로 초기화
         Intent intent = new Intent(HomeActivity.this, HomeActivity.class);
         startActivity(intent);
@@ -325,21 +327,6 @@ public class HomeActivity extends AppCompatActivity
     }
 
     @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        beaconManager.unbind(this);
-        //if(userInfo.getName() != null ){
-        if(userInfo != null ){
-            java.util.Map<String,String> params = new HashMap<String,String>();
-            params.put("userid",userInfo.getUserid());
-            params.put("stamp",String.valueOf(userInfo.getStamp()));
-
-            stampDB SDB = new stampDB();
-            SDB.execute(params);
-        }
-    }
-
-    @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
@@ -352,12 +339,9 @@ public class HomeActivity extends AppCompatActivity
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-       // getMenuInflater().inflate(R.menu.activity_home_drawer, menu);
-
+        //getMenuInflater().inflate(R.menu.home, menu);
         return true;
     }
-
-
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -376,7 +360,7 @@ public class HomeActivity extends AppCompatActivity
 
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
@@ -430,6 +414,25 @@ public class HomeActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        beaconManager.unbind(this);
+
+        if (userInfo.getStamp() >= 3) {
+            userInfo.setStamp(0);
+        }
+        //if(userInfo.getName() != null ){
+        if (userInfo != null) {
+            java.util.Map<String, String> params = new HashMap<String, String>();
+            params.put("userid", userInfo.getUserid());
+            params.put("stamp", String.valueOf(userInfo.getStamp()));
+
+            stampDB SDB = new stampDB();
+            SDB.execute(params);
+        }
     }
 
     public void replaceFragment(android.support.v4.app.Fragment fragment) {
@@ -550,30 +553,7 @@ public class HomeActivity extends AppCompatActivity
 
     };
 
-    class stampDB extends AsyncTask<java.util.Map<String, String>, Integer, String> {
-        String serverURL = "http://"+HttpClient.ipAdress+":8080/Android_saveStamp";
-        @Override
-        protected String doInBackground(java.util.Map<String, String>...maps) {
 
-            Log.i("StampDB", "서버와 통신");
-            HttpClient.Builder http = new HttpClient.Builder("POST",serverURL);
-            http.addAllParameters(maps[0]);
-
-            HttpClient post = http.create();
-            post.request();
-
-            int statusCode = post.getHttpStatusCode();
-
-            Log.i(TAG, "응답코드stampDB"+statusCode);
-
-            String body = post.getBody();
-
-            Log.i(TAG, "body : "+body);
-
-            return body;
-
-        }
-    }
 
     class Recommand extends AsyncTask<java.util.Map<String, String>, Integer, String> {
         private UserInfo userInfo = UserInfo.getUserInfo();
@@ -607,5 +587,29 @@ public class HomeActivity extends AppCompatActivity
         }
     }
 
+    class stampDB extends AsyncTask<Map<String, String>, Integer, String> {
+        String serverURL = "http://"+ HttpClient.ipAdress+":8080/Android_saveStamp";
+        @Override
+        protected String doInBackground(java.util.Map<String, String>...maps) {
+
+            Log.i("StampDB", "서버와 통신");
+            HttpClient.Builder http = new HttpClient.Builder("POST",serverURL);
+            http.addAllParameters(maps[0]);
+
+            HttpClient post = http.create();
+            post.request();
+
+            int statusCode = post.getHttpStatusCode();
+
+            Log.i(TAG, "응답코드stampDB"+statusCode);
+
+            String body = post.getBody();
+
+            Log.i(TAG, "body : "+body);
+
+            return body;
+
+        }
+    }
 
 }

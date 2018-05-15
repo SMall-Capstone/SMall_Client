@@ -24,6 +24,8 @@ public class StampActivity extends AppCompatActivity {
 
     public static ImageView stamp1,stamp2,stamp3;
 
+    UserInfo userInfo;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,7 +49,7 @@ public class StampActivity extends AppCompatActivity {
             }
         });
 
-        UserInfo userInfo = UserInfo.getUserInfo();
+        userInfo = UserInfo.getUserInfo();
         if(userInfo.getName() != null){
             Log.i("StampCount","StampActivity ->"+userInfo.getStamp());
             switch (userInfo.getStamp()) {
@@ -74,7 +76,6 @@ public class StampActivity extends AppCompatActivity {
                     StampActivity.stamp2.setImageResource(R.drawable.stamp_o);
                     StampActivity.stamp3.setImageResource(R.drawable.stamp_o);
                     //여기서 stamp초기화 하고 giftbox클릭 가능하게 만들기 + giftDialog띄우기
-                    userInfo.setStamp(0);
                     StampActivity.giftBox.setEnabled(true);
                     StampActivity.stampGiftTextView.setText("선물상자를 클릭해보세요!");
                     StampActivity.stampTextView.setText("3개");
