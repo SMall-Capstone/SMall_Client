@@ -42,6 +42,7 @@ import com.example.small.Dialog.StampDialog;
 import com.example.small.Info.UserInfo;
 import com.example.small.R;
 import com.example.small.Server.HttpClient;
+import com.example.small.ViewPager.RecommendFragment;
 
 import org.altbeacon.beacon.Beacon;
 import org.altbeacon.beacon.BeaconConsumer;
@@ -75,8 +76,12 @@ public class HomeActivity extends AppCompatActivity
     private UserInfo userInfo = null;
     private final String TAG="HomeActivity";
     private final int SIZEOFQUEUE = 7;
+    private TextView nav_userID;
 
     NavigationView navigationView;
+    Button loginBtn;
+    Button signupBtn;
+    Button logoutBtn;
 
 
 
@@ -145,7 +150,7 @@ public class HomeActivity extends AppCompatActivity
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
         ImageButton mapButton = (ImageButton)findViewById(R.id.mapButton);
@@ -162,17 +167,18 @@ public class HomeActivity extends AppCompatActivity
         userInfo = UserInfo.getUserInfo();
         Log.i(TAG,"userInfo->"+userInfo.getName());
 
-        TextView nav_userID = (TextView)navigationView.getHeaderView(0).findViewById(R.id.nav_userID);
+        nav_userID = (TextView)navigationView.getHeaderView(0).findViewById(R.id.nav_userID);
+
+        loginBtn = (Button)navigationView.getHeaderView(0).findViewById(R.id.loginBtn);
+        signupBtn = (Button)navigationView.getHeaderView(0).findViewById(R.id.signupBtn);
+        logoutBtn = (Button)navigationView.getHeaderView(0).findViewById(R.id.logoutBtn);
         if(userInfo.getName() == null){
             nav_userID.setText("Guest");
         }
         else{
             nav_userID.setText(userInfo.getName()+" 님");
-            Button loginBtn = (Button)navigationView.getHeaderView(0).findViewById(R.id.loginBtn);
             loginBtn.setVisibility(View.INVISIBLE);
-            Button signupBtn = (Button)navigationView.getHeaderView(0).findViewById(R.id.signupBtn);
             signupBtn.setVisibility(View.INVISIBLE);
-            Button logoutBtn = (Button)navigationView.getHeaderView(0).findViewById(R.id.logoutBtn);
             logoutBtn.setVisibility(View.VISIBLE);
         }
     }
@@ -241,14 +247,30 @@ public class HomeActivity extends AppCompatActivity
 
                 }
                 break;
+            case 103 :
+                if(resultCode == 104) {
+                    userInfo = (UserInfo)data.getSerializableExtra("userInfo");
+                    Log.i("yunjae", "name = " + userInfo.getName());
+                    if(userInfo.getName() == null){
+                        nav_userID.setText("Guest");
+                    }
+                    else{
+                        nav_userID.setText(userInfo.getName()+" 님");
+                        loginBtn.setVisibility(View.INVISIBLE);
+                        signupBtn.setVisibility(View.INVISIBLE);
+                        logoutBtn.setVisibility(View.VISIBLE);
+                        RecommendFragment. mWebView.loadUrl("http://" + HttpClient.ipAdress + ":8080/Android_login/recommendationService/"+userInfo.getUserid());
+                    }
+                }
+                break;
         }
     }
 
     public void onButtonLogin_home(View v){
         Intent intent = new Intent(HomeActivity.this, LoginActivity.class);
-        startActivity(intent);
-        finish();
-        //startActivityForResult(intent, 103);
+        //startActivity(intent);
+        //finish();
+        startActivityForResult(intent, 103);
     }
     public void onButtonLogout_home(View v){
         //서버에 logout알리기

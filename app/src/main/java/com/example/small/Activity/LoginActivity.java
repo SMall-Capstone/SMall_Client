@@ -32,6 +32,11 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
     }
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        setResult(104);
+    }
 
     public void onButtonLogin(View v) {
         userid = ((EditText) findViewById(R.id.etId)).getText().toString();
@@ -86,6 +91,7 @@ public class LoginActivity extends AppCompatActivity {
 
         }
 
+
         @Override
         protected void onPostExecute(String aVoid) {
             super.onPostExecute(aVoid);
@@ -116,10 +122,18 @@ public class LoginActivity extends AppCompatActivity {
 
                 Log.i(TAG, userInfo.getName()+"/"+userInfo.getFavorite());
 
-                Intent intent = new Intent(getApplicationContext(),HomeActivity.class);
+                /*Intent intent = new Intent(getApplicationContext(),HomeActivity.class);
                 intent.putExtra("userInfo",userInfo);
                 startActivity(intent);
+                finish();*/
+
+                //Intent intent = new Intent(getApplicationContext(),HomeActivity.class);
+                //intent.putExtra("userInfo",userInfo);
+                Intent intent = new Intent();
+                intent.putExtra("userInfo",userInfo);
+                setResult(104, intent);
                 finish();
+
             }
 
         }

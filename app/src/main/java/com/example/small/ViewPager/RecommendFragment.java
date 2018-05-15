@@ -21,7 +21,7 @@ import com.example.small.Server.HttpClient;
 
 
 public class RecommendFragment extends Fragment {
-    private WebView mWebView;
+    public static WebView mWebView;
     private TextView errorVeiw;
     private UserInfo userInfo = UserInfo.getUserInfo();
 
