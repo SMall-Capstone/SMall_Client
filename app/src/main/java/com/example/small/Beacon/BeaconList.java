@@ -1,10 +1,6 @@
 package com.example.small.Beacon;
 
 import android.util.Log;
-import android.widget.TextView;
-
-import com.example.small.Beacon.BeaconInfo;
-import com.example.small.Beacon.Map;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -314,13 +310,13 @@ public class BeaconList {
             if(resultX<0)
                 resultX = 0;
             if(resultX>m.getMaxWidth())
-                resultX = m.getMaxWidth();
+                resultX = m.getMaxWidth()-1;
         }
         if(resultY < 0 || resultX > m.getMaxHeight()) {
             if(resultY<0)
                 resultY = 0;
             if(resultY>m.getMaxHeight())
-                resultY = m.getMaxHeight();
+                resultY = m.getMaxHeight()-1;
         }
 
         //좌표가 NaN으로 나올 경우 이전값으로 대체하여 사용
