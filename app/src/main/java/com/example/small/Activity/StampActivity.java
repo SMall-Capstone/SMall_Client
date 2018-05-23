@@ -1,21 +1,19 @@
 package com.example.small.Activity;
 
 import android.content.DialogInterface;
+import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.small.Beacon.BeaconInfo;
 import com.example.small.Beacon.BeaconList;
 import com.example.small.Info.UserInfo;
 import com.example.small.R;
-
-import java.util.ArrayList;
 
 public class StampActivity extends AppCompatActivity {
     public static ImageButton giftBox;
@@ -30,6 +28,13 @@ public class StampActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_stamp);
+
+       /* ActionBar actionBar = getActionBar();
+        actionBar.hide();*/
+
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolBar);
+        setSupportActionBar(toolbar);
 
         stamp1 = (ImageView) findViewById(R.id.stampImageView1);
         stamp2 = (ImageView) findViewById(R.id.stampImageView2);

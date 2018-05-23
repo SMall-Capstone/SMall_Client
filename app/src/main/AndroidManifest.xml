@@ -33,12 +33,14 @@
         </activity>
         <activity android:name=".Activity.LoginActivity" />
         <activity android:name=".Activity.SignUpActivity" />
-        <activity android:name=".Activity.MyCouponActivity" />
+        <activity android:name=".Activity.MyCouponActivity"
+            android:theme="@style/AppTheme.NoActionBar"/>
         <activity android:name=".Activity.BookMarkActivity" />
         <activity android:name=".Activity.MyInfoActivity" />
         <activity android:name=".Activity.SettingActivity" />
-        <activity android:name=".Activity.MyLocationActivity" />
-        <activity android:name=".Activity.StampActivity" />
+        <activity android:name=".Activity.MyLocationActivity"/>
+        <activity android:name=".Activity.StampActivity"
+            android:theme="@style/AppTheme.NoActionBar"/>
         <activity
             android:name=".Dialog.StampDialog"
             android:theme="@style/Theme.AppCompat.Dialog" />
