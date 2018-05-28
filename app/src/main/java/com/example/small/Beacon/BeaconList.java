@@ -274,74 +274,75 @@ public class BeaconList {
         BeaconInfo b1, b2,  b3;
         ArrayList<BeaconInfo> beaconInfosSortByPoint = findNearestBeaconsByPoint();
 
-        b1 = beaconInfosSortByPoint.get(0);
-        b2 = beaconInfosSortByPoint.get(1);
-        b3 = beaconInfosSortByPoint.get(2);
+        if(beaconInfosSortByPoint.size() > 3) {
+            b1 = beaconInfosSortByPoint.get(0);
+            b2 = beaconInfosSortByPoint.get(1);
+            b3 = beaconInfosSortByPoint.get(2);
 
-        Log.i("NearestPoint", "============================================================================");
-        Log.i("NearestPoint", "calculateDistance");
-        Log.i("NearestPoint", b1.getName() + " => " + b1.getNearestPoint() + " / " + b1.getDistance());
-        Log.i("NearestPoint", b2.getName() + " => " + b2.getNearestPoint() + " / "+ b2.getDistance());
-        Log.i("NearestPoint", b3.getName() + " => " + b3.getNearestPoint() + " / "+ b3.getDistance());
+            Log.i("NearestPoint", "============================================================================");
+            Log.i("NearestPoint", "calculateDistance");
+            Log.i("NearestPoint", b1.getName() + " => " + b1.getNearestPoint() + " / " + b1.getDistance());
+            Log.i("NearestPoint", b2.getName() + " => " + b2.getNearestPoint() + " / "+ b2.getDistance());
+            Log.i("NearestPoint", b3.getName() + " => " + b3.getNearestPoint() + " / "+ b3.getDistance());
 
         /*for (int i=0;i<beaconInfosSortByPoint.size();i++){
             Log.i("NearestPoint", beaconInfosSortByPoint.get(i).getName() + " => " + beaconInfosSortByPoint.get(i).getNearestPoint() + " / " + beaconInfosSortByPoint.get(i).getDistance());
         }*/
 
-        double[] resultXY1,resultXY2,resultXY3;
+            double[] resultXY1,resultXY2,resultXY3;
 
-        resultXY1 = middleOfNodePoint(b1,b2);
-        resultXY2 = middleOfNodePoint(b2,b3);
-        resultXY3 = middleOfNodePoint(b3,b1);
+            resultXY1 = middleOfNodePoint(b1,b2);
+            resultXY2 = middleOfNodePoint(b2,b3);
+            resultXY3 = middleOfNodePoint(b3,b1);
 
-        if((resultXY1[0]==-100) || (resultXY2[0]==-100) || (resultXY3[0]==-100)){
-            //원의 교점을 구하지 못해서 NaN이 나온경우
-            Log.i("NearestPoint","좌표 NaN");
-            resultX = previousX;
-            resultY = previousY;
-        }
-        else{
-            resultX = (resultXY1[0]+resultXY2[0]+resultXY3[0])/3;
-            resultY = (resultXY1[1]+resultXY2[1]+resultXY3[1])/3;
-        }
+            if((resultXY1[0]==-100) || (resultXY2[0]==-100) || (resultXY3[0]==-100)){
+                //원의 교점을 구하지 못해서 NaN이 나온경우
+                Log.i("NearestPoint","좌표 NaN");
+                resultX = previousX;
+                resultY = previousY;
+            }
+            else{
+                resultX = (resultXY1[0]+resultXY2[0]+resultXY3[0])/3;
+                resultY = (resultXY1[1]+resultXY2[1]+resultXY3[1])/3;
+            }
 
-        Map m = Map.getMapInstance();
-        if(resultX < 0 || resultX > m.getMaxWidth()) {
-            if(resultX<0)
-                resultX = 1;
-            if(resultX>m.getMaxWidth())
-                resultX = m.getMaxWidth();
-        }
-        if(resultY < 0 || resultX > m.getMaxHeight()) {
-            if(resultY<0)
-                resultY = 1;
-            if(resultY>m.getMaxHeight())
-                resultY = m.getMaxHeight();
-        }
+            Map m = Map.getMapInstance();
+            if(resultX < 0 || resultX > m.getMaxWidth()) {
+                if(resultX<0)
+                    resultX = 1;
+                if(resultX>m.getMaxWidth())
+                    resultX = m.getMaxWidth();
+            }
+            if(resultY < 0 || resultX > m.getMaxHeight()) {
+                if(resultY<0)
+                    resultY = 1;
+                if(resultY>m.getMaxHeight())
+                    resultY = m.getMaxHeight();
+            }
 
-        //좌표가 NaN으로 나올 경우 이전값으로 대체하여 사용
-        if(Double.isNaN(resultX) || Double.isNaN(resultY)){
-            resultX = previousX;
-            resultY = previousY;
-        }
+            //좌표가 NaN으로 나올 경우 이전값으로 대체하여 사용
+            if(Double.isNaN(resultX) || Double.isNaN(resultY)){
+                resultX = previousX;
+                resultY = previousY;
+            }
 
-        if(previousX==-1 && previousY==-1) {
-            //이전에 저장된 값이 없는 경우=>처음 측정된 값
-            previousX=resultX;
-            previousY=resultY;
-            Log.i("yunjae", "x = " + resultX + " y = " + resultY);
-        }
-        else {
-            //이전의 값과 차이가 설정 값 이상 나지 않는 경우에만 좌표출력
-            if ( ! (previousX-resultX<-10 || previousX-resultX>10) ){
+            if(previousX==-1 && previousY==-1) {
+                //이전에 저장된 값이 없는 경우=>처음 측정된 값
                 previousX=resultX;
                 previousY=resultY;
                 Log.i("yunjae", "x = " + resultX + " y = " + resultY);
             }
+            else {
+                //이전의 값과 차이가 설정 값 이상 나지 않는 경우에만 좌표출력
+                if ( ! (previousX-resultX<-10 || previousX-resultX>10) ){
+                    previousX=resultX;
+                    previousY=resultY;
+                    Log.i("yunjae", "x = " + resultX + " y = " + resultY);
+                }
+            }
+
+            Log.i("NearestPoint", "rsult = "+resultX+", "+resultY);
         }
-
-        Log.i("NearestPoint", "rsult = "+resultX+", "+resultY);
-
 
     }
 

@@ -49,12 +49,10 @@ public class MyLocationActivity extends AppCompatActivity implements View.OnClic
     private HashMap<Integer, NodeInfo> nodeInfos;
     private float prevX, prevY;
     private double ActivityX, ActivityY;
-    private double accX = 1080 / 14.0;
-    private double accY = 1710 / 23.0;
+    private double accX = 1080/14.0;
+    private double accY = 1920/23.0;
 
-    /**
-     * Called when the activity is first created.
-     */
+    /** Called when the activity is first created. */
     private SensorManager sensorM;
     private Sensor mAccelerometer;
     private Sensor mMagneticField;
