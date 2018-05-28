@@ -97,14 +97,14 @@ public class StampActivity extends AppCompatActivity {
 
     private void giftDialog() {
         AlertDialog.Builder alt_bld = new AlertDialog.Builder(this);
-        alt_bld.setMessage("☆초콜릿3개 선물 당첨☆ \n 부스에서 선물을 받아가세요!").setCancelable(
+        alt_bld.setMessage("☆당첨을 축하합니다☆ \n 부스에서 선물을 받아가세요!").setCancelable(
                 false).setPositiveButton("Yes",
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         BeaconList beaconList = BeaconList.getBeaconListInstance();
                         beaconList.initStampBeacon();
                         //stampTextView.setText("0개");
-                        stampGiftTextView.setText("초콜릿 3개 당첨!");
+                        stampGiftTextView.setText("선물 당첨!");
                         giftBox.setImageResource(R.drawable.get_gift);
                         giftBox.setEnabled(false);
                         dialog.dismiss();

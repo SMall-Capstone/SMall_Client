@@ -38,10 +38,10 @@ public class BeaconList {
 
         beaconInfoHashMap.put("MiniBeacon_01031",new BeaconInfo("MiniBeacon_01031","1031"));
         beaconInfoHashMap.get("MiniBeacon_01031").setLocation(10,8);
+        //beaconInfoHashMap.get("MiniBeacon_01031").setPopUpBeacon(true);
 
         beaconInfoHashMap.put("MiniBeacon_01352",new BeaconInfo("MiniBeacon_01352","1352"));
         beaconInfoHashMap.get("MiniBeacon_01352").setLocation(7,15);
-        //beaconInfoHashMap.get("MiniBeacon_01352").setPopUpBeacon(true);
 
         beaconInfoHashMap.put("MiniBeacon12802",new BeaconInfo("MiniBeacon12802","12802"));
         beaconInfoHashMap.get("MiniBeacon12802").setLocation(12,13);

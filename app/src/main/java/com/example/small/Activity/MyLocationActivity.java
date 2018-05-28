@@ -147,6 +147,7 @@ public class MyLocationActivity extends AppCompatActivity implements View.OnClic
                                     float value = (float) animation.getAnimatedValue();
                                     Log.i("animator", "value2 = " + value);
                                     img.setRotation(heading);
+                                    //heading값 조정
                                 }
                             });
 

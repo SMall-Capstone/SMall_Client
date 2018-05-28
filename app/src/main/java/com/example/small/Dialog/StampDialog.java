@@ -45,7 +45,7 @@ public class StampDialog extends AppCompatActivity {
         titleView = (TextView) findViewById(R.id.stampDialogTitle_textView);
         titleView.setText("Stamp Get!");
         contentTextView = (TextView) findViewById(R.id.stampDialogContentTextView);
-        contentTextView.setText("스탬프를 획득하셨습니다.\n 이벤트 화면에서 확인해주세요.");
+        contentTextView.setText("스탬프를 획득하셨습니다.\n 스탬프 모으기 메뉴에서 확인해주세요.");
 
         yesBtn = (Button) findViewById(R.id.yesBtn);
         yesBtn.setOnClickListener(new View.OnClickListener() {
