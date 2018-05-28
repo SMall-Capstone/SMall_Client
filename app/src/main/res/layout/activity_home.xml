@@ -8,6 +8,8 @@
     android:background="@drawable/gradaition"
     tools:context="com.example.small.Activity.HomeActivity">
 
+
+
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -70,8 +72,15 @@
             android:fitsSystemWindows="true"
             app:headerLayout="@layout/nav_header_home"
             app:menu="@menu/activity_home_drawer" >
+
         </android.support.design.widget.NavigationView>
 
     </android.support.v4.widget.DrawerLayout>
+
+    <FrameLayout
+        android:id="@+id/fragment2"
+
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
 </android.support.design.widget.CoordinatorLayout>

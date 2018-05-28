@@ -2,6 +2,9 @@ package com.example.small.Activity;
 
 import android.Manifest;
 import android.app.ActivityManager;
+import android.app.Fragment;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothManager;
@@ -15,8 +18,7 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
+
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
@@ -29,6 +31,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -84,11 +87,22 @@ public class HomeActivity extends AppCompatActivity
     Button logoutBtn;
 
 
+    Fragment fragment = new IntroActivity();
+    FrameLayout frameLayout;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+
+         frameLayout = (FrameLayout)findViewById(R.id.fragment2);
+
+        FragmentManager fragmentManager = getFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace( R.id.fragment2, fragment );
+        fragmentTransaction.commit();
+
 
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -457,12 +471,12 @@ public class HomeActivity extends AppCompatActivity
         }
     }
 
-    public void replaceFragment(android.support.v4.app.Fragment fragment) {
+  /*  public void replaceFragment(android.support.v4.app.Fragment fragment) {
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.viewPager, fragment, "fragmentTag");
         fragmentTransaction.commit();
-    }
+    }*/
 
     static ArrayList<BeaconInfo> beaconInfos;
     boolean firstLoginAlert=true;
@@ -633,5 +647,6 @@ public class HomeActivity extends AppCompatActivity
 
         }
     }
+
 
 }

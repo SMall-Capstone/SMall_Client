@@ -25,22 +25,26 @@
             android:name=".Activity.HomeActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
         </activity>
         <activity android:name=".Activity.LoginActivity" />
         <activity android:name=".Activity.SignUpActivity" />
-        <activity android:name=".Activity.MyCouponActivity"
-            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity
+            android:name=".Activity.MyCouponActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".Activity.BookMarkActivity" />
         <activity android:name=".Activity.MyInfoActivity" />
         <activity android:name=".Activity.SettingActivity" />
-        <activity android:name=".Activity.MyLocationActivity"/>
-        <activity android:name=".Activity.StampActivity"
-            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity android:name=".Activity.MyLocationActivity" />
+        <activity
+            android:name=".Activity.StampActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".Dialog.StampDialog"
             android:theme="@style/Theme.AppCompat.Dialog" />
@@ -48,6 +52,7 @@
         <activity
             android:name=".Dialog.PopUpDialog"
             android:theme="@style/AppTheme.Dialog" />
+
     </application>
 
 </manifest>
