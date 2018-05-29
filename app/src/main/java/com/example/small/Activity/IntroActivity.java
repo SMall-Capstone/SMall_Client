@@ -11,7 +11,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-
 import com.example.small.R;
 
 public class IntroActivity extends Fragment{
@@ -44,7 +43,6 @@ public class IntroActivity extends Fragment{
                 /*getUUID();*/
                 getActivity().getFragmentManager().beginTransaction().remove(fragment).commit();
             }
-
             @Override
             public void onAnimationRepeat(Animation animation) {
             }
