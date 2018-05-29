@@ -64,6 +64,9 @@ public class HttpClient {
         return null;
     }
 
+
+
+
     private void setHeader(HttpURLConnection connection) {
         setContentType(connection);
         setRequestMethod(connection);
