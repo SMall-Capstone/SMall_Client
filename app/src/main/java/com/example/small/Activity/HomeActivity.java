@@ -93,15 +93,17 @@ public class HomeActivity extends AppCompatActivity
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-         frameLayout = (FrameLayout)findViewById(R.id.fragment2);
+
+       /*  frameLayout = (FrameLayout)findViewById(R.id.fragment2);
 
         FragmentManager fragmentManager = getFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace( R.id.fragment2, fragment );
-        fragmentTransaction.commit();
+        fragmentTransaction.commit();*/
 
 
 
