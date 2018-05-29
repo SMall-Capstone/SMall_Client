@@ -23,8 +23,7 @@
         <EditText
             android:id="@+id/etId"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="lwj1748" />
+            android:layout_height="wrap_content" />
     </LinearLayout>
 
     <LinearLayout
@@ -43,8 +42,7 @@
             android:id="@+id/etPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="textPassword"
-            android:text="aaaa1111" />
+            android:inputType="textPassword" />
     </LinearLayout>
 
     <LinearLayout

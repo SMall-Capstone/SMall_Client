@@ -413,7 +413,7 @@ public class BeaconList {
     }
 
     public void initPopUpBeacon(){
-        beaconInfoHashMap.get("MiniBeacon_14990").setPopUpCount(0);
+        beaconInfoHashMap.get("MiniBeacon_01031").setPopUpCount(0);
     }
     public int getTxPower() {
         return txPower;

@@ -3,8 +3,6 @@ package com.example.small.Activity;
 import android.Manifest;
 import android.app.ActivityManager;
 import android.app.Fragment;
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothManager;
@@ -18,7 +16,6 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.ActivityCompat;
-
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
@@ -552,7 +549,7 @@ public class HomeActivity extends AppCompatActivity
                                 Intent intent = new Intent(getApplicationContext(), PopUpDialog.class);
                                 startActivity(intent);
 
-                                if(userInfo.getFavorite() == null){
+                                /*if(userInfo.getFavorite() == null){
                                     //로그인 안한 사용자 -> 기본 광고
                                     Toast.makeText(getApplicationContext(),"Default Pop Up",Toast.LENGTH_SHORT).show();
                                 }
@@ -574,7 +571,7 @@ public class HomeActivity extends AppCompatActivity
                                         //health
                                         Toast.makeText(getApplicationContext(),"health Pop Up",Toast.LENGTH_SHORT).show();
                                     }
-                                }
+                                }*/
                                 beaconInfos.get(0).setPopUpCount(beaconInfos.get(0).getPopUpCount() + 1);
                             } else {
                                 //쿠폰 비콘에 가장 가깝게 다가간 측정횟수 +1
