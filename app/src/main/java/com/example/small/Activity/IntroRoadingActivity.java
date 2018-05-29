@@ -37,6 +37,7 @@ public class IntroRoadingActivity extends AppCompatActivity {
 
             }
         };
+
         handler.sendEmptyMessageDelayed(0,2000);
 
 
