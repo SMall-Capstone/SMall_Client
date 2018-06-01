@@ -21,7 +21,7 @@ import java.util.Map;
 public class HttpClient {
 
     private static final String WWW_FORM = "application/x-www-form-urlencoded";
-    public static final String ipAdress = "223.194.129.29";
+    public static final String ipAdress = "192.168.0.12";
 
     private int httpStatusCode;
     private String body;

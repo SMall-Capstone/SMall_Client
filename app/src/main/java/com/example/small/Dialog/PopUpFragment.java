@@ -135,7 +135,6 @@ public class PopUpFragment extends Fragment {
             //mWebView.loadUrl("http://" + HttpClient.ipAdress + ":8080/fashionPage");
         }
         else {
-
             mWebView.loadUrl("http://" + HttpClient.ipAdress + ":8080/beautyPage");
         }
         return view;

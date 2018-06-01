@@ -23,7 +23,8 @@
         <EditText
             android:id="@+id/etId"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:text="InfinityBeacon" />
     </LinearLayout>
 
     <LinearLayout
@@ -42,7 +43,8 @@
             android:id="@+id/etPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="textPassword" />
+            android:inputType="textPassword"
+            android:text="aaaa1234" />
     </LinearLayout>
 
     <LinearLayout

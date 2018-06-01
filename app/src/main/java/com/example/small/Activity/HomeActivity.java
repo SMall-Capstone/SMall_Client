@@ -544,6 +544,7 @@ public class HomeActivity extends AppCompatActivity
                             }
                         }
 
+                        //PopUp 조정!!!
                         if(beaconInfos.get(0).isPopUpBeacon()){
                             if (beaconInfos.get(0).getPopUpCount() == 3) {
                                 Intent intent = new Intent(getApplicationContext(), PopUpDialog.class);
